@@ -1,6 +1,9 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
@@ -17,7 +20,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 210 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -53,6 +56,14 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom Mediterranean colors */
+    --mediterranean-blue: 210 100% 50%;
+    --aegean-blue: 210 100% 45%;
+    --sunset-orange: 25 95% 53%;
+    --cream-white: 45 100% 97%;
+    --olive-green: 120 25% 45%;
+    --stone-gray: 210 15% 85%;
   }
 
   .dark {
@@ -100,6 +111,37 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* RTL support for Hebrew */
+  .rtl {
+    direction: rtl;
+  }
+
+  .ltr {
+    direction: ltr;
+  }
+
+  /* Custom scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Mediterranean gradient backgrounds */
+  .gradient-mediterranean {
+    background: linear-gradient(135deg, hsl(var(--mediterranean-blue)) 0%, hsl(var(--aegean-blue)) 100%);
+  }
+
+  .gradient-sunset {
+    background: linear-gradient(135deg, hsl(var(--sunset-orange)) 0%, hsl(var(--mediterranean-blue)) 100%);
   }
 }

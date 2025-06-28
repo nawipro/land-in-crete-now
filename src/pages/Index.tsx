@@ -1,12 +1,42 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState, useEffect } from 'react';
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import GallerySection from '@/components/GallerySection';
+import BookingSection from '@/components/BookingSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import { translations } from '@/utils/translations';
 
 const Index = () => {
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
+
+  useEffect(() => {
+    // Set document direction based on language
+    document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.lang = currentLang;
+  }, [currentLang]);
+
+  const currentTranslations = translations[currentLang];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className={`min-h-screen ${currentLang === 'he' ? 'rtl' : 'ltr'}`}>
+      <Header 
+        currentLang={currentLang}
+        onLanguageChange={setCurrentLang}
+        translations={currentTranslations}
+      />
+      
+      <main>
+        <HeroSection translations={currentTranslations} />
+        <AboutSection translations={currentTranslations} />
+        <GallerySection translations={currentTranslations} />
+        <BookingSection translations={currentTranslations} />
+        <ContactSection translations={currentTranslations} />
+      </main>
+      
+      <Footer translations={currentTranslations} />
     </div>
   );
 };
