@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Facebook, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -28,6 +29,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
     { name: translations.nav.gallery, href: '#gallery' },
     { name: translations.nav.booking, href: '#booking' },
     { name: translations.nav.contact, href: '#contact' },
+    { name: currentLang === 'en' ? 'Explore Area' : 'גלו את האזור', href: '/explore-area' },
   ];
 
   return (
@@ -56,8 +58,26 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
             ))}
           </nav>
 
-          {/* Language Switcher & Contact */}
+          {/* Social Media & Language Switcher & Contact */}
           <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <a
+                href="https://facebook.com/nowweland"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-mediterranean-blue transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://instagram.com/nowweland"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-mediterranean-blue transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
             <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} />
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4" />
@@ -93,6 +113,24 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
                 </a>
               ))}
               <div className="border-t pt-2 mt-2">
+                <div className="flex items-center justify-center space-x-4 px-3 py-2">
+                  <a
+                    href="https://facebook.com/nowweland"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-mediterranean-blue transition-colors"
+                  >
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://instagram.com/nowweland"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-mediterranean-blue transition-colors"
+                  >
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                </div>
                 <div className="flex items-center px-3 py-2 text-sm text-muted-foreground">
                   <Phone className="h-4 w-4 mr-2" />
                   <span>+30 123 456 789</span>

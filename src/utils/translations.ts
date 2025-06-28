@@ -47,11 +47,24 @@ export const translations = {
       subtitle: 'Explore every corner of your future vacation home',
       categories: {
         all: 'All Photos',
-        exterior: 'Exterior & Pool',
-        living: 'Living Areas',
+        outdoor: 'Garden & Pool',
+        hiddenBay: 'Hidden Bay',
+        bedroom1: 'Bedroom 1',
+        bedroom2: 'Bedroom 2',
+        bedroom3: 'Bedroom 3',
+        extraSleeping: 'Extra Sleeping',
         kitchen: 'Kitchen',
-        bedrooms: 'Bedrooms',
-        bathrooms: 'Bathrooms'
+        living: 'Living Room'
+      },
+      descriptions: {
+        outdoor: 'A lush, open garden with sea-facing pool, fruit trees, and sunset views. Perfect for relaxing, swimming or enjoying a local meal outdoors.',
+        hiddenBay: 'A secret swimming spot accessible by foot, ideal for quiet morning dips or sunset walks. Just a 2-minute walk through a scenic path.',
+        bedroom1: 'A cozy bedroom with nearby private bathroom, washing machine and dryer. Located on the ground floor.',
+        bedroom2: 'Queen-size bed, ensuite bathroom and balcony overlooking the pool and sea.',
+        bedroom3: 'Master suite with ensuite bathroom and access to both an indoor closed balcony and an outdoor terrace.',
+        extraSleeping: 'Enclosed sunroom with two fold-out beds. Ideal for kids or extra guests. Also connects to the main balcony.',
+        kitchen: 'Fully equipped kitchen with modern appliances, large fridge, espresso machine, and family dining area.',
+        living: 'Spacious and well-lit living space, opening to the pool and garden. Includes comfy seating, TV and indoor dining.'
       }
     },
     booking: {
@@ -161,11 +174,24 @@ export const translations = {
       subtitle: 'חקרו כל פינה בבית החופשה העתידי שלכם',
       categories: {
         all: 'כל התמונות',
-        exterior: 'חוץ ובריכה',
-        living: 'אזורי מגורים',
+        outdoor: 'גינה ובריכה',
+        hiddenBay: 'המפרץ הנסתר',
+        bedroom1: 'חדר שינה 1',
+        bedroom2: 'חדר שינה 2',
+        bedroom3: 'חדר שינה 3',
+        extraSleeping: 'אזור שינה נוסף',
         kitchen: 'מטבח',
-        bedrooms: 'חדרי שינה',
-        bathrooms: 'חדרי רחצה'
+        living: 'סלון'
+      },
+      descriptions: {
+        outdoor: 'גינה שופעת ופתוחה עם בריכה הפונה לים, עצי פרי ונוף שקיעה. מושלם להרגעה, שחייה או ליהנות מארוחה מקומית בחוץ.',
+        hiddenBay: 'מקום שחייה סודי הנגיש ברגל, אידיאלי לטבילות בוקר שקטות או טיולי שקיעה. רק 2 דקות הליכה בשביל נופי.',
+        bedroom1: 'חדר שינה נעים עם חדר רחצה פרטי סמוך, מכונת כביסה ומייבש. ממוקם בקומת הקרקע.',
+        bedroom2: 'מיטה זוגית, חדר רחצה צמוד ומרפסת הצופה אל הבריכה והים.',
+        bedroom3: 'סוויטת מאסטר עם חדר רחצה צמוד וגישה הן למרפסת סגורה והן למרפסת חיצונית.',
+        extraSleeping: 'חדר שמש סגור עם שתי מיטות מתקפלות. אידיאלי לילדים או אורחים נוספים. מתחבר גם למרפסת הראשית.',
+        kitchen: 'מטבח מאובזר במלואו עם מכשירים מודרניים, מקרר גדול, מכונת אספרסו ופינת אוכל משפחתית.',
+        living: 'מרחב מגורים מרווח ומואר היטב, הנפתח אל הבריכה והגינה. כולל ישיבה נוחה, טלוויזיה ופינת אוכל פנימית.'
       }
     },
     booking: {
