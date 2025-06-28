@@ -80,8 +80,10 @@ export default {
 			},
 			fontFamily: {
 				'playfair': ['Playfair Display', 'serif'],
+				'cormorant': ['Cormorant Garamond', 'serif'],
 				'libre': ['Libre Baskerville', 'serif'],
 				'lato': ['Lato', 'sans-serif'],
+				'source-sans': ['Source Sans Pro', 'sans-serif'],
 				'open-sans': ['Open Sans', 'sans-serif'],
 				'noto-hebrew': ['Noto Serif Hebrew', 'serif'],
 				'assistant': ['Assistant', 'sans-serif'],

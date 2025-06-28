@@ -38,7 +38,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
           <h2 className="text-4xl md:text-5xl font-playfair font-bold text-mediterranean-blue mb-6">
             {translations.about.title}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-lato">
             {translations.about.description}
           </p>
         </div>
@@ -46,8 +46,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="animate-fade-in">
             <img
-              src="https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-              alt="Villa exterior"
+              src="/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png"
+              alt="Villa at night with pool and warm lighting"
               className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
             />
           </div>
@@ -55,10 +55,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
             <h3 className="text-3xl font-playfair font-semibold mb-6 text-mediterranean-blue">
               {translations.about.detailed.title}
             </h3>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-6 leading-relaxed font-lato">
               {translations.about.detailed.description}
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed font-lato">
               {translations.about.detailed.description2}
             </p>
           </div>
@@ -71,10 +71,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-mediterranean-blue/10 rounded-full mb-6">
                   <feature.icon className="h-8 w-8 text-mediterranean-blue" />
                 </div>
-                <h4 className="text-xl font-semibold mb-3 text-mediterranean-blue">
+                <h4 className="text-xl font-semibold mb-3 text-mediterranean-blue font-playfair">
                   {feature.title}
                 </h4>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed font-lato">
                   {feature.description}
                 </p>
               </CardContent>
