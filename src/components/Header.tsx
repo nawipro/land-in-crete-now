@@ -23,6 +23,18 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (href: string) => {
+    if (href.startsWith('#')) {
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = href;
+    }
+    setIsMenuOpen(false);
+  };
+
   const navigation = [
     { name: translations.nav.home, href: '#home' },
     { name: translations.nav.about, href: '#about' },
@@ -40,21 +52,26 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl lg:text-2xl font-playfair font-bold text-mediterranean-blue">
+            <button
+              onClick={() => handleNavClick('#home')}
+              className="text-xl lg:text-2xl font-playfair font-bold text-mediterranean-blue hover:opacity-80 transition-opacity"
+            >
               Now We Land
-            </h1>
+            </button>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Fixed Hebrew spacing */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <a
+            {navigation.map((item, index) => (
+              <button
                 key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-mediterranean-blue transition-colors duration-200 font-medium"
+                onClick={() => handleNavClick(item.href)}
+                className={`text-foreground hover:text-mediterranean-blue transition-colors duration-200 font-medium ${
+                  currentLang === 'he' ? 'px-1' : ''
+                }`}
               >
                 {item.name}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -103,14 +120,13 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-md rounded-lg mt-2 shadow-lg">
               {navigation.map((item) => (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-foreground hover:text-mediterranean-blue transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-foreground hover:text-mediterranean-blue transition-colors duration-200"
                 >
                   {item.name}
-                </a>
+                </button>
               ))}
               <div className="border-t pt-2 mt-2">
                 <div className="flex items-center justify-center space-x-4 px-3 py-2">

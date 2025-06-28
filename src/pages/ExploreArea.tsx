@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,13 +12,25 @@ const ExploreArea = () => {
   useEffect(() => {
     document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
     document.documentElement.lang = currentLang;
-  }, [currentLang]);
+  }, []);
 
   const currentTranslations = translations[currentLang];
 
   const attractions = [
     {
       id: 1,
+      category: 'beaches',
+      name: currentLang === 'en' ? 'Our Private Hidden Bay' : 'המפרץ הנסתר הפרטי שלנו',
+      description: currentLang === 'en' 
+        ? 'Just 90 meters from our villa! A secret swimming spot accessible by foot, perfect for quiet morning dips and sunset walks. This is your private access to the sea.'
+        : 'רק 90 מטרים מהווילה שלנו! מקום שחייה סודי הנגיש ברגל, מושלם לטבילות בוקר שקטות וטיולי שקיעה. זוהי הגישה הפרטית שלכם לים.',
+      distance: '90 m',
+      time: '2 min walk',
+      image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      highlight: true
+    },
+    {
+      id: 2,
       category: 'beaches',
       name: currentLang === 'en' ? 'Stavros Beach' : 'חוף סטברוס',
       description: currentLang === 'en' 
@@ -30,7 +41,7 @@ const ExploreArea = () => {
       image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
-      id: 2,
+      id: 3,
       category: 'cultural',
       name: currentLang === 'en' ? 'Chania Old Town' : 'העיר העתיקה חאניה',
       description: currentLang === 'en'
@@ -41,7 +52,7 @@ const ExploreArea = () => {
       image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
-      id: 3,
+      id: 4,
       category: 'nature',
       name: currentLang === 'en' ? 'Agia Triada Monastery' : 'מנזר אגיה טריאדה',
       description: currentLang === 'en'
@@ -52,7 +63,7 @@ const ExploreArea = () => {
       image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
     },
     {
-      id: 4,
+      id: 5,
       category: 'dining',
       name: currentLang === 'en' ? 'Local Tavernas' : 'טברנות מקומיות',
       description: currentLang === 'en'
@@ -92,7 +103,9 @@ const ExploreArea = () => {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
               {attractions.map((attraction) => (
-                <Card key={attraction.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <Card key={attraction.id} className={`overflow-hidden hover:shadow-xl transition-shadow duration-300 ${
+                  attraction.highlight ? 'ring-2 ring-mediterranean-blue' : ''
+                }`}>
                   <div className="relative h-64">
                     <img
                       src={attraction.image}
@@ -100,9 +113,16 @@ const ExploreArea = () => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/20"></div>
+                    {attraction.highlight && (
+                      <div className="absolute top-4 right-4 bg-mediterranean-blue text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        {currentLang === 'en' ? 'Villa Highlight' : 'דגש הווילה'}
+                      </div>
+                    )}
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-xl font-playfair text-mediterranean-blue">
+                    <CardTitle className={`text-xl font-playfair ${
+                      attraction.highlight ? 'text-mediterranean-blue' : 'text-mediterranean-blue'
+                    }`}>
                       {attraction.name}
                     </CardTitle>
                   </CardHeader>

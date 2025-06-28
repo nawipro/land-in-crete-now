@@ -1,4 +1,3 @@
-
 export const translations = {
   en: {
     nav: {
@@ -10,7 +9,7 @@ export const translations = {
     },
     hero: {
       title: 'Now We Land',
-      subtitle: 'A Private Boutique Villa in Akrotiri, Crete',
+      subtitle: 'A Private Boutique Villa in Akrotiri, Chania, Crete',
       location: 'Akrotiri, Chania, Crete',
       cta: 'Book Now',
       explore: 'Explore Villa'
@@ -137,7 +136,7 @@ export const translations = {
     },
     hero: {
       title: 'עכשיו אנחנו נוחתים',
-      subtitle: 'וילה בוטיק פרטית באקרוטירי, כרתים',
+      subtitle: 'וילה בוטיק פרטית באקרוטירי, חאניה, כרתים',
       location: 'אקרוטירי, חאניה, כרתים',
       cta: 'הזמן עכשיו',
       explore: 'חקור את הוילה'
@@ -190,7 +189,7 @@ export const translations = {
         bedroom2: 'מיטה זוגית, חדר רחצה צמוד ומרפסת הצופה אל הבריכה והים.',
         bedroom3: 'סוויטת מאסטר עם חדר רחצה צמוד וגישה הן למרפסת סגורה והן למרפסת חיצונית.',
         extraSleeping: 'חדר שמש סגור עם שתי מיטות מתקפלות. אידיאלי לילדים או אורחים נוספים. מתחבר גם למרפסת הראשית.',
-        kitchen: 'מטבח מאובזר במלואו עם מכשירים מודרניים, מקרר גדול, מכונת אספרסו ופינת אוכל משפחתית.',
+        kitchen: 'מטבח מאובזר במלואו עם מכשירים מודרניים, מקרר גדול, מכונת אספרסو ופינת אוכל משפחתית.',
         living: 'מרחב מגורים מרווח ומואר היטב, הנפתח אל הבריכה והגינה. כולל ישיבה נוחה, טלוויזיה ופינת אוכל פנימית.'
       }
     },
