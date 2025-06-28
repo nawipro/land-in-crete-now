@@ -10,41 +10,49 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image with Parallax Effect */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{
           backgroundImage: `url('/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png')`
         }}
       >
-        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <div className="animate-fade-in">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 leading-tight drop-shadow-lg">
-            {translations.hero.title}
+      <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
+        <div className="animate-fade-in-up">
+          {/* Enhanced Typography */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-playfair font-bold mb-8 leading-tight drop-shadow-2xl">
+            <span className="block bg-black/40 backdrop-blur-sm px-6 py-4 rounded-lg inline-block">
+              {translations.hero.title}
+            </span>
           </h1>
-          <div className="flex items-center justify-center mb-4 text-lg md:text-xl">
-            <MapPin className="h-5 w-5 mr-2" />
-            <span className="drop-shadow-md">{translations.hero.location}</span>
+          
+          <div className="flex items-center justify-center mb-6 text-xl md:text-2xl bg-black/40 backdrop-blur-sm px-6 py-3 rounded-full inline-flex">
+            <MapPin className="h-6 w-6 mr-3" />
+            <span className="font-lato font-medium drop-shadow-md">{translations.hero.location}</span>
           </div>
-          <p className="text-xl md:text-2xl mb-8 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-            {translations.hero.subtitle}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          
+          <div className="bg-black/40 backdrop-blur-sm px-8 py-6 rounded-xl inline-block mb-10">
+            <p className="text-2xl md:text-3xl font-lato font-light max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+              {translations.hero.subtitle}
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Button 
               size="lg" 
-              className="bg-mediterranean-blue hover:bg-aegean-blue text-white px-8 py-3 text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-mediterranean-blue hover:bg-aegean-blue text-white px-12 py-4 text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-2xl border-2 border-white/20 backdrop-blur-sm"
             >
-              <Calendar className="h-5 w-5 mr-2" />
+              <Calendar className="h-6 w-6 mr-3" />
               {translations.hero.cta}
             </Button>
             <Button 
               variant="outline" 
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-3 text-lg font-semibold rounded-full transition-all duration-300 shadow-lg"
+              className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-12 py-4 text-xl font-semibold rounded-full transition-all duration-300 shadow-2xl backdrop-blur-sm hover:scale-105"
             >
               {translations.hero.explore}
             </Button>
@@ -52,9 +60,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ArrowDown className="h-6 w-6 text-white drop-shadow-lg" />
+      {/* Enhanced Scroll indicator */}
+      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+          <ArrowDown className="h-8 w-8 text-white drop-shadow-lg" />
+        </div>
       </div>
     </section>
   );
