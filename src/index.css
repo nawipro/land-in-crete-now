@@ -3,12 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;600&family=Libre+Baskerville:wght@400;700&family=Open+Sans:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@400;500;600;700&family=Assistant:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;600;700&family=Heebo:wght@300;400;500;600&display=swap');
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Refined Design System with Mediterranean elegance */
 
 @layer base {
   :root {
@@ -51,40 +49,34 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Custom Mediterranean colors */
-    --mediterranean-blue: 210 100% 50%;
-    --aegean-blue: 210 100% 45%;
-    --sunset-orange: 25 95% 53%;
-    --cream-white: 45 100% 97%;
-    --olive-green: 120 25% 45%;
-    --stone-gray: 210 15% 85%;
+    /* Refined Mediterranean palette */
+    --mediterranean-blue: 210 85% 45%;
+    --aegean-blue: 205 90% 40%;
+    --sunset-orange: 20 90% 55%;
+    --cream-white: 45 80% 96%;
+    --olive-green: 85 25% 45%;
+    --stone-gray: 210 10% 70%;
+    --warm-sand: 35 35% 88%;
+    --deep-navy: 220 60% 20%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -106,80 +98,70 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Source Sans Pro', 'Lato', sans-serif;
+    font-family: 'Inter', 'Heebo', sans-serif;
     font-weight: 400;
     line-height: 1.6;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.005em;
   }
 
-  /* Enhanced Typography with Mediterranean elegance */
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-
+  /* Elegant Typography System */
   .font-cormorant {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
     letter-spacing: 0.01em;
   }
 
-  .font-libre {
-    font-family: 'Libre Baskerville', serif;
+  .font-crimson {
+    font-family: 'Crimson Text', serif;
     font-weight: 400;
     letter-spacing: 0.01em;
   }
 
-  .font-lato {
-    font-family: 'Lato', sans-serif;
+  .font-inter {
+    font-family: 'Inter', sans-serif;
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.01em;
   }
 
-  .font-source-sans {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-  }
-
-  .font-open-sans {
-    font-family: 'Open Sans', sans-serif;
+  .font-frank-ruhl {
+    font-family: 'Frank Ruhl Libre', serif;
     font-weight: 400;
     letter-spacing: 0.01em;
   }
 
-  .font-noto-hebrew {
-    font-family: 'Noto Serif Hebrew', serif;
+  .font-heebo {
+    font-family: 'Heebo', sans-serif;
     font-weight: 400;
     letter-spacing: 0.01em;
   }
 
-  .font-assistant {
-    font-family: 'Assistant', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-  }
-
-  /* Enhanced heading styles */
+  /* Refined heading styles */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     line-height: 1.2;
   }
 
   /* Body text refinements */
   p {
-    font-family: 'Source Sans Pro', 'Lato', sans-serif;
+    font-family: 'Inter', 'Heebo', sans-serif;
     font-weight: 400;
     line-height: 1.7;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.005em;
   }
 
   /* RTL support for Hebrew */
   .rtl {
     direction: rtl;
+  }
+
+  .rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl h5, .rtl h6 {
+    font-family: 'Frank Ruhl Libre', serif;
+  }
+
+  .rtl p, .rtl span, .rtl div {
+    font-family: 'Heebo', sans-serif;
   }
 
   .ltr {
@@ -191,7 +173,53 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
 
-  /* Mediterranean gradient backgrounds */
+  /* Enhanced animations with Mediterranean elegance */
+  .animate-gentle-fade {
+    animation: gentleFade 1.2s ease-out forwards;
+  }
+
+  .animate-soft-slide-up {
+    animation: softSlideUp 1s ease-out forwards;
+  }
+
+  .animate-elegant-scale {
+    animation: elegantScale 0.8s ease-out forwards;
+  }
+
+  @keyframes gentleFade {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes softSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes elegantScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Refined Mediterranean gradient backgrounds */
   .gradient-mediterranean {
     background: linear-gradient(135deg, hsl(var(--mediterranean-blue)) 0%, hsl(var(--aegean-blue)) 100%);
   }
@@ -200,49 +228,7 @@ All colors MUST be HSL.
     background: linear-gradient(135deg, hsl(var(--sunset-orange)) 0%, hsl(var(--mediterranean-blue)) 100%);
   }
 
-  /* Enhanced animations */
-  .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out forwards;
-  }
-
-  .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  .gradient-coastal {
+    background: linear-gradient(135deg, hsl(var(--cream-white)) 0%, hsl(var(--warm-sand)) 100%);
   }
 }
