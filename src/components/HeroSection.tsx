@@ -18,59 +18,69 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Hero Background with Parallax Effect */}
+      {/* Hero Background with New Sunset Pool Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed scale-105"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png')`
+          backgroundImage: `url('/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png')`,
+          backgroundSize: '1920px 1080px'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent"></div>
       </div>
 
-      {/* Elegant Content Layout */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+      {/* Content positioned at 60% from top */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col items-center" style={{ marginTop: '10vh' }}>
+        
+        {/* Text Content positioned in sky area */}
+        <div className="text-center animate-gentle-fade" style={{ maxWidth: '760px' }}>
+          <h1 
+            className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight"
+            style={{ 
+              color: '#FFFFFF',
+              textShadow: '0 0 8px rgba(0,0,0,0.45)'
+            }}
+          >
+            Now We Land
+          </h1>
           
-          {/* Left Column - Text Content */}
-          <div className="lg:order-1 animate-gentle-fade">
-            <div className="backdrop-blur-sm bg-white/95 rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/20">
-              <h1 className="text-4xl lg:text-6xl font-cormorant font-medium mb-6 text-mediterranean-deep-navy leading-tight">
-                {translations.hero.title}
-              </h1>
-              
-              <p className="text-lg lg:text-xl font-inter text-mediterranean-stone-gray mb-8 leading-relaxed font-light">
-                A Private Boutique Villa in Akrotiri, Chania, Crete
-              </p>
+          <p 
+            className="text-xl lg:text-2xl font-source-sans font-light mb-8 leading-relaxed"
+            style={{ 
+              color: '#FFFFFF',
+              textShadow: '0 0 8px rgba(0,0,0,0.45)'
+            }}
+          >
+            A Private Boutique Villa in Akrotiri, Chania, Crete
+          </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button 
-                  size="lg" 
-                  onClick={handleBookNow}
-                  className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-inter font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-                >
-                  <Calendar className="h-5 w-5 mr-2" />
-                  {translations.hero.cta}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  onClick={handleExploreVilla}
-                  className="border-2 border-mediterranean-blue text-mediterranean-blue hover:bg-mediterranean-blue hover:text-white px-8 py-4 text-base font-inter font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105"
-                >
-                  {translations.hero.explore}
-                </Button>
-              </div>
-
-              <div className="text-sm font-inter text-mediterranean-stone-gray font-light">
-                90 meters from the sea • Private pool • Hidden bay access
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+            <Button 
+              size="lg" 
+              onClick={handleBookNow}
+              className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              <Calendar className="h-5 w-5 mr-2" />
+              Book Your Stay
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={handleExploreVilla}
+              className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
+            >
+              Explore More
+            </Button>
           </div>
 
-          {/* Right Column - Preserved for sunset view */}
-          <div className="lg:order-2 hidden lg:block">
-            {/* This space intentionally left empty to showcase the sunset */}
+          <div 
+            className="text-sm font-source-sans font-light"
+            style={{ 
+              color: '#FFFFFF',
+              textShadow: '0 0 8px rgba(0,0,0,0.45)'
+            }}
+          >
+            90 meters from the sea • Private pool • Hidden bay access
           </div>
         </div>
       </div>
