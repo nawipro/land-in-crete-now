@@ -22,7 +22,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png')`,
+          backgroundImage: `url('/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png')`,
           backgroundSize: '1920px 1080px'
         }}
       >
