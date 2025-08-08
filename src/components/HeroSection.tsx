@@ -22,18 +22,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png')`,
+          backgroundImage: `url('/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png')`,
           backgroundSize: '1920px 1080px'
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent"></div>
       </div>
 
-      {/* Content positioned at 60% from top */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col items-center" style={{ marginTop: '10vh' }}>
-        
-        {/* Text Content positioned in sky area */}
-        <div className="text-center animate-gentle-fade" style={{ maxWidth: '760px' }}>
+      {/* Split layout: title at top, buttons at bottom */}
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-between items-center">
+        {/* Top: Title & Subtitle */}
+        <div className="pt-10 sm:pt-16 text-center animate-gentle-fade" style={{ maxWidth: '860px' }}>
           <h1 
             className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight"
             style={{ 
@@ -43,9 +42,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
           >
             Now We Land
           </h1>
-          
           <p 
-            className="text-xl lg:text-2xl font-source-sans font-light mb-8 leading-relaxed"
+            className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed"
             style={{ 
               color: '#FFFFFF',
               textShadow: '0 0 8px rgba(0,0,0,0.45)'
@@ -53,35 +51,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
           >
             A Private Boutique Villa in Akrotiri, Chania, Crete
           </p>
+        </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
-            <Button 
-              size="lg" 
-              onClick={handleBookNow}
-              className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <Calendar className="h-5 w-5 mr-2" />
-              Book Your Stay
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={handleExploreVilla}
-              className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
-            >
-              Explore More
-            </Button>
-          </div>
-
-          <div 
-            className="text-sm font-source-sans font-light"
-            style={{ 
-              color: '#FFFFFF',
-              textShadow: '0 0 8px rgba(0,0,0,0.45)'
-            }}
+        {/* Bottom: Primary Actions */}
+        <div className="pb-24 sm:pb-28 flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            size="lg" 
+            onClick={handleBookNow}
+            className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            90 meters from the sea • Private pool • Hidden bay access
-          </div>
+            <Calendar className="h-5 w-5 mr-2" />
+            Book Your Stay
+          </Button>
+          <Button 
+            variant="outline" 
+            size="lg"
+            onClick={handleExploreVilla}
+            className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
+          >
+            Explore More
+          </Button>
         </div>
       </div>
 
