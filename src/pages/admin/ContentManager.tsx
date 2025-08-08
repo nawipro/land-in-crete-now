@@ -112,8 +112,13 @@ const ContentManager: React.FC = () => {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    navigate('/admin/login');
+    try {
+      const { cleanupAuthState } = await import('@/lib/auth');
+      cleanupAuthState();
+      try { await supabase.auth.signOut({ scope: 'global' } as any); } catch {}
+    } finally {
+      window.location.href = '/admin/login';
+    }
   };
 
   const renderEditor = () => {
