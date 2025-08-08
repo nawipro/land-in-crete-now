@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 export type PageSlug = 'home' | 'about' | 'gallery' | 'explore' | 'booking' | 'contact';
-export type Lang = 'en';
+export type Lang = 'en' | 'he';
 export type Status = 'draft' | 'published';
 
 export interface PageContentRow {

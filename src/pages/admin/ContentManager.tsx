@@ -45,6 +45,7 @@ const ContentManager: React.FC = () => {
   const [authed, setAuthed] = React.useState<boolean>(false);
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
+  const [lang, setLang] = React.useState<'en' | 'he'>('he');
   const [data, setData] = React.useState<any>(DEFAULTS['home']);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -68,13 +69,13 @@ const ContentManager: React.FC = () => {
         // Ensure pages table seeded (requires auth)
         await ensurePagesSeeded(supabase);
       } catch {}
-      const content = await getPageContent(supabase, page, 'en', status);
+      const content = await getPageContent(supabase, page, lang, status);
       if (isMounted) setData(content ?? DEFAULTS[page]);
       setLoading(false);
     }
     load();
     return () => { isMounted = false; };
-  }, [page, status, supabase]);
+  }, [page, status, lang, supabase]);
 
   if (!supabase) {
     return (
@@ -93,7 +94,7 @@ const ContentManager: React.FC = () => {
 
   const onSave = async () => {
     try {
-      await saveDraft(supabase, page, 'en', data);
+      await saveDraft(supabase, page, lang, data);
       toast({ title: 'Draft saved' });
     } catch (e: any) {
       toast({ title: 'Save failed', description: e.message });
@@ -102,8 +103,8 @@ const ContentManager: React.FC = () => {
 
   const onPublish = async () => {
     try {
-      await saveDraft(supabase, page, 'en', data);
-      await publish(supabase, page, 'en');
+      await saveDraft(supabase, page, lang, data);
+      await publish(supabase, page, lang);
       setStatus('published');
       toast({ title: 'Published' });
     } catch (e: any) {
@@ -232,6 +233,15 @@ const ContentManager: React.FC = () => {
       <main className="grid md:grid-cols-[280px,1fr]">
         <aside className="border-r p-4">
           <PagePicker value={page} onChange={(p) => setPage(p)} />
+          <div className="mt-6">
+            <h3 className="text-sm font-medium mb-2">Language</h3>
+            <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
+              <TabsList className="grid grid-cols-2">
+                <TabsTrigger value="he">עברית</TabsTrigger>
+                <TabsTrigger value="en">English</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
           <div className="mt-6">
             <Tabs value={status} onValueChange={(v) => setStatus(v as any)}>
               <TabsList className="grid grid-cols-2">
