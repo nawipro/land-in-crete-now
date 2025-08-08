@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 import { translations } from '@/utils/translations';
 
 const Index = () => {
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('he');
 
   useEffect(() => {
     // Set document direction based on language
