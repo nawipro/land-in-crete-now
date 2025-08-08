@@ -10,16 +10,17 @@ export function getSupabaseClient(): SupabaseClient | null {
   const url = w.__SUPABASE_URL__ || w.SUPABASE_URL || w.lovableSupabaseUrl;
   const anon = w.__SUPABASE_ANON_KEY__ || w.SUPABASE_ANON_KEY || w.lovableSupabaseAnonKey;
 
-  if (url && anon) {
-    client = createClient(url, anon);
-    return client;
-  }
+  // Fallback to project defaults if runtime variables are not present
+  const fallbackUrl = "https://hscafycmozoismieksqc.supabase.co";
+  const fallbackAnon = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhzY2FmeWNtb3pvaXNtaWVrc3FjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NzU1MzAsImV4cCI6MjA3MDI1MTUzMH0.Lpy8ypP8wh0dhYLmbv5q_uglohPPozfINGxb_7NS0tc";
 
-  console.warn(
-    '[CMS] Supabase is not configured. Please connect your Lovable project to Supabase using the green Supabase button in the top-right.'
-  );
-  return null;
+  const finalUrl = url || fallbackUrl;
+  const finalAnon = anon || fallbackAnon;
+
+  client = createClient(finalUrl, finalAnon);
+  return client;
 }
+
 
 export async function getCurrentUser() {
   const supabase = getSupabaseClient();
