@@ -14,7 +14,59 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      page_content: {
+        Row: {
+          data: Json
+          id: string
+          lang: string
+          page_id: string
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          data?: Json
+          id?: string
+          lang?: string
+          page_id: string
+          status?: string
+          updated_at?: string | null
+        }
+        Update: {
+          data?: Json
+          id?: string
+          lang?: string
+          page_id?: string
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_content_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pages: {
+        Row: {
+          created_at: string | null
+          id: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
