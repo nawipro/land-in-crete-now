@@ -5,9 +5,10 @@ import { Waves, Home, Users, Sunset } from 'lucide-react';
 
 interface AboutSectionProps {
   translations: any;
+  content?: any;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
+const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) => {
   const features = [
     {
       icon: Waves,
@@ -37,10 +38,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
         {/* Section Header */}
         <div className="text-center mb-20 animate-soft-slide-up">
           <h2 className="text-5xl lg:text-6xl font-cormorant font-medium text-mediterranean-deep-navy mb-8">
-            {translations.about.title}
+            {content?.headline || translations.about.title}
           </h2>
           <p className="text-xl lg:text-2xl font-inter text-mediterranean-stone-gray max-w-4xl mx-auto leading-relaxed font-light">
-            {translations.about.description}
+            {content?.intro || translations.about.description}
           </p>
         </div>
 
@@ -51,14 +52,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations }) => {
           <div className="lg:col-span-3 animate-elegant-scale">
             <div className="relative group">
               <img
-                src="/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png"
-                alt="Villa at night with pool and warm lighting"
+                src={content?.image?.url || '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png'}
+                alt={content?.image?.alt || 'Villa at night with pool and warm lighting'}
                 className="rounded-3xl shadow-2xl w-full h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
               <div className="absolute bottom-8 left-8 text-white">
                 <p className="font-inter text-sm font-light opacity-90">
-                  Evening ambiance at Now We Land
+                  {content?.image?.alt || 'Evening ambiance at Now We Land'}
                 </p>
               </div>
             </div>

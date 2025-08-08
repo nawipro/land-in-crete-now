@@ -5,9 +5,10 @@ import { ArrowDown, Calendar } from 'lucide-react';
 
 interface HeroSectionProps {
   translations: any;
+  content?: any;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
   const handleBookNow = () => {
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -18,11 +19,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Hero Background with New Sunset Pool Image */}
+      {/* Hero Background (CMS if available) */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png')`,
+          backgroundImage: `url('${content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"}')`,
           backgroundSize: '1920px 1080px'
         }}
       >
@@ -40,7 +41,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
               textShadow: '0 0 8px rgba(0,0,0,0.45)'
             }}
           >
-            Now We Land
+            {content?.hero_title || translations.hero.title}
           </h1>
           <p 
             className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed"
@@ -49,7 +50,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
               textShadow: '0 0 8px rgba(0,0,0,0.45)'
             }}
           >
-            A Private Boutique Villa in Akrotiri, Chania, Crete
+            {content?.hero_subtitle || translations.hero.subtitle}
           </p>
         </div>
 
@@ -61,7 +62,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
             className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             <Calendar className="h-5 w-5 mr-2" />
-            Book Your Stay
+            {translations.hero.cta}
           </Button>
           <Button 
             variant="outline" 
@@ -69,7 +70,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations }) => {
             onClick={handleExploreVilla}
             className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
           >
-            Explore More
+            {translations.hero.explore}
           </Button>
         </div>
       </div>
