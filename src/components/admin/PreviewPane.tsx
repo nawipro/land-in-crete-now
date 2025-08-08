@@ -2,18 +2,22 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import type { PageSlug } from '@/lib/cms';
 
-const PreviewPane: React.FC<{ slug: PageSlug; data: any }> = ({ slug, data }) => {
+const PreviewPane: React.FC<{ slug: PageSlug; data: any; lang?: 'en' | 'he' }> = ({ slug, data, lang = 'he' }) => {
+  const texts = lang === 'he'
+    ? { home: 'תצוגת בית', noImage: 'אין תמונת הירו', generic: 'תצוגה מקדימה', heroAlt: 'תמונת הירו' }
+    : { home: 'Home preview', noImage: 'No hero image', generic: 'Preview', heroAlt: 'Hero image' };
+
   const render = () => {
     switch (slug) {
       case 'home':
         return (
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">Home preview</h3>
+            <h3 className="text-2xl font-semibold">{texts.home}</h3>
             <div className="aspect-[16/9] rounded-lg overflow-hidden bg-muted">
               {data.hero_image?.url ? (
-                <img src={data.hero_image.url} alt={data.hero_image.alt||'Hero image'} className="w-full h-full object-cover" />
+                <img src={data.hero_image.url} alt={data.hero_image.alt||texts.heroAlt} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full grid place-items-center text-muted-foreground">No hero image</div>
+                <div className="w-full h-full grid place-items-center text-muted-foreground">{texts.noImage}</div>
               )}
             </div>
             <div>
@@ -30,7 +34,7 @@ const PreviewPane: React.FC<{ slug: PageSlug; data: any }> = ({ slug, data }) =>
       default:
         return (
           <div>
-            <h3 className="text-2xl font-semibold capitalize">{slug} preview</h3>
+            <h3 className="text-2xl font-semibold capitalize">{texts.generic}</h3>
             <pre className="mt-3 text-xs bg-muted p-3 rounded-md overflow-auto max-h-[50vh]">{JSON.stringify(data, null, 2)}</pre>
           </div>
         );

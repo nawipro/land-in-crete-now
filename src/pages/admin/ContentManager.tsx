@@ -232,7 +232,7 @@ const ContentManager: React.FC = () => {
       </header>
       <main className="grid md:grid-cols-[280px,1fr]">
         <aside className="border-r p-4">
-          <PagePicker value={page} onChange={(p) => setPage(p)} />
+          <PagePicker value={page} onChange={(p) => setPage(p)} lang={lang} />
           <div className="mt-6">
             <h3 className="text-sm font-medium mb-2">Language</h3>
             <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
@@ -268,7 +268,7 @@ const ContentManager: React.FC = () => {
                 </ScrollArea>
               )}
             </CardContent></Card>
-            <PreviewPane slug={page} data={data} />
+            <PreviewPane slug={page} data={data} lang={lang} />
           </div>
           <PublishBar onSave={onSave} onPublish={onPublish} />
         </section>
