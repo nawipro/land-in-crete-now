@@ -42,6 +42,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
     { name: translations.nav.booking, href: '#booking' },
     { name: translations.nav.contact, href: '#contact' },
     { name: currentLang === 'en' ? 'Explore Area' : 'גלו את האזור', href: '/explore-area' },
+    { name: currentLang === 'en' ? 'Admin' : 'אדמין', href: '/admin/login' },
   ];
 
   return (

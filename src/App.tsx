@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import ExploreArea from "./pages/ExploreArea";
 import NotFound from "./pages/NotFound";
 import Crawl from "./pages/Crawl";
+import Login from "./pages/admin/Login";
+import ContentManager from "./pages/admin/ContentManager";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/explore-area" element={<ExploreArea />} />
           <Route path="/crawl" element={<Crawl />} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/content" element={<ContentManager />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
