@@ -36,7 +36,8 @@ const DEFAULTS: Record<PageSlug, any> = {
     categories: [
       { id: 'outdoor', title: 'OUTDOOR VILLA', order: 1 },
       { id: 'garden-day-light', title: 'GARDEN DAY LIGHT', order: 2 },
-      { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 }
+      { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 },
+      { id: 'secret-bay', title: 'SECRET BAY', order: 4 }
     ],
       images: [
         { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
@@ -53,7 +54,14 @@ const DEFAULTS: Record<PageSlug, any> = {
         { url: '/lovable-uploads/c6a0949b-ccd7-42e3-a208-1684ee5d242b.png', alt: 'Garden day – pool and sea view from above', categoryId: 'garden-day-light', order: 12 },
         { url: '/lovable-uploads/497058df-0eee-470e-aa25-8152dec11164.png', alt: 'Garden day – lawn seating area and pool', categoryId: 'garden-day-light', order: 13 },
         { url: '/lovable-uploads/34f209d0-6644-43a2-b4bc-8b3f22ccedeb.png', alt: 'Garden day – outdoor shower with sea backdrop', categoryId: 'garden-day-light', order: 14 },
-        { url: '/lovable-uploads/0cf5d84e-6414-4b56-bf41-8f4c6326d299.png', alt: 'Garden day – sun loungers and umbrella by pool', categoryId: 'garden-day-light', order: 15 }
+        { url: '/lovable-uploads/0cf5d84e-6414-4b56-bf41-8f4c6326d299.png', alt: 'Garden day – sun loungers and umbrella by pool', categoryId: 'garden-day-light', order: 15 },
+        // Secret Bay
+        { url: '/lovable-uploads/fe62f0b0-bf9b-4e12-8493-636dc8d90a3b.png', alt: 'Secret Bay – cove and villa view', categoryId: 'secret-bay', order: 16 },
+        { url: '/lovable-uploads/1ea14e94-47b6-40de-8917-733a37785a6b.png', alt: 'Secret Bay – turquoise water by rocky shore', categoryId: 'secret-bay', order: 17 },
+        { url: '/lovable-uploads/8e80ccdd-fe8d-4766-adda-ec5c847d68d8.png', alt: 'Secret Bay – stone steps path', categoryId: 'secret-bay', order: 18 },
+        { url: '/lovable-uploads/56bdb900-04bd-4ddf-8cc6-f667096f9a1a.png', alt: 'Secret Bay – path up to the house', categoryId: 'secret-bay', order: 19 },
+        { url: '/lovable-uploads/7f16ca73-ff74-4efc-a9e0-d712ab162e24.png', alt: 'Secret Bay – clear water and cliffs', categoryId: 'secret-bay', order: 20 },
+        { url: '/lovable-uploads/d6a759c2-d3d6-4075-86d1-1fb91bb11102.png', alt: 'Secret Bay – narrow bay opening to sea', categoryId: 'secret-bay', order: 21 }
       ]
   },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },

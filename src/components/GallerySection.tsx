@@ -18,6 +18,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'outdoor', name: 'OUTDOOR VILLA' },
     { id: 'garden-day-light', name: 'GARDEN DAY LIGHT' },
     { id: 'garden-night', name: 'GARDEN NIGHT' },
+    { id: 'secret-bay', name: 'SECRET BAY' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -48,6 +49,13 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 13, category: 'garden-day-light', src: '/lovable-uploads/497058df-0eee-470e-aa25-8152dec11164.png', alt: 'Garden day – lawn seating area and pool' },
     { id: 14, category: 'garden-day-light', src: '/lovable-uploads/34f209d0-6644-43a2-b4bc-8b3f22ccedeb.png', alt: 'Garden day – outdoor shower with sea backdrop' },
     { id: 15, category: 'garden-day-light', src: '/lovable-uploads/0cf5d84e-6414-4b56-bf41-8f4c6326d299.png', alt: 'Garden day – sun loungers and umbrella by pool' },
+    // Secret Bay defaults
+    { id: 16, category: 'secret-bay', src: '/lovable-uploads/fe62f0b0-bf9b-4e12-8493-636dc8d90a3b.png', alt: 'Secret Bay – cove and villa view' },
+    { id: 17, category: 'secret-bay', src: '/lovable-uploads/1ea14e94-47b6-40de-8917-733a37785a6b.png', alt: 'Secret Bay – turquoise water by rocky shore' },
+    { id: 18, category: 'secret-bay', src: '/lovable-uploads/8e80ccdd-fe8d-4766-adda-ec5c847d68d8.png', alt: 'Secret Bay – stone steps path' },
+    { id: 19, category: 'secret-bay', src: '/lovable-uploads/56bdb900-04bd-4ddf-8cc6-f667096f9a1a.png', alt: 'Secret Bay – path up to the house' },
+    { id: 20, category: 'secret-bay', src: '/lovable-uploads/7f16ca73-ff74-4efc-a9e0-d712ab162e24.png', alt: 'Secret Bay – clear water and cliffs' },
+    { id: 21, category: 'secret-bay', src: '/lovable-uploads/d6a759c2-d3d6-4075-86d1-1fb91bb11102.png', alt: 'Secret Bay – narrow bay opening to sea' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
