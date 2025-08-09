@@ -41,13 +41,19 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 7, category: 'garden-night', src: '/lovable-uploads/923fb47c-f2d2-4712-8807-1f726abfb743.png', alt: 'Garden night – BBQ and pool' },
     { id: 8, category: 'garden-night', src: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Garden night – villa and lit pool' },
     { id: 9, category: 'garden-night', src: '/lovable-uploads/5afaa76f-fe29-4fb9-8d4f-b9f00925bddd.png', alt: 'Garden night – garden and terrace' },
+    // Garden Day Light defaults
+    { id: 10, category: 'garden-day-light', src: '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png', alt: 'Garden day light – villa garden path' },
+    { id: 11, category: 'garden-day-light', src: '/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png', alt: 'Garden day light – lawn and seating' },
+    { id: 12, category: 'garden-day-light', src: '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png', alt: 'Garden day light – pool and terrace' },
+    { id: 13, category: 'garden-day-light', src: '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png', alt: 'Garden day light – greenery and facade' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
   if (cmsImages.length) {
     const cmsMapped = cmsImages.map((img, idx) => ({ id: idx + 1, category: img.categoryId || '', src: img.url, alt: img.alt || '' }));
-    const cmsCategoryIds = new Set(cmsCategories.map((c) => c.id));
-    const extras = defaultImages.filter((img) => !cmsCategoryIds.has(img.category));
+    // Include defaults only for categories that have no CMS images assigned
+    const cmsImageCategories = new Set(cmsImages.map((img) => img.categoryId || ''));
+    const extras = defaultImages.filter((img) => !cmsImageCategories.has(img.category));
     galleryImages = [...cmsMapped, ...extras];
   } else {
     galleryImages = defaultImages;
