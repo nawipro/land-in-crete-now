@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ImageUploader from '@/components/admin/ImageUploader';
+import BulkImageUploader from '@/components/admin/BulkImageUploader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabaseClient';
@@ -144,6 +145,23 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
               </SelectContent>
             </Select>
             <Button size="sm" variant="outline" onClick={addImage} disabled={categories.length === 0}>Add Image</Button>
+            <BulkImageUploader
+              slug="gallery"
+              label="העלאת מספר תמונות"
+              disabled={categories.length === 0}
+              onUploaded={(items) => {
+                const defaultCat = selectedCatFilter !== 'all' ? selectedCatFilter : (categories[0]?.id || '');
+                const start = images.length;
+                const newImages = (items as { url: string; path: string }[]).map((it, idx) => ({
+                  url: it.url,
+                  alt: '',
+                  categoryId: defaultCat,
+                  order: start + idx + 1,
+                  path: it.path,
+                }));
+                onChange({ ...value, images: [...images, ...newImages] });
+              }}
+            />
           </div>
         </div>
         <div className="space-y-3">
