@@ -12,6 +12,10 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
+  // Normalize asset paths so they work both on subpaths and root
+  const withBase = (p: string) => (p?.startsWith('http') ? p : p?.replace(/^\/+/, ''));
+
+
   // Build categories and images from CMS if provided, otherwise fallback to translations/static
   const cmsCategories = (content?.categories ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const defaultCategories = [
@@ -126,16 +130,16 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
             <Card 
               key={image.id} 
               className="overflow-hidden cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-none"
-              onClick={() => setSelectedImage(image.src)}
+              onClick={() => setSelectedImage(withBase(image.src))}
             >
               <CardContent className="p-0">
                 <div className="relative overflow-hidden">
                   <img
-                    src={image.src}
+                    src={withBase(image.src)}
                     alt={image.alt}
                     className="w-full h-64 object-cover transition-transform duration-500"
                     loading="lazy"
-                    onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+                    onError={(e) => { e.currentTarget.src = 'placeholder.svg'; }}
                   />
                 </div>
               </CardContent>
