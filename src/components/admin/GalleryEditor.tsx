@@ -147,8 +147,13 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
           </div>
         </div>
         <div className="space-y-3">
-          {(selectedCatFilter === 'all' ? images : images.filter((img) => img.categoryId === selectedCatFilter)).map((item, idx) => (
-            <Card key={idx}><CardContent className="p-4 grid md:grid-cols-2 gap-3">
+          {(selectedCatFilter === 'all'
+            ? images.map((img, i) => ({ img, i }))
+            : images
+                .map((img, i) => ({ img, i }))
+                .filter((x) => x.img.categoryId === selectedCatFilter)
+          ).map(({ img: item, i: originalIndex }) => (
+            <Card key={originalIndex}><CardContent className="p-4 grid md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label>Image</Label>
                 <ImageUploader
@@ -158,7 +163,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                   alt={item.alt}
                   onChange={(url, alt, options) => {
                     const arr = [...images];
-                    arr[idx] = { ...arr[idx], url, alt, ...(options?.path ? { path: options.path } : {}) };
+                    arr[originalIndex] = { ...arr[originalIndex], url, alt, ...(options?.path ? { path: options.path } : {}) };
                     onChange({ ...value, images: arr });
                   }}
                 />
@@ -170,7 +175,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                     value={item.alt}
                     onChange={(e) => {
                       const arr = [...images];
-                      arr[idx] = { ...arr[idx], alt: e.target.value };
+                      arr[originalIndex] = { ...arr[originalIndex], alt: e.target.value };
                       onChange({ ...value, images: arr });
                     }}
                     placeholder="Villa, pool and garden view during the day"
@@ -182,7 +187,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                     value={item.categoryId}
                     onValueChange={(val) => {
                       const arr = [...images];
-                      arr[idx] = { ...arr[idx], categoryId: val };
+                      arr[originalIndex] = { ...arr[originalIndex], categoryId: val };
                       onChange({ ...value, images: arr });
                     }}
                   >
@@ -203,7 +208,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                     value={item.order}
                     onChange={(e) => {
                       const arr = [...images];
-                      arr[idx] = { ...arr[idx], order: Number(e.target.value) };
+                      arr[originalIndex] = { ...arr[originalIndex], order: Number(e.target.value) };
                       onChange({ ...value, images: arr });
                     }}
                   />
@@ -215,14 +220,14 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                   try {
                     await deleteImage(supabase, item.path);
                     const arr = [...images];
-                    arr[idx] = { ...arr[idx], url: '', path: '' };
+                    arr[originalIndex] = { ...arr[originalIndex], url: '', path: '' };
                     onChange({ ...value, images: arr });
                     toast({ title: 'Deleted from storage' });
                   } catch (e: any) {
                     toast({ title: 'Delete failed', description: e.message });
                   }
                 }}>Delete file</Button>
-                <Button size="sm" variant="ghost" onClick={() => removeImage(idx)}>Remove from list</Button>
+                <Button size="sm" variant="ghost" onClick={() => removeImage(originalIndex)}>Remove from list</Button>
               </div>
             </CardContent></Card>
           ))}
