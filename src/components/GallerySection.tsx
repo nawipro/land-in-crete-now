@@ -16,6 +16,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
   const cmsCategories = (content?.categories ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const defaultCategories = [
     { id: 'outdoor', name: 'OUTDOOR VILLA' },
+    { id: 'garden-day-light', name: 'GARDEN DAY LIGHT' },
   ];
   const galleryCategories = [
     { id: 'all', name: translations?.gallery?.categories?.all ?? 'All' },

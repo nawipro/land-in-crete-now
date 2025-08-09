@@ -34,7 +34,8 @@ const DEFAULTS: Record<PageSlug, any> = {
   },
   gallery: {
     categories: [
-      { id: 'outdoor', title: 'OUTDOOR VILLA', order: 1 }
+      { id: 'outdoor', title: 'OUTDOOR VILLA', order: 1 },
+      { id: 'garden-day-light', title: 'GARDEN DAY LIGHT', order: 2 }
     ],
     images: [
       { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
