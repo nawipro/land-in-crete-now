@@ -38,17 +38,21 @@ const DEFAULTS: Record<PageSlug, any> = {
       { id: 'garden-day-light', title: 'GARDEN DAY LIGHT', order: 2 },
       { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 }
     ],
-    images: [
-      { url: '/lovable-uploads/b03503c6-c5da-4a36-b32c-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
-      { url: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate', categoryId: 'outdoor', order: 2 },
-      { url: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view', categoryId: 'outdoor', order: 3 },
-      { url: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade', categoryId: 'outdoor', order: 4 },
-      { url: '/lovable-uploads/66d41bb2-c918-4f2e-b49f-5404d5685356.png', alt: 'Garden night – villa exterior lights', categoryId: 'garden-night', order: 5 },
-      { url: '/lovable-uploads/4c4a02ce-70d2-4065-925a-70d8f9bf5d9f.png', alt: 'Garden night – pool view from terrace', categoryId: 'garden-night', order: 6 },
-      { url: '/lovable-uploads/923fb47c-f2d2-4712-8807-1f726abfb743.png', alt: 'Garden night – BBQ and pool', categoryId: 'garden-night', order: 7 },
-      { url: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Garden night – villa and lit pool', categoryId: 'garden-night', order: 8 },
-      { url: '/lovable-uploads/5afaa76f-fe29-4fb9-8d4f-b9f00925bddd.png', alt: 'Garden night – garden and terrace', categoryId: 'garden-night', order: 9 }
-    ]
+      images: [
+        { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
+        { url: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate', categoryId: 'outdoor', order: 2 },
+        { url: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view', categoryId: 'outdoor', order: 3 },
+        { url: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade', categoryId: 'outdoor', order: 4 },
+        { url: '/lovable-uploads/66d41bb2-c918-4f2e-b49f-5404d5685356.png', alt: 'Garden night – villa exterior lights', categoryId: 'garden-night', order: 5 },
+        { url: '/lovable-uploads/4c4a02ce-70d2-4065-925a-70d8f9bf5d9f.png', alt: 'Garden night – pool view from terrace', categoryId: 'garden-night', order: 6 },
+        { url: '/lovable-uploads/923fb47c-f2d2-4712-8807-1f726abfb743.png', alt: 'Garden night – BBQ and pool', categoryId: 'garden-night', order: 7 },
+        { url: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Garden night – villa and lit pool', categoryId: 'garden-night', order: 8 },
+        { url: '/lovable-uploads/5afaa76f-fe29-4fb9-8d4f-b9f00925bddd.png', alt: 'Garden night – garden and terrace', categoryId: 'garden-night', order: 9 },
+        { url: '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png', alt: 'Garden day light – villa garden path', categoryId: 'garden-day-light', order: 10 },
+        { url: '/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png', alt: 'Garden day light – lawn and seating', categoryId: 'garden-day-light', order: 11 },
+        { url: '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png', alt: 'Garden day light – pool and terrace', categoryId: 'garden-day-light', order: 12 },
+        { url: '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png', alt: 'Garden day light – greenery and facade', categoryId: 'garden-day-light', order: 13 }
+      ]
   },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
@@ -87,7 +91,20 @@ const ContentManager: React.FC = () => {
         await ensurePagesSeeded(supabase);
       } catch {}
       const content = await getPageContent(supabase, page, lang, status);
-      if (isMounted) setData(content ?? DEFAULTS[page]);
+      let next: any = content ?? DEFAULTS[page];
+      if (page === 'gallery') {
+        const defaults = DEFAULTS.gallery;
+        const categories = [...(content?.categories || [])];
+        const existingCatIds = new Set(categories.map((c: any) => c.id));
+        (defaults.categories || []).forEach((dc: any) => { if (!existingCatIds.has(dc.id)) categories.push(dc); });
+        categories.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+        const images = [...(content?.images || [])];
+        const imageCats = new Set(images.map((im: any) => im.categoryId));
+        const defaultsToAdd = (defaults.images || []).filter((im: any) => !imageCats.has(im.categoryId));
+        const mergedImages = [...images, ...defaultsToAdd].sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+        next = { categories, images: mergedImages };
+      }
+      if (isMounted) setData(next);
       setLoading(false);
     }
     load();
