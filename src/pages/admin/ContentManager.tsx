@@ -32,7 +32,7 @@ const DEFAULTS: Record<PageSlug, any> = {
     stats: { distance_to_bay: '90 m', max_guests: '8', bedrooms: '3.5' },
     image: { url: '', alt: 'Villa and garden view during the day' }
   },
-  gallery: { images: [] },
+  gallery: { categories: [], images: [] },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
   contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }
@@ -158,7 +158,7 @@ const ContentManager: React.FC = () => {
         );
       case 'gallery':
         return (
-          <GalleryEditor value={data.images || []} onChange={(images) => setData({ ...data, images })} />
+          <GalleryEditor value={data} onChange={(next) => setData(next)} />
         );
       case 'explore':
         return (
