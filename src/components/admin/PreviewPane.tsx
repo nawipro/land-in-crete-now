@@ -31,6 +31,19 @@ const PreviewPane: React.FC<{ slug: PageSlug; data: any; lang?: 'en' | 'he' }> =
             </div>
           </div>
         );
+      case 'about':
+        return (
+          <div className="space-y-4">
+            <h3 className="text-2xl font-semibold">About preview</h3>
+            <div className="aspect-[16/9] rounded-lg overflow-hidden bg-muted">
+              {data.image?.url ? (
+                <img src={data.image.url} alt={data.image.alt||'About image'} className="w-full h-full" style={{ objectFit: data.image?.fit || 'contain', objectPosition: `${data.image?.position?.x ?? 50}% ${data.image?.position?.y ?? 50}%` }} />
+              ) : (
+                <div className="w-full h-full grid place-items-center text-muted-foreground">No image</div>
+              )}
+            </div>
+          </div>
+        );
       default:
         return (
           <div>

@@ -4,16 +4,18 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { translations as i18n } from '@/utils/translations';
+import { useCms } from '@/hooks/use-cms';
 
 const About: React.FC = () => {
   // English-only page (keeps header switcher functional without changing nav)
   const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
+  const { data: cms } = useCms<any>('about', 'en');
 
   useEffect(() => {
     // SEO basics
     const title = 'About | Now We Land – Your Private Horizon';
     const desc = 'Boutique villa in Akrotiri, Crete — 90 m from a hidden cove, 43 m² private pool, sunsets, and space for up to 8 guests. Book your stay at Now We Land.';
-    const ogImage = '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png';
+    const ogImage = (cms?.image?.url as string | undefined) || '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png';
     document.title = title;
 
     const ensureMeta = (name: string, attr: 'name' | 'property' = 'name') => {
@@ -37,7 +39,7 @@ const About: React.FC = () => {
     // Language & direction
     document.documentElement.lang = 'en';
     document.documentElement.dir = 'ltr';
-  }, []);
+  }, [cms]);
 
   return (
     <div className="min-h-screen">
@@ -82,13 +84,14 @@ const About: React.FC = () => {
             <div>
               <div className="rounded-xl overflow-hidden shadow-xl">
                 <div className="aspect-[16/9] bg-muted">
-                  {/* Using the uploaded image as-is, no crop/zoom. Responsive sizes + lazy load. */}
                   <img
-                    src="/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png"
-                    srcSet="/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png 480w, /lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png 768w, /lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png 1200w, /lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png 1920w"
-                    sizes="(max-width: 768px) 100vw, 1200px"
-                    alt="Villa and garden view with private pool during the day"
-                    className="w-full h-full object-contain"
+                    src={cms?.image?.url || '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png'}
+                    alt={cms?.image?.alt || 'Villa and garden view with private pool during the day'}
+                    className="w-full h-full"
+                    style={{
+                      objectFit: (cms?.image?.fit as 'cover' | 'contain') || 'contain',
+                      objectPosition: `${cms?.image?.position?.x ?? 50}% ${cms?.image?.position?.y ?? 50}%`
+                    }}
                     loading="lazy"
                   />
                 </div>
