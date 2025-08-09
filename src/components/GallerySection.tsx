@@ -19,6 +19,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'garden-day-light', name: 'GARDEN DAY LIGHT' },
     { id: 'garden-night', name: 'GARDEN NIGHT' },
     { id: 'secret-bay', name: 'SECRET BAY' },
+    { id: 'sunset', name: 'SUNSET' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -56,6 +57,12 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 19, category: 'secret-bay', src: '/lovable-uploads/56bdb900-04bd-4ddf-8cc6-f667096f9a1a.png', alt: 'Secret Bay – path up to the house' },
     { id: 20, category: 'secret-bay', src: '/lovable-uploads/7f16ca73-ff74-4efc-a9e0-d712ab162e24.png', alt: 'Secret Bay – clear water and cliffs' },
     { id: 21, category: 'secret-bay', src: '/lovable-uploads/d6a759c2-d3d6-4075-86d1-1fb91bb11102.png', alt: 'Secret Bay – narrow bay opening to sea' },
+    // Sunset defaults
+    { id: 22, category: 'sunset', src: '/lovable-uploads/2eaaf3d8-9d2b-40fc-bc1f-6b182508d974.png', alt: 'Sunset – golden sky over sea and cliffs' },
+    { id: 23, category: 'sunset', src: '/lovable-uploads/750881ee-70c1-4119-a34b-407414bfa7d9.png', alt: 'Sunset – warm light reflecting on water' },
+    { id: 24, category: 'sunset', src: '/lovable-uploads/5a2d5928-4117-4af4-8c6a-87790aaf54a2.png', alt: 'Sunset – horizon glow with coastal rocks' },
+    { id: 25, category: 'sunset', src: '/lovable-uploads/021838e8-6de7-419e-9e7e-465890bc2e6d.png', alt: 'Sunset – vibrant colors over the bay' },
+    { id: 26, category: 'sunset', src: '/lovable-uploads/7e3741f4-6841-4a66-af3c-5415e6708cf4.png', alt: 'Sunset – evening light by the villa' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
