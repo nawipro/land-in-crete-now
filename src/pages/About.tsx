@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { translations as i18n } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
+import { Waves, Droplets, Bed, Users as UsersIcon, Trees, Plane } from 'lucide-react';
 
 const About: React.FC = () => {
   // English-only page (keeps header switcher functional without changing nav)
@@ -51,7 +52,7 @@ const About: React.FC = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-medium text-foreground">
             Now We Land – Your Private Horizon
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-muted-foreground leading-snug">
+          <p className="mt-4 text-[18px] md:text-[20px] leading-[1.4] font-medium text-muted-foreground">
             Boutique stone villa in Akrotiri, Crete — 90 m from a hidden cove, 43 m² private pool, and uninterrupted sunset views. 14 min to CHQ airport.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
@@ -65,36 +66,69 @@ const About: React.FC = () => {
         </section>
 
         {/* Intro block */}
-        <section className="container mx-auto px-6 lg:px-12 mb-20">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-cormorant font-medium text-foreground mb-4">
+        <section className="container mx-auto px-6 lg:px-12 pt-16 pb-14">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-start">
+            {/* Image left */}
+            <div className="w-full">
+              <img
+                src={cms?.image?.url || '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png'}
+                alt="Villa, pool and garden view during the day"
+                className="w-full h-auto rounded-2xl shadow-md"
+                style={{ objectPosition: '50% 55%' }}
+                loading="lazy"
+              />
+            </div>
+            {/* Text right */}
+            <div className="max-w-[65ch]">
+              <h2 className="text-3xl md:text-4xl font-cormorant font-medium text-foreground mb-3">
                 A Slice of Paradise
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground leading-snug">
-                Our villa sits just 90 meters from the sea, in a peaceful area with open views and spectacular sunsets. Designed for slow mornings and golden evenings, it blends authentic Cretan character with modern comfort.
-              </p>
-              <ul className="mt-6 space-y-2 text-foreground/90">
-                <li>• 43 m² private pool set among fragrant gardens</li>
-                <li>• 3 bedrooms + large sunroom with two fold-out beds (sleeps up to 8)</li>
-                <li>• Fully equipped kitchen and generous living room with multiple balconies</li>
-                <li>• Fast Wi-Fi and A/C in all rooms</li>
-              </ul>
-            </div>
-            <div>
-              <div className="rounded-xl overflow-hidden shadow-xl">
-                <div className="aspect-[16/9] bg-muted">
-                  <img
-                    src={cms?.image?.url || '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png'}
-                    alt={cms?.image?.alt || 'Villa and garden view with private pool during the day'}
-                    className="w-full h-full"
-                    style={{
-                      objectFit: (cms?.image?.fit as 'cover' | 'contain') || 'contain',
-                      objectPosition: `${cms?.image?.position?.x ?? 50}% ${cms?.image?.position?.y ?? 50}%`
-                    }}
-                    loading="lazy"
-                  />
+              <div className="space-y-4 text-muted-foreground">
+                <p className="text-base md:text-lg leading-relaxed">
+                  Our villa sits just 90 meters from the sea, in a peaceful area with open views and spectacular sunsets.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed">
+                  The house offers three separate bedrooms and a private suite connected to a sunroom that can host two additional guests.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed">
+                  With a private 43 sqm pool, a fruit-tree garden and BBQ, a fully equipped kitchen, a spacious living room, and multiple balconies, the villa comfortably hosts up to 8 guests in luxury and tranquility.
+                </p>
+              </div>
+              {/* Feature list */}
+              <div className="mt-6 grid sm:grid-cols-2 gap-3">
+                <div className="flex items-center gap-3">
+                  <Waves className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">90 m from a hidden bay</span>
                 </div>
+                <div className="flex items-center gap-3">
+                  <Droplets className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">43 sqm private pool</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Bed className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">3 bedrooms + private sunroom suite (sleeps +2)</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <UsersIcon className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">Up to 8 guests</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Trees className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">Garden &amp; BBQ</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Plane className="h-5 w-5 text-foreground/80" aria-hidden="true" />
+                  <span className="text-foreground">14 min to CHQ airport</span>
+                </div>
+              </div>
+              {/* CTAs below text */}
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <Button asChild>
+                  <a href="/#booking">Book Your Stay</a>
+                </Button>
+                <Button asChild variant="outline">
+                  <a href="/#gallery">View Gallery</a>
+                </Button>
               </div>
             </div>
           </div>
