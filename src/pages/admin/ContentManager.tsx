@@ -32,7 +32,17 @@ const DEFAULTS: Record<PageSlug, any> = {
     stats: { distance_to_bay: '90 m', max_guests: '8', bedrooms: '3.5' },
     image: { url: '', alt: 'Villa and garden view during the day' }
   },
-  gallery: { categories: [], images: [] },
+  gallery: {
+    categories: [
+      { id: 'outdoor', title: 'OUTDOOR VILLA', order: 1 }
+    ],
+    images: [
+      { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
+      { url: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate', categoryId: 'outdoor', order: 2 },
+      { url: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view', categoryId: 'outdoor', order: 3 },
+      { url: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade', categoryId: 'outdoor', order: 4 }
+    ]
+  },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
   contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }

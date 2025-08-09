@@ -15,14 +15,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
   // Build categories and images from CMS if provided, otherwise fallback to translations/static
   const cmsCategories = (content?.categories ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const defaultCategories = [
-    { id: 'outdoor', name: translations?.gallery?.categories?.outdoor ?? 'Outdoor' },
-    { id: 'hidden-bay', name: translations?.gallery?.categories?.['hidden-bay'] ?? 'Hidden Bay' },
-    { id: 'bedroom1', name: translations?.gallery?.categories?.bedroom1 ?? 'Bedroom 1' },
-    { id: 'bedroom2', name: translations?.gallery?.categories?.bedroom2 ?? 'Bedroom 2' },
-    { id: 'bedroom3', name: translations?.gallery?.categories?.bedroom3 ?? 'Bedroom 3' },
-    { id: 'extra-sleeping', name: translations?.gallery?.categories?.['extra-sleeping'] ?? 'Extra Sleeping' },
-    { id: 'kitchen', name: translations?.gallery?.categories?.kitchen ?? 'Kitchen' },
-    { id: 'living', name: translations?.gallery?.categories?.living ?? 'Living' },
+    { id: 'outdoor', name: 'OUTDOOR VILLA' },
   ];
   const galleryCategories = [
     { id: 'all', name: translations?.gallery?.categories?.all ?? 'All' },
@@ -33,23 +26,10 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
   const galleryImages = cmsImages.length
     ? cmsImages.map((img, idx) => ({ id: idx + 1, category: img.categoryId || '', src: img.url, alt: img.alt || '' }))
     : [
-        { id: 1, category: 'outdoor', src: '/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png', alt: 'Sunset view from villa' },
-        { id: 2, category: 'outdoor', src: '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png', alt: 'Villa at night with pool' },
-        { id: 3, category: 'outdoor', src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Pool area day view' },
-        { id: 4, category: 'outdoor', src: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Garden and pool night view' },
-        { id: 5, category: 'hidden-bay', src: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Hidden bay view' },
-        { id: 6, category: 'hidden-bay', src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Secret swimming spot' },
-        { id: 7, category: 'bedroom1', src: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Bedroom 1' },
-        { id: 8, category: 'bedroom1', src: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Bedroom 1 bathroom' },
-        { id: 9, category: 'bedroom2', src: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Bedroom 2 with sea view' },
-        { id: 10, category: 'bedroom2', src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Bedroom 2 balcony' },
-        { id: 11, category: 'bedroom3', src: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Master bedroom' },
-        { id: 12, category: 'bedroom3', src: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Master bedroom terrace' },
-        { id: 13, category: 'extra-sleeping', src: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Sunroom with fold-out beds' },
-        { id: 14, category: 'kitchen', src: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Fully equipped kitchen' },
-        { id: 15, category: 'kitchen', src: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Kitchen dining area' },
-        { id: 16, category: 'living', src: 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Living room' },
-        { id: 17, category: 'living', src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Living room view to pool' },
+        { id: 1, category: 'outdoor', src: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden' },
+        { id: 2, category: 'outdoor', src: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate' },
+        { id: 3, category: 'outdoor', src: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view' },
+        { id: 4, category: 'outdoor', src: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade' },
       ];
 
   const filteredImages = selectedCategory === 'all' 
