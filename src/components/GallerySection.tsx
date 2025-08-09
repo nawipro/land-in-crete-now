@@ -24,6 +24,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'garden-night', name: 'GARDEN NIGHT' },
     { id: 'secret-bay', name: 'SECRET BAY' },
     { id: 'sunset', name: 'SUNSET' },
+    { id: 'balconies', name: 'BALCONIES' },
     { id: 'living-room', name: 'LIVING ROOM' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
@@ -75,6 +76,13 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 31, category: 'living-room', src: '/lovable-uploads/0ed3769e-ddea-4f5f-8657-8888643a909b.png', alt: 'Living room – archway view to kitchen' },
     { id: 32, category: 'living-room', src: '/lovable-uploads/6668c6f2-b4f5-4b23-ab06-d536f9fcb36e.png', alt: 'Living room – armchair by window with sea view' },
     { id: 33, category: 'living-room', src: '/lovable-uploads/61dc4378-4d22-4b4d-b534-4acb8d083a59.png', alt: 'Living room – entryway and window with natural light' },
+    // Balconies defaults
+    { id: 34, category: 'balconies', src: '/lovable-uploads/7171ad66-0628-4615-93c0-8f63cb57530b.png', alt: 'Balcony – sea view over pool and hillside' },
+    { id: 35, category: 'balconies', src: '/lovable-uploads/d444242b-16ec-4051-9a27-c42daaac757b.png', alt: 'Balcony – rustic bench with shutters and decor' },
+    { id: 36, category: 'balconies', src: '/lovable-uploads/fc5b6502-8bb3-49dc-9387-e7b494783222.png', alt: 'Balcony – wine bottle and glasses with pool and sea view' },
+    { id: 37, category: 'balconies', src: '/lovable-uploads/9a3bf05d-7192-4fd0-8ed4-74dc0fc0fe0a.png', alt: 'Balcony – dining table set with panoramic sea view' },
+    { id: 38, category: 'balconies', src: '/lovable-uploads/87de0f88-1982-4cea-9c90-5693f4c7d935.png', alt: 'Balcony – pool and sea view from upper terrace' },
+    { id: 39, category: 'balconies', src: '/lovable-uploads/4580ac6e-c8b0-4bc9-b68b-173838cf0060.png', alt: 'Balcony – cozy corner with bench and macrame wall hanging' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
