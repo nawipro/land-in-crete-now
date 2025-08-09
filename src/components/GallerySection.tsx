@@ -124,14 +124,11 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations }) => {
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className={`w-full object-cover group-hover:scale-110 transition-transform duration-500 ${
+                    className={`w-full object-cover transition-transform duration-500 ${
                       image.featured ? 'h-96 md:h-full' : 'h-64'
                     }`}
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="font-inter text-sm font-light">{image.alt}</p>
-                  </div>
                 </div>
               </CardContent>
             </Card>
