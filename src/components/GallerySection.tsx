@@ -24,6 +24,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'garden-night', name: 'GARDEN NIGHT' },
     { id: 'secret-bay', name: 'SECRET BAY' },
     { id: 'sunset', name: 'SUNSET' },
+    { id: 'living-room', name: 'LIVING ROOM' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -69,6 +70,11 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 26, category: 'sunset', src: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '' },
     { id: 27, category: 'sunset', src: '/lovable-uploads/e0402a06-027d-4914-a14a-e6baeec25255.png', alt: 'Sunset – sun rays over sea and pool' },
     { id: 28, category: 'sunset', src: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool' },
+    { id: 29, category: 'living-room', src: '/lovable-uploads/f1e7db83-a2a1-4540-a738-8f44b97b6371.png', alt: 'Living room – wide sofa and decor' },
+    { id: 30, category: 'living-room', src: '/lovable-uploads/693d19bd-841a-455f-86fa-53660b202a51.png', alt: 'Living room – TV wall and seating' },
+    { id: 31, category: 'living-room', src: '/lovable-uploads/2412cfb5-9ae2-4933-89c2-4787481085b6.png', alt: 'Living room – couch with cushions' },
+    { id: 32, category: 'living-room', src: '/lovable-uploads/f3e688bf-9b4e-4a5a-aad5-dc2c7af803d0.png', alt: 'Living room – angle view to hallway' },
+    { id: 33, category: 'living-room', src: '/lovable-uploads/6ba226b2-4f0d-40d3-9182-4f8911bdd502.png', alt: 'Living room – coffee table and rug' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];

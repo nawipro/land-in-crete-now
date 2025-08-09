@@ -38,7 +38,8 @@ const DEFAULTS: Record<PageSlug, any> = {
       { id: 'garden-day-light', title: 'GARDEN DAY LIGHT', order: 2 },
       { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 },
       { id: 'secret-bay', title: 'SECRET BAY', order: 4 },
-      { id: 'sunset', title: 'SUNSET', order: 5 }
+      { id: 'sunset', title: 'SUNSET', order: 5 },
+      { id: 'living-room', title: 'LIVING ROOM', order: 6 }
     ],
       images: [
         { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
@@ -70,9 +71,14 @@ const DEFAULTS: Record<PageSlug, any> = {
         { url: '/lovable-uploads/6c68c096-2633-442e-adb6-5631763becfb.png', alt: '', categoryId: 'sunset', order: 25 },
         { url: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '', categoryId: 'sunset', order: 26 },
         { url: '/lovable-uploads/e0402a06-027d-4914-a14a-e6baeec25255.png', alt: 'Sunset – sun rays over sea and pool', categoryId: 'sunset', order: 27 },
-        { url: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool', categoryId: 'sunset', order: 28 }
-      ]
-  },
+        { url: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool', categoryId: 'sunset', order: 28 },
+        { url: '/lovable-uploads/f1e7db83-a2a1-4540-a738-8f44b97b6371.png', alt: 'Living room – wide sofa and decor', categoryId: 'living-room', order: 29 },
+        { url: '/lovable-uploads/693d19bd-841a-455f-86fa-53660b202a51.png', alt: 'Living room – TV wall and seating', categoryId: 'living-room', order: 30 },
+        { url: '/lovable-uploads/2412cfb5-9ae2-4933-89c2-4787481085b6.png', alt: 'Living room – couch with cushions', categoryId: 'living-room', order: 31 },
+        { url: '/lovable-uploads/f3e688bf-9b4e-4a5a-aad5-dc2c7af803d0.png', alt: 'Living room – angle view to hallway', categoryId: 'living-room', order: 32 },
+        { url: '/lovable-uploads/6ba226b2-4f0d-40d3-9182-4f8911bdd502.png', alt: 'Living room – coffee table and rug', categoryId: 'living-room', order: 33 }
+       ]
+   },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
   contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }
