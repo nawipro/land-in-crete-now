@@ -41,20 +41,24 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 7, category: 'garden-night', src: '/lovable-uploads/923fb47c-f2d2-4712-8807-1f726abfb743.png', alt: 'Garden night – BBQ and pool' },
     { id: 8, category: 'garden-night', src: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Garden night – villa and lit pool' },
     { id: 9, category: 'garden-night', src: '/lovable-uploads/5afaa76f-fe29-4fb9-8d4f-b9f00925bddd.png', alt: 'Garden night – garden and terrace' },
-    // Garden Day Light defaults
-    { id: 10, category: 'garden-day-light', src: '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png', alt: 'Garden day light – villa garden path' },
-    { id: 11, category: 'garden-day-light', src: '/lovable-uploads/cb4246ae-3441-4bed-bb30-12d0525376a3.png', alt: 'Garden day light – lawn and seating' },
-    { id: 12, category: 'garden-day-light', src: '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png', alt: 'Garden day light – pool and terrace' },
-    { id: 13, category: 'garden-day-light', src: '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png', alt: 'Garden day light – greenery and facade' },
+    // Garden Day Light defaults (REPLACED)
+    { id: 10, category: 'garden-day-light', src: '/lovable-uploads/b3adb8c1-e7a0-4048-b109-fbd0d574d7e8.png', alt: 'Garden day – patio with table and pool view' },
+    { id: 11, category: 'garden-day-light', src: '/lovable-uploads/849c94d6-f867-443b-95a8-586894e93925.png', alt: 'Garden day – villa and pool with wine on table' },
+    { id: 12, category: 'garden-day-light', src: '/lovable-uploads/c6a0949b-ccd7-42e3-a208-1684ee5d242b.png', alt: 'Garden day – pool and sea view from above' },
+    { id: 13, category: 'garden-day-light', src: '/lovable-uploads/497058df-0eee-470e-aa25-8152dec11164.png', alt: 'Garden day – lawn seating area and pool' },
+    { id: 14, category: 'garden-day-light', src: '/lovable-uploads/34f209d0-6644-43a2-b4bc-8b3f22ccedeb.png', alt: 'Garden day – outdoor shower with sea backdrop' },
+    { id: 15, category: 'garden-day-light', src: '/lovable-uploads/0cf5d84e-6414-4b56-bf41-8f4c6326d299.png', alt: 'Garden day – sun loungers and umbrella by pool' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
   if (cmsImages.length) {
     const cmsMapped = cmsImages.map((img, idx) => ({ id: idx + 1, category: img.categoryId || '', src: img.url, alt: img.alt || '' }));
-    // Include defaults only for categories that have no CMS images assigned
+    // Force-replace Garden Day Light with our new defaults
+    const cmsWithoutDay = cmsMapped.filter((img) => img.category !== 'garden-day-light');
     const cmsImageCategories = new Set(cmsImages.map((img) => img.categoryId || ''));
-    const extras = defaultImages.filter((img) => !cmsImageCategories.has(img.category));
-    galleryImages = [...cmsMapped, ...extras];
+    const extras = defaultImages.filter((img) => !cmsImageCategories.has(img.category) && img.category !== 'garden-day-light');
+    const dayDefaults = defaultImages.filter((img) => img.category === 'garden-day-light');
+    galleryImages = [...cmsWithoutDay, ...dayDefaults, ...extras];
   } else {
     galleryImages = defaultImages;
   }
