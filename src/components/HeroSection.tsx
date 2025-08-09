@@ -52,27 +52,28 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
           >
             {content?.hero_subtitle || translations.hero.subtitle}
           </p>
+
+          {/* Actions under title */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              onClick={handleBookNow}
+              className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              <Calendar className="h-5 w-5 mr-2" />
+              {translations.hero.cta}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={handleExploreVilla}
+              className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
+            >
+              {translations.hero.explore}
+            </Button>
+          </div>
         </div>
 
-        {/* Bottom: Primary Actions */}
-        <div className="pb-24 sm:pb-28 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button 
-            size="lg" 
-            onClick={handleBookNow}
-            className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            <Calendar className="h-5 w-5 mr-2" />
-            {translations.hero.cta}
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg"
-            onClick={handleExploreVilla}
-            className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
-          >
-            {translations.hero.explore}
-          </Button>
-        </div>
       </div>
 
       {/* Elegant Scroll Indicator */}
