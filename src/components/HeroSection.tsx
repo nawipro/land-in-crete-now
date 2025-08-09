@@ -20,13 +20,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Hero Background (CMS if available) */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('${content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"}')`,
-          backgroundSize: '1920px 1080px'
-        }}
-      >
+      <div className="absolute inset-0">
+        <img
+          src={content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"}
+          alt={content?.hero_image?.alt || translations.hero?.alt || 'Hero background'}
+          className="w-full h-full"
+          style={{
+            objectFit: (content?.hero_image?.fit as 'cover' | 'contain') || 'cover',
+            objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent"></div>
       </div>
 

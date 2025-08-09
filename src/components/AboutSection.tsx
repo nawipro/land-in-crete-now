@@ -54,7 +54,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
               <img
                 src={content?.image?.url || '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png'}
                 alt={content?.image?.alt || 'Villa at night with pool and warm lighting'}
-                className="rounded-3xl shadow-2xl w-full h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
+                className="rounded-3xl shadow-2xl w-full h-[500px] lg:h-[600px]"
+                style={{
+                  objectFit: (content?.image?.fit as 'cover' | 'contain') || 'cover',
+                  objectPosition: `${content?.image?.position?.x ?? 50}% ${content?.image?.position?.y ?? 50}%`
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
               <div className="absolute bottom-8 left-8 text-white">
