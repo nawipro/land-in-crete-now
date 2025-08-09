@@ -70,11 +70,11 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 26, category: 'sunset', src: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '' },
     { id: 27, category: 'sunset', src: '/lovable-uploads/e0402a06-027d-4914-a14a-e6baeec25255.png', alt: 'Sunset – sun rays over sea and pool' },
     { id: 28, category: 'sunset', src: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool' },
-    { id: 29, category: 'living-room', src: '/lovable-uploads/f1e7db83-a2a1-4540-a738-8f44b97b6371.png', alt: 'Living room – wide sofa and decor' },
-    { id: 30, category: 'living-room', src: '/lovable-uploads/693d19bd-841a-455f-86fa-53660b202a51.png', alt: 'Living room – TV wall and seating' },
-    { id: 31, category: 'living-room', src: '/lovable-uploads/2412cfb5-9ae2-4933-89c2-4787481085b6.png', alt: 'Living room – couch with cushions' },
-    { id: 32, category: 'living-room', src: '/lovable-uploads/f3e688bf-9b4e-4a5a-aad5-dc2c7af803d0.png', alt: 'Living room – angle view to hallway' },
-    { id: 33, category: 'living-room', src: '/lovable-uploads/6ba226b2-4f0d-40d3-9182-4f8911bdd502.png', alt: 'Living room – coffee table and rug' },
+    { id: 29, category: 'living-room', src: '/lovable-uploads/5b7d6b86-1d7e-446d-b3f6-350f7e087144.png', alt: 'Living room – sea view window and sofas' },
+    { id: 30, category: 'living-room', src: '/lovable-uploads/98e27587-c03d-4938-92e4-c997f60ca03d.png', alt: 'Living room – leather sofa and coffee table' },
+    { id: 31, category: 'living-room', src: '/lovable-uploads/0ed3769e-ddea-4f5f-8657-8888643a909b.png', alt: 'Living room – archway view to kitchen' },
+    { id: 32, category: 'living-room', src: '/lovable-uploads/6668c6f2-b4f5-4b23-ab06-d536f9fcb36e.png', alt: 'Living room – armchair by window with sea view' },
+    { id: 33, category: 'living-room', src: '/lovable-uploads/61dc4378-4d22-4b4d-b534-4acb8d083a59.png', alt: 'Living room – entryway and window with natural light' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
