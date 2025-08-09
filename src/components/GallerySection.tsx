@@ -17,6 +17,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
   const defaultCategories = [
     { id: 'outdoor', name: 'OUTDOOR VILLA' },
     { id: 'garden-day-light', name: 'GARDEN DAY LIGHT' },
+    { id: 'garden-night', name: 'GARDEN NIGHT' },
   ];
   const galleryCategories = [
     { id: 'all', name: translations?.gallery?.categories?.all ?? 'All' },
