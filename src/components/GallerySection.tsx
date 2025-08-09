@@ -19,20 +19,39 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'garden-day-light', name: 'GARDEN DAY LIGHT' },
     { id: 'garden-night', name: 'GARDEN NIGHT' },
   ];
+  // Merge CMS categories with defaults (avoid duplicates)
+  const mergedCategoryList = [
+    ...(cmsCategories.length ? cmsCategories.map((c) => ({ id: c.id, name: c.title || 'Untitled' })) : []),
+    ...defaultCategories,
+  ].filter((cat, idx, arr) => arr.findIndex((c) => c.id === cat.id) === idx);
   const galleryCategories = [
     { id: 'all', name: translations?.gallery?.categories?.all ?? 'All' },
-    ...(cmsCategories.length ? cmsCategories.map((c) => ({ id: c.id, name: c.title || 'Untitled' })) : defaultCategories)
+    ...mergedCategoryList,
   ];
 
   const cmsImages = (content?.images ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  const galleryImages = cmsImages.length
-    ? cmsImages.map((img, idx) => ({ id: idx + 1, category: img.categoryId || '', src: img.url, alt: img.alt || '' }))
-    : [
-        { id: 1, category: 'outdoor', src: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden' },
-        { id: 2, category: 'outdoor', src: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate' },
-        { id: 3, category: 'outdoor', src: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view' },
-        { id: 4, category: 'outdoor', src: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade' },
-      ];
+  const defaultImages = [
+    { id: 1, category: 'outdoor', src: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden' },
+    { id: 2, category: 'outdoor', src: '/lovable-uploads/0cf91a09-cb3b-4953-a757-513680d5bd34.png', alt: 'Outdoor villa – entrance gate' },
+    { id: 3, category: 'outdoor', src: '/lovable-uploads/6d2acc7b-041d-4587-b32c-a11b99b4d4c7.png', alt: 'Outdoor villa – side view' },
+    { id: 4, category: 'outdoor', src: '/lovable-uploads/146cd19f-7a25-46e8-9f7a-837f8f30a160.png', alt: 'Outdoor villa – garden and facade' },
+    // Garden Night defaults (visible if not present in CMS yet)
+    { id: 5, category: 'garden-night', src: '/lovable-uploads/66d41bb2-c918-4f2e-b49f-5404d5685356.png', alt: 'Garden night – villa exterior lights' },
+    { id: 6, category: 'garden-night', src: '/lovable-uploads/4c4a02ce-70d2-4065-925a-70d8f9bf5d9f.png', alt: 'Garden night – pool view from terrace' },
+    { id: 7, category: 'garden-night', src: '/lovable-uploads/923fb47c-f2d2-4712-8807-1f726abfb743.png', alt: 'Garden night – BBQ and pool' },
+    { id: 8, category: 'garden-night', src: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Garden night – villa and lit pool' },
+    { id: 9, category: 'garden-night', src: '/lovable-uploads/5afaa76f-fe29-4fb9-8d4f-b9f00925bddd.png', alt: 'Garden night – garden and terrace' },
+  ];
+
+  let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
+  if (cmsImages.length) {
+    const cmsMapped = cmsImages.map((img, idx) => ({ id: idx + 1, category: img.categoryId || '', src: img.url, alt: img.alt || '' }));
+    const cmsCategoryIds = new Set(cmsCategories.map((c) => c.id));
+    const extras = defaultImages.filter((img) => !cmsCategoryIds.has(img.category));
+    galleryImages = [...cmsMapped, ...extras];
+  } else {
+    galleryImages = defaultImages;
+  }
 
   const filteredImages = selectedCategory === 'all' 
     ? galleryImages 
