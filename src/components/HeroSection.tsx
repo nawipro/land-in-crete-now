@@ -33,7 +33,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
       {/* Split layout: title at top, buttons at bottom */}
       <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-between items-center">
         {/* Top: Title & Subtitle */}
-        <div className="pt-10 sm:pt-16 text-center animate-gentle-fade" style={{ maxWidth: '860px' }}>
+        <div className="pt-12 sm:pt-20 text-center animate-gentle-fade" style={{ maxWidth: '860px' }}>
           <h1 
             className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight"
             style={{ 
@@ -68,7 +68,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
             variant="outline" 
             size="lg"
             onClick={handleExploreVilla}
-            className="border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
+            className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
           >
             {translations.hero.explore}
           </Button>
