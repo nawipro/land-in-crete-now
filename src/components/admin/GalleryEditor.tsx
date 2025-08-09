@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,6 +24,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
   const images = value?.images || [];
   const supabase = getSupabaseClient();
   const { toast } = useToast();
+  const [selectedCatFilter, setSelectedCatFilter] = useState<string>('all');
 
   const addCategory = () => {
     const next: Category = { id: `cat-${Date.now()}`, title: '', order: (categories.length || 0) + 1 };
@@ -41,7 +42,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
   };
 
   const addImage = () => {
-    const defaultCat = categories[0]?.id || '';
+    const defaultCat = selectedCatFilter !== 'all' ? selectedCatFilter : (categories[0]?.id || '');
     const next: GalleryImage = { url: '', alt: '', categoryId: defaultCat, order: (images.length || 0) + 1 };
     onChange({ ...value, images: [...images, next] });
   };
@@ -128,12 +129,25 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
 
       {/* Images Manager */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
           <h4 className="text-sm font-medium">Images</h4>
-          <Button size="sm" variant="outline" onClick={addImage} disabled={categories.length === 0}>Add Image</Button>
+          <div className="flex items-center gap-2">
+            <Select value={selectedCatFilter} onValueChange={setSelectedCatFilter}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Filter by category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                {categories.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>{c.title || 'Untitled'}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button size="sm" variant="outline" onClick={addImage} disabled={categories.length === 0}>Add Image</Button>
+          </div>
         </div>
         <div className="space-y-3">
-          {images.map((item, idx) => (
+          {(selectedCatFilter === 'all' ? images : images.filter((img) => img.categoryId === selectedCatFilter)).map((item, idx) => (
             <Card key={idx}><CardContent className="p-4 grid md:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label>Image</Label>
