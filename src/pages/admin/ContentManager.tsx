@@ -104,7 +104,14 @@ const ContentManager: React.FC = () => {
 
   const onSave = async () => {
     try {
-      await saveDraft(supabase, page, lang, data);
+      if (page === 'gallery') {
+        await Promise.all([
+          saveDraft(supabase, page, 'he', data),
+          saveDraft(supabase, page, 'en', data),
+        ]);
+      } else {
+        await saveDraft(supabase, page, lang, data);
+      }
       toast({ title: 'Draft saved' });
     } catch (e: any) {
       toast({ title: 'Save failed', description: e.message });
@@ -113,8 +120,19 @@ const ContentManager: React.FC = () => {
 
   const onPublish = async () => {
     try {
-      await saveDraft(supabase, page, lang, data);
-      await publish(supabase, page, lang);
+      if (page === 'gallery') {
+        await Promise.all([
+          saveDraft(supabase, page, 'he', data),
+          saveDraft(supabase, page, 'en', data),
+        ]);
+        await Promise.all([
+          publish(supabase, page, 'he'),
+          publish(supabase, page, 'en'),
+        ]);
+      } else {
+        await saveDraft(supabase, page, lang, data);
+        await publish(supabase, page, lang);
+      }
       setStatus('published');
       toast({ title: 'Published' });
     } catch (e: any) {
