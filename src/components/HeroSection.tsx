@@ -35,7 +35,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
         {/* Top: Title & Subtitle */}
         <div className="pt-12 sm:pt-20 text-center animate-gentle-fade" style={{ maxWidth: '860px' }}>
           <h1 
-            className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight"
+            className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight whitespace-pre-line"
             style={{ 
               color: '#FFFFFF',
               textShadow: '0 0 8px rgba(0,0,0,0.45)'
@@ -44,7 +44,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
             {content?.hero_title || translations.hero.title}
           </h1>
           <p 
-            className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed"
+            className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed whitespace-pre-line"
             style={{ 
               color: '#FFFFFF',
               textShadow: '0 0 8px rgba(0,0,0,0.45)'

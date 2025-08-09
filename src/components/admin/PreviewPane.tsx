@@ -21,8 +21,8 @@ const PreviewPane: React.FC<{ slug: PageSlug; data: any; lang?: 'en' | 'he' }> =
               )}
             </div>
             <div>
-              <h4 className="text-xl font-medium">{data.hero_title}</h4>
-              <p className="text-muted-foreground">{data.hero_subtitle}</p>
+              <h4 className="text-xl font-medium whitespace-pre-line">{data.hero_title}</h4>
+              <p className="text-muted-foreground whitespace-pre-line">{data.hero_subtitle}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {(data.chips||[]).map((c: string, i: number) => (
                   <span key={i} className="px-2 py-1 rounded-md border text-xs">{c}</span>

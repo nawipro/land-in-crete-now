@@ -127,8 +127,8 @@ const ContentManager: React.FC = () => {
       case 'home':
         return (
           <div className="space-y-6">
-            <FieldText label="Hero title" value={data.hero_title} onChange={(v) => setData({ ...data, hero_title: v })} required maxLength={80} />
-            <FieldText label="Hero subtitle" value={data.hero_subtitle} onChange={(v) => setData({ ...data, hero_subtitle: v })} maxLength={160} />
+            <FieldText label="Hero title" value={data.hero_title} onChange={(v) => setData({ ...data, hero_title: v })} required maxLength={80} textarea />
+            <FieldText label="Hero subtitle" value={data.hero_subtitle} onChange={(v) => setData({ ...data, hero_subtitle: v })} maxLength={160} textarea />
             <FieldArray label="Chips" values={data.chips || []} onChange={(arr) => setData({ ...data, chips: arr })} />
             <div className="grid md:grid-cols-2 gap-4">
               <FieldText label="Primary CTA text" value={data.primary_cta?.text || ''} onChange={(v) => setData({ ...data, primary_cta: { ...(data.primary_cta||{}), text: v } })} />
