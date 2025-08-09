@@ -67,6 +67,8 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 24, category: 'sunset', src: '/lovable-uploads/8573aa1d-be2b-4739-8999-05a16fb24a34.png', alt: '' },
     { id: 25, category: 'sunset', src: '/lovable-uploads/6c68c096-2633-442e-adb6-5631763becfb.png', alt: '' },
     { id: 26, category: 'sunset', src: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '' },
+    { id: 27, category: 'sunset', src: '/lovable-uploads/e0402a06-027d-4914-a14a-e6baeec25255.png', alt: 'Sunset – sun rays over sea and pool' },
+    { id: 28, category: 'sunset', src: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];

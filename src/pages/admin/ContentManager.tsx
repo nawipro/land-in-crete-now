@@ -68,7 +68,9 @@ const DEFAULTS: Record<PageSlug, any> = {
         { url: '/lovable-uploads/70addbb5-bbb4-47a6-92ef-3d0c69b55d5d.png', alt: '', categoryId: 'sunset', order: 23 },
         { url: '/lovable-uploads/8573aa1d-be2b-4739-8999-05a16fb24a34.png', alt: '', categoryId: 'sunset', order: 24 },
         { url: '/lovable-uploads/6c68c096-2633-442e-adb6-5631763becfb.png', alt: '', categoryId: 'sunset', order: 25 },
-        { url: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '', categoryId: 'sunset', order: 26 }
+        { url: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png', alt: '', categoryId: 'sunset', order: 26 },
+        { url: '/lovable-uploads/e0402a06-027d-4914-a14a-e6baeec25255.png', alt: 'Sunset – sun rays over sea and pool', categoryId: 'sunset', order: 27 },
+        { url: '/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png', alt: 'Sunset – golden horizon over village and pool', categoryId: 'sunset', order: 28 }
       ]
   },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
