@@ -15,7 +15,7 @@ const PreviewPane: React.FC<{ slug: PageSlug; data: any; lang?: 'en' | 'he' }> =
             <h3 className="text-2xl font-semibold">{texts.home}</h3>
             <div className="aspect-[16/9] rounded-lg overflow-hidden bg-muted">
               {data.hero_image?.url ? (
-                <img src={data.hero_image.url} alt={data.hero_image.alt||texts.heroAlt} className="w-full h-full object-cover" />
+                <img src={data.hero_image.url} alt={data.hero_image.alt||texts.heroAlt} className="w-full h-full" style={{ objectFit: data.hero_image?.fit || 'cover', objectPosition: `${data.hero_image?.position?.x ?? 50}% ${data.hero_image?.position?.y ?? 50}%` }} />
               ) : (
                 <div className="w-full h-full grid place-items-center text-muted-foreground">{texts.noImage}</div>
               )}

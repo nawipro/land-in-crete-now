@@ -136,8 +136,8 @@ const ContentManager: React.FC = () => {
               <FieldText label="Secondary CTA text" value={data.secondary_cta?.text || ''} onChange={(v) => setData({ ...data, secondary_cta: { ...(data.secondary_cta||{}), text: v } })} />
               <FieldText label="Secondary CTA href" value={data.secondary_cta?.href || ''} onChange={(v) => setData({ ...data, secondary_cta: { ...(data.secondary_cta||{}), href: v } })} />
             </div>
-            <ImageUploader slug="home" label="Hero image" value={data.hero_image?.url || ''} alt={data.hero_image?.alt || ''}
-              onChange={(url, alt) => setData({ ...data, hero_image: { url, alt } })} />
+            <ImageUploader slug="home" label="Hero image" value={data.hero_image?.url || ''} alt={data.hero_image?.alt || ''} fit={data.hero_image?.fit} position={data.hero_image?.position}
+              onChange={(url, alt, options) => setData({ ...data, hero_image: { url, alt, ...(options || {}) } })} />
             <FieldText label="Notes" value={data.notes || ''} onChange={(v) => setData({ ...data, notes: v })} textarea />
           </div>
         );
@@ -152,8 +152,8 @@ const ContentManager: React.FC = () => {
               <FieldText label="Max guests" value={data.stats?.max_guests || ''} onChange={(v) => setData({ ...data, stats: { ...(data.stats||{}), max_guests: v } })} />
               <FieldText label="Bedrooms" value={data.stats?.bedrooms || ''} onChange={(v) => setData({ ...data, stats: { ...(data.stats||{}), bedrooms: v } })} />
             </div>
-            <ImageUploader slug="about" label="Main image" value={data.image?.url || ''} alt={data.image?.alt || ''}
-              onChange={(url, alt) => setData({ ...data, image: { url, alt } })} />
+            <ImageUploader slug="about" label="Main image" value={data.image?.url || ''} alt={data.image?.alt || ''} fit={data.image?.fit} position={data.image?.position}
+              onChange={(url, alt, options) => setData({ ...data, image: { url, alt, ...(options || {}) } })} />
           </div>
         );
       case 'gallery':
@@ -164,8 +164,8 @@ const ContentManager: React.FC = () => {
         return (
           <div className="space-y-6">
             <FieldText label="Hero title" value={data.hero_title || ''} onChange={(v) => setData({ ...data, hero_title: v })} />
-            <ImageUploader slug="explore" label="Hero image" value={data.hero_image?.url || ''} alt={data.hero_image?.alt || ''}
-              onChange={(url, alt) => setData({ ...data, hero_image: { url, alt } })} />
+            <ImageUploader slug="explore" label="Hero image" value={data.hero_image?.url || ''} alt={data.hero_image?.alt || ''} fit={data.hero_image?.fit} position={data.hero_image?.position}
+              onChange={(url, alt, options) => setData({ ...data, hero_image: { url, alt, ...(options || {}) } })} />
             <div className="space-y-3">
               <h4 className="text-sm font-medium">Attractions</h4>
               <Button variant="outline" size="sm" onClick={() => setData({ ...data, attractions: [...(data.attractions||[]), { name: '', distance: '', why: '' }] })}>Add</Button>
