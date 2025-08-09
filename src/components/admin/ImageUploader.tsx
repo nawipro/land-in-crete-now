@@ -16,7 +16,7 @@ interface Props {
   alt: string;
   fit?: 'cover' | 'contain';
   position?: { x: number; y: number };
-  onChange: (url: string, alt: string, options?: { fit?: 'cover' | 'contain'; position?: { x: number; y: number } }) => void;
+  onChange: (url: string, alt: string, options?: { fit?: 'cover' | 'contain'; position?: { x: number; y: number }; path?: string }) => void;
 }
 
 const ImageUploader: React.FC<Props> = ({ slug, label, value, alt, fit = 'cover', position, onChange }) => {
@@ -33,7 +33,7 @@ const ImageUploader: React.FC<Props> = ({ slug, label, value, alt, fit = 'cover'
     setUploading(true);
     try {
       const res = await uploadImage(supabase, slug, file);
-      onChange(res.url, alt, { fit: currentFit, position: { x: currentPosX, y: currentPosY } });
+      onChange(res.url, alt, { fit: currentFit, position: { x: currentPosX, y: currentPosY }, path: res.path });
       toast({ title: 'Image uploaded' });
     } catch (e: any) {
       toast({ title: 'Upload failed', description: e.message });

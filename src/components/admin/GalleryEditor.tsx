@@ -5,9 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ImageUploader from '@/components/admin/ImageUploader';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
+import { getSupabaseClient } from '@/lib/supabaseClient';
+import { deleteImage } from '@/lib/cms';
 
 interface Category { id: string; title: string; order: number; }
-interface GalleryImage { url: string; alt: string; categoryId: string; order: number; }
+interface GalleryImage { path?: string; url: string; alt: string; categoryId: string; order: number; }
 
 interface GalleryData { categories: Category[]; images: GalleryImage[]; }
 
@@ -19,6 +22,8 @@ interface Props {
 const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
   const categories = value?.categories || [];
   const images = value?.images || [];
+  const supabase = getSupabaseClient();
+  const { toast } = useToast();
 
   const addCategory = () => {
     const next: Category = { id: `cat-${Date.now()}`, title: '', order: (categories.length || 0) + 1 };
@@ -109,9 +114,9 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                   label="Upload image"
                   value={item.url}
                   alt={item.alt}
-                  onChange={(url, alt) => {
+                  onChange={(url, alt, options) => {
                     const arr = [...images];
-                    arr[idx] = { ...arr[idx], url, alt };
+                    arr[idx] = { ...arr[idx], url, alt, ...(options?.path ? { path: options.path } : {}) };
                     onChange({ ...value, images: arr });
                   }}
                 />
@@ -162,8 +167,20 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
                   />
                 </div>
               </div>
-              <div className="md:col-span-2 flex justify-end">
-                <Button size="sm" variant="ghost" onClick={() => removeImage(idx)}>Remove</Button>
+              <div className="md:col-span-2 flex justify-end gap-2">
+                <Button size="sm" variant="outline" onClick={async () => {
+                  if (!item.path) { toast({ title: 'No storage file found for this image' }); return; }
+                  try {
+                    await deleteImage(supabase, item.path);
+                    const arr = [...images];
+                    arr[idx] = { ...arr[idx], url: '', path: '' };
+                    onChange({ ...value, images: arr });
+                    toast({ title: 'Deleted from storage' });
+                  } catch (e: any) {
+                    toast({ title: 'Delete failed', description: e.message });
+                  }
+                }}>Delete file</Button>
+                <Button size="sm" variant="ghost" onClick={() => removeImage(idx)}>Remove from list</Button>
               </div>
             </CardContent></Card>
           ))}

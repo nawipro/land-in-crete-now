@@ -23,6 +23,7 @@ const Index = () => {
 
   const { data: homeContent } = useCms('home', currentLang);
   const { data: aboutContent } = useCms('about', currentLang);
+  const { data: galleryContent } = useCms('gallery', currentLang);
 
   return (
     <div className={`min-h-screen ${currentLang === 'he' ? 'rtl' : 'ltr'}`}>
@@ -35,7 +36,7 @@ const Index = () => {
       <main>
         <HeroSection translations={currentTranslations} content={homeContent || undefined} />
         <AboutSection translations={currentTranslations} content={aboutContent || undefined} />
-        <GallerySection translations={currentTranslations} />
+        <GallerySection translations={currentTranslations} content={galleryContent || undefined} />
         <BookingSection translations={currentTranslations} />
         <ContactSection translations={currentTranslations} />
       </main>

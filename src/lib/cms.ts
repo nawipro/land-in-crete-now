@@ -136,3 +136,12 @@ export async function listImages(
       return { path: fullPath, url: data.publicUrl };
     });
 }
+
+export async function deleteImage(
+  supabase: SupabaseClient,
+  path: string
+): Promise<void> {
+  const bucket = 'public-assets';
+  const { error } = await supabase.storage.from(bucket).remove([path]);
+  if (error) throw error;
+}
