@@ -52,13 +52,41 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
     onChange({ ...value, images: arr });
   };
 
+  const defaultCategoryDefs: Category[] = [
+    { id: 'outdoor', title: 'Outdoor', order: 1 },
+    { id: 'hidden-bay', title: 'Hidden Bay', order: 2 },
+    { id: 'bedroom1', title: 'Bedroom 1', order: 3 },
+    { id: 'bedroom2', title: 'Bedroom 2', order: 4 },
+    { id: 'bedroom3', title: 'Bedroom 3', order: 5 },
+    { id: 'extra-sleeping', title: 'Extra Sleeping', order: 6 },
+    { id: 'kitchen', title: 'Kitchen', order: 7 },
+    { id: 'living', title: 'Living', order: 8 },
+  ];
+
+  const loadDefaultCategories = () => {
+    const existingIds = new Set(categories.map((c) => c.id));
+    const baseOrder = categories.length;
+    const toAdd = defaultCategoryDefs
+      .filter((dc) => !existingIds.has(dc.id))
+      .map((dc, idx) => ({ ...dc, order: baseOrder + idx + 1 }));
+    if (toAdd.length === 0) {
+      toast({ title: 'All default categories already added' });
+      return;
+    }
+    onChange({ ...value, categories: [...categories, ...toAdd] });
+    toast({ title: 'Default categories added' });
+  };
+
   return (
     <div className="space-y-6">
       {/* Categories Manager */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-medium">Categories</h4>
-          <Button size="sm" variant="outline" onClick={addCategory}>Add Category</Button>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="outline" onClick={loadDefaultCategories}>Load Default Categories</Button>
+            <Button size="sm" variant="outline" onClick={addCategory}>Add Category</Button>
+          </div>
         </div>
         <div className="space-y-3">
           {categories.map((cat, idx) => (

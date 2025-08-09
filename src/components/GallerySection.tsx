@@ -14,9 +14,19 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
 
   // Build categories and images from CMS if provided, otherwise fallback to translations/static
   const cmsCategories = (content?.categories ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const defaultCategories = [
+    { id: 'outdoor', name: translations?.gallery?.categories?.outdoor ?? 'Outdoor' },
+    { id: 'hidden-bay', name: translations?.gallery?.categories?.['hidden-bay'] ?? 'Hidden Bay' },
+    { id: 'bedroom1', name: translations?.gallery?.categories?.bedroom1 ?? 'Bedroom 1' },
+    { id: 'bedroom2', name: translations?.gallery?.categories?.bedroom2 ?? 'Bedroom 2' },
+    { id: 'bedroom3', name: translations?.gallery?.categories?.bedroom3 ?? 'Bedroom 3' },
+    { id: 'extra-sleeping', name: translations?.gallery?.categories?.['extra-sleeping'] ?? 'Extra Sleeping' },
+    { id: 'kitchen', name: translations?.gallery?.categories?.kitchen ?? 'Kitchen' },
+    { id: 'living', name: translations?.gallery?.categories?.living ?? 'Living' },
+  ];
   const galleryCategories = [
     { id: 'all', name: translations?.gallery?.categories?.all ?? 'All' },
-    ...cmsCategories.map((c) => ({ id: c.id, name: c.title || 'Untitled' }))
+    ...(cmsCategories.length ? cmsCategories.map((c) => ({ id: c.id, name: c.title || 'Untitled' })) : defaultCategories)
   ];
 
   const cmsImages = (content?.images ?? []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -96,9 +106,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
           {filteredImages.map((image, index) => (
             <Card 
               key={image.id} 
-              className={`overflow-hidden cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-none ${
-                image.featured ? 'md:col-span-2 md:row-span-2' : ''
-              }`}
+              className="overflow-hidden cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-none"
               onClick={() => setSelectedImage(image.src)}
             >
               <CardContent className="p-0">
@@ -106,9 +114,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className={`w-full object-cover transition-transform duration-500 ${
-                      image.featured ? 'h-96 md:h-full' : 'h-64'
-                    }`}
+                    className="w-full h-64 object-cover transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
@@ -131,7 +137,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
               </Button>
               <img
                 src={selectedImage}
-                alt="Gallery image"
+                alt=""
                 className="max-w-full max-h-full object-contain rounded-lg"
               />
             </div>
