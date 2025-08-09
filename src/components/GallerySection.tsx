@@ -118,14 +118,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
           ))}
         </div>
 
-        {/* Category Description */}
-        {selectedCategory !== 'all' && getCategoryDescription(selectedCategory) && (
-          <div className="text-center mb-12 animate-gentle-fade">
-            <p className="text-lg font-inter text-mediterranean-stone-gray max-w-4xl mx-auto leading-relaxed">
-              {getCategoryDescription(selectedCategory)}
-            </p>
-          </div>
-        )}
+        {/* Category Description removed per request */}
 
         {/* Enhanced Gallery Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -142,6 +135,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
                     alt={image.alt}
                     className="w-full h-64 object-cover transition-transform duration-500"
                     loading="lazy"
+                    onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
                   />
                 </div>
               </CardContent>
