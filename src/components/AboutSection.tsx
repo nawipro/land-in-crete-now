@@ -48,25 +48,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
         {/* Main Content Layout */}
         <div className="grid lg:grid-cols-5 gap-16 items-center mb-20">
           
-          {/* Image Column - Enhanced with overlay */}
-          <div className="lg:col-span-3 animate-elegant-scale">
-            <div className="relative group">
-              <img
-                src={content?.image?.url || '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png'}
-                alt={content?.image?.alt || 'Villa at night with pool and warm lighting'}
-                className="rounded-3xl shadow-2xl w-full h-[500px] lg:h-[600px]"
-                style={{
-                  objectFit: (content?.image?.fit as 'cover' | 'contain') || 'cover',
-                  objectPosition: `${content?.image?.position?.x ?? 50}% ${content?.image?.position?.y ?? 50}%`
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
-              <div className="absolute bottom-8 left-8 text-white">
-                <p className="font-inter text-sm font-light opacity-90">
-                  {content?.image?.alt || 'Evening ambiance at Now We Land'}
-                </p>
-              </div>
-            </div>
+          <div className="lg:col-span-3">
+            <img
+              src={content?.image?.url || '/lovable-uploads/e6df6bc3-06bd-4e68-b8f3-fe91adcd3a41.png'}
+              alt={content?.image?.alt || 'Villa, pool and garden view during the day'}
+              className="w-full h-auto rounded-2xl shadow-md"
+              loading="lazy"
+            />
           </div>
           
           {/* Text Column */}
