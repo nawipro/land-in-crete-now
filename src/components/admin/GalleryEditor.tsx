@@ -65,6 +65,7 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
     { id: 'bed-room-1', title: 'BED ROOM 1', order: 8 },
     { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 },
     { id: 'bed-room-3', title: 'BED ROOM 3', order: 10 },
+    { id: 'terrace-family-suite', title: 'TERRACE FAMILY SUITE', order: 11 },
   ];
 
   const loadDefaultCategories = () => {

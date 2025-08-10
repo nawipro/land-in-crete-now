@@ -43,7 +43,8 @@ const DEFAULTS: Record<PageSlug, any> = {
       { id: 'balconies', title: 'BALCONIES', order: 7 },
       { id: 'bed-room-1', title: 'BED ROOM 1', order: 8 },
       { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 },
-      { id: 'bed-room-3', title: 'BED ROOM 3', order: 10 }
+      { id: 'bed-room-3', title: 'BED ROOM 3', order: 10 },
+      { id: 'terrace-family-suite', title: 'TERRACE FAMILY SUITE', order: 11 }
     ],
       images: [
         { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
@@ -112,8 +113,13 @@ const DEFAULTS: Record<PageSlug, any> = {
          { url: '/lovable-uploads/5c750d84-e0a3-40e9-ad3d-9af87cff4564.png', alt: 'Bedroom 3 – view from doorway', categoryId: 'bed-room-3', order: 58 },
          { url: '/lovable-uploads/5fba73ec-c41e-4dc6-8e0f-1de7228a2c17.png', alt: 'Bedroom 3 – bathroom with bathtub', categoryId: 'bed-room-3', order: 59 },
          { url: '/lovable-uploads/83e5abc8-1e73-4da6-b04e-f701f917a491.png', alt: 'Bedroom 3 – bathroom vanity and toilet', categoryId: 'bed-room-3', order: 60 },
-       ]
-    },
+         // Terrace Family Suite
+         { url: '/lovable-uploads/3112cde9-597f-427a-9b9f-797586a070a0.png', alt: 'Terrace Family Suite – armchair corner with sea-view window', categoryId: 'terrace-family-suite', order: 61 },
+         { url: '/lovable-uploads/57bc86d7-8bad-4874-98eb-3627cd6fa16d.png', alt: 'Terrace Family Suite – sofa with pillows and wooden coffee table', categoryId: 'terrace-family-suite', order: 62 },
+         { url: '/lovable-uploads/cecc3ce2-b6f4-46a1-be7d-715312c9b099.png', alt: 'Terrace Family Suite – spacious room with armchair and cabinet', categoryId: 'terrace-family-suite', order: 63 },
+         { url: '/lovable-uploads/e5aa503c-c418-4f4d-ad9a-a218937864c1.png', alt: 'Terrace Family Suite – sofa area with bathroom entrance', categoryId: 'terrace-family-suite', order: 64 },
+        ]
+        },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
   contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }

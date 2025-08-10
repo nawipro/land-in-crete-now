@@ -29,6 +29,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'bed-room-1', name: 'BED ROOM 1' },
     { id: 'bed-room-2', name: 'BED ROOM 2' },
     { id: 'bed-room-3', name: 'BED ROOM 3' },
+    { id: 'terrace-family-suite', name: 'TERRACE FAMILY SUITE' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -110,6 +111,11 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 58, category: 'bed-room-3', src: '/lovable-uploads/5c750d84-e0a3-40e9-ad3d-9af87cff4564.png', alt: 'Bedroom 3 – view from doorway' },
     { id: 59, category: 'bed-room-3', src: '/lovable-uploads/5fba73ec-c41e-4dc6-8e0f-1de7228a2c17.png', alt: 'Bedroom 3 – bathroom with bathtub' },
     { id: 60, category: 'bed-room-3', src: '/lovable-uploads/83e5abc8-1e73-4da6-b04e-f701f917a491.png', alt: 'Bedroom 3 – bathroom vanity and toilet' },
+    // Terrace Family Suite defaults
+    { id: 61, category: 'terrace-family-suite', src: '/lovable-uploads/3112cde9-597f-427a-9b9f-797586a070a0.png', alt: 'Terrace Family Suite – armchair corner with sea-view window' },
+    { id: 62, category: 'terrace-family-suite', src: '/lovable-uploads/57bc86d7-8bad-4874-98eb-3627cd6fa16d.png', alt: 'Terrace Family Suite – sofa with pillows and wooden coffee table' },
+    { id: 63, category: 'terrace-family-suite', src: '/lovable-uploads/cecc3ce2-b6f4-46a1-be7d-715312c9b099.png', alt: 'Terrace Family Suite – spacious room with armchair and cabinet' },
+    { id: 64, category: 'terrace-family-suite', src: '/lovable-uploads/e5aa503c-c418-4f4d-ad9a-a218937864c1.png', alt: 'Terrace Family Suite – sofa area with bathroom entrance' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
