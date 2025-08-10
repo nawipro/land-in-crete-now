@@ -116,18 +116,16 @@ const cleaningTotal = useMemo(() => {
   }, [settings, nights]);
 
   const touristTaxTotal = useMemo(() => {
-    const high = settings?.tourist_tax_high || 0;
-    const low = settings?.tourist_tax_low || 0;
     if (!range.from || !range.to) return 0;
     const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
     let sum = 0;
     for (const d of days) {
-      const inSeason = !!getSeasonForDate(d);
-      const rate = inSeason ? high : low;
-      sum += rate * guests;
+      const s = getSeasonForDate(d);
+      const perGuest = s?.tourist_tax_per_guest ?? 0;
+      sum += perGuest * guests;
     }
     return sum;
-  }, [settings, range, guests, seasons]);
+  }, [range, guests, seasons]);
 
   const total = useMemo(() => {
     return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;

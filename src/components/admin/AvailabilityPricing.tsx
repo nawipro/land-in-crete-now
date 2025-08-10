@@ -71,7 +71,7 @@ const AvailabilityPricing: React.FC = () => {
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const seasonsState = localSeasons ?? seasons ?? [];
-  const settingsState = localSettings ?? settings ?? { cleaning_free_nights: '5', cleaning_fee: '80', tax_high_season_rate: '15', tax_off_season_rate: '8', tax_high_season_start: '2025-04-01', tax_high_season_end: '2025-10-31', currency: 'EUR' };
+  const settingsState = localSettings ?? settings ?? { cleaning_free_nights: '5', cleaning_fee: '80', currency: 'EUR' };
 
 const upsertSeasons = useMutation({
     mutationFn: async (rows: Season[]) => {
@@ -267,22 +267,6 @@ const upsertAvailability = useMutation({
               <div>
                 <Label>Currency</Label>
                 <Input value={settingsState.currency || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), currency: e.target.value })} />
-              </div>
-              <div>
-                <Label>High season tax rate (%)</Label>
-                <Input type="number" value={settingsState.tax_high_season_rate || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_rate: e.target.value })} />
-              </div>
-              <div>
-                <Label>Off season tax rate (%)</Label>
-                <Input type="number" value={settingsState.tax_off_season_rate || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_off_season_rate: e.target.value })} />
-              </div>
-              <div>
-                <Label>High season start</Label>
-                <Input type="date" value={settingsState.tax_high_season_start || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_start: e.target.value })} />
-              </div>
-              <div>
-                <Label>High season end</Label>
-                <Input type="date" value={settingsState.tax_high_season_end || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_end: e.target.value })} />
               </div>
             </div>
             <div className="flex gap-2">
