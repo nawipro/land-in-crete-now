@@ -39,7 +39,10 @@ const DEFAULTS: Record<PageSlug, any> = {
       { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 },
       { id: 'secret-bay', title: 'SECRET BAY', order: 4 },
       { id: 'sunset', title: 'SUNSET', order: 5 },
-      { id: 'living-room', title: 'LIVING ROOM', order: 6 }
+      { id: 'living-room', title: 'LIVING ROOM', order: 6 },
+      { id: 'balconies', title: 'BALCONIES', order: 7 },
+      { id: 'bed-room-1', title: 'BED ROOM 1', order: 8 },
+      { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 }
     ],
       images: [
         { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },

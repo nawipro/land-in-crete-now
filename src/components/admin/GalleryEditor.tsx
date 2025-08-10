@@ -58,13 +58,12 @@ const GalleryEditor: React.FC<Props> = ({ value, onChange }) => {
     { id: 'outdoor', title: 'OUTDOOR VILLA', order: 1 },
     { id: 'garden-day-light', title: 'GARDEN DAY LIGHT', order: 2 },
     { id: 'garden-night', title: 'GARDEN NIGHT', order: 3 },
-    { id: 'hidden-bay', title: 'Hidden Bay', order: 4 },
-    { id: 'bedroom1', title: 'Bedroom 1', order: 5 },
-    { id: 'bedroom2', title: 'Bedroom 2', order: 6 },
-    { id: 'bedroom3', title: 'Bedroom 3', order: 7 },
-    { id: 'extra-sleeping', title: 'Extra Sleeping', order: 8 },
-    { id: 'kitchen', title: 'Kitchen', order: 9 },
-    { id: 'living', title: 'Living', order: 10 },
+    { id: 'secret-bay', title: 'SECRET BAY', order: 4 },
+    { id: 'sunset', title: 'SUNSET', order: 5 },
+    { id: 'living-room', title: 'LIVING ROOM', order: 6 },
+    { id: 'balconies', title: 'BALCONIES', order: 7 },
+    { id: 'bed-room-1', title: 'BED ROOM 1', order: 8 },
+    { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 },
   ];
 
   const loadDefaultCategories = () => {
