@@ -78,15 +78,16 @@ export const translations = {
       },
       pricing: {
         pernight: 'per night',
-        minStay: 'Minimum 3 nights stay'
+        minStay: 'Minimum 4 nights stay'
       },
       includes: {
         title: 'What\'s Included',
         wifi: 'Free WiFi',
         pool: 'Private Pool',
-        parking: 'Free Parking',
+        parking: 'Private Parking',
         garden: 'Private Garden',
-        seaview: 'Sea View'
+        seaview: 'Sea View',
+        hiddenBay: 'Hidden Bay Access'
       },
       alternatives: {
         title: 'Alternative Villas',
@@ -205,15 +206,16 @@ export const translations = {
       },
       pricing: {
         pernight: 'ללילה',
-        minStay: 'שהייה מינימלית של 3 לילות'
+        minStay: 'שהייה מינימלית של 4 לילות'
       },
       includes: {
         title: 'מה כלול',
         wifi: 'WiFi חינם',
         pool: 'בריכה פרטית',
-        parking: 'חניה חינם',
+        parking: 'חניה פרטית',
         garden: 'גינה פרטית',
-        seaview: 'נוף ים'
+        seaview: 'נוף ים',
+        hiddenBay: 'גישה למפרץ הנסתר'
       },
       alternatives: {
         title: 'וילות חלופיות',

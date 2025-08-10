@@ -14,6 +14,7 @@ import ImageUploader from '@/components/admin/ImageUploader';
 import GalleryEditor from '@/components/admin/GalleryEditor';
 import PublishBar from '@/components/admin/PublishBar';
 import PreviewPane from '@/components/admin/PreviewPane';
+import AvailabilityPricing from '@/components/admin/AvailabilityPricing';
 
 const DEFAULTS: Record<PageSlug, any> = {
   home: {
@@ -326,6 +327,7 @@ const ContentManager: React.FC = () => {
                 <FieldText label="CTA href" value={data.cta?.href || ''} onChange={(v) => setData({ ...data, cta: { ...(data.cta||{}), href: v } })} />
               </>
             </div>
+            <AvailabilityPricing />
           </div>
         );
       case 'contact':

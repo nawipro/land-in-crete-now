@@ -1,0 +1,220 @@
+import React, { useMemo, useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Calendar } from '@/components/ui/calendar';
+import { supabase } from '@/integrations/supabase/client';
+import { format, eachDayOfInterval } from 'date-fns';
+
+interface Season {
+  id?: string;
+  season_name: string;
+  start_date: string;
+  end_date: string;
+  price_per_night: number;
+  min_stay_nights: number;
+  currency_symbol: string;
+  status: 'draft' | 'published';
+}
+
+type DateRange = { from?: Date; to?: Date };
+
+const AvailabilityPricing: React.FC = () => {
+  const qc = useQueryClient();
+  const { data: seasons } = useQuery({
+    queryKey: ['adm_seasons'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('price_seasons')
+        .select('*')
+        .order('start_date', { ascending: true });
+      if (error) throw error;
+      return data as Season[];
+    }
+  });
+
+  const { data: settings } = useQuery({
+    queryKey: ['adm_settings'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('booking_settings')
+        .select('*')
+        .eq('is_active', true)
+        .maybeSingle();
+      if (error) return { cleaning_fee: 0, service_fee: 0, inquiry_email: '', status: 'draft' } as any;
+      return data || { cleaning_fee: 0, service_fee: 0, inquiry_email: '', status: 'draft' };
+    }
+  });
+
+  const { data: availability } = useQuery({
+    queryKey: ['adm_availability'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('availability')
+        .select('date, status');
+      if (error) throw error;
+      return data || [];
+    }
+  });
+
+  const [localSeasons, setLocalSeasons] = useState<Season[] | null>(null);
+  const [calRange, setCalRange] = useState<DateRange>({});
+  const [markAs, setMarkAs] = useState<'blocked'|'booked'>('blocked');
+  const [localSettings, setLocalSettings] = useState<any | null>(null);
+
+  const seasonsState = localSeasons ?? seasons ?? [];
+  const settingsState = localSettings ?? settings ?? { cleaning_fee: 0, service_fee: 0, inquiry_email: '' };
+
+  const upsertSeasons = useMutation({
+    mutationFn: async (rows: Season[]) => {
+      const { error } = await supabase.from('price_seasons').upsert(rows).select();
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_seasons'] })
+  });
+
+  const upsertSettings = useMutation({
+    mutationFn: async (payload: any) => {
+      const { data } = await supabase
+        .from('booking_settings')
+        .select('*')
+        .eq('is_active', true)
+        .maybeSingle();
+      if (data) {
+        const { error } = await supabase.from('booking_settings').update(payload).eq('id', data.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from('booking_settings').insert({ ...payload, is_active: true, status: payload.status || 'draft' });
+        if (error) throw error;
+      }
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_settings'] })
+  });
+
+  const upsertAvailability = useMutation({
+    mutationFn: async (rows: { date: string; status: 'blocked'|'booked' }[]) => {
+      const { error } = await supabase.from('availability').upsert(rows, { onConflict: 'date' }).select();
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_availability'] })
+  });
+
+  const blockedSet = useMemo(() => new Set((availability||[]).map((a: any) => a.status ? a.date : '').filter(Boolean)), [availability]);
+
+  return (
+    <div className="space-y-8">
+      <Card>
+        <CardHeader>
+          <CardTitle>Availability & Pricing</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Seasons table */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium">Seasons</h4>
+            <div className="grid grid-cols-12 gap-2 text-xs font-medium text-muted-foreground">
+              <div className="col-span-2">Name</div>
+              <div className="col-span-2">Start</div>
+              <div className="col-span-2">End</div>
+              <div className="col-span-2">Price / night</div>
+              <div className="col-span-2">Min nights</div>
+              <div className="col-span-1">Curr</div>
+              <div className="col-span-1">Status</div>
+            </div>
+            <div className="space-y-2">
+              {seasonsState.map((s: Season, idx: number) => (
+                <div key={s.id || idx} className="grid grid-cols-12 gap-2">
+                  <Input className="col-span-2" value={s.season_name} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], season_name: e.target.value } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input type="date" className="col-span-2" value={s.start_date} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], start_date: e.target.value } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input type="date" className="col-span-2" value={s.end_date} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], end_date: e.target.value } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input type="number" className="col-span-2" value={s.price_per_night} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], price_per_night: parseFloat(e.target.value||'0') } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input type="number" className="col-span-2" value={s.min_stay_nights} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], min_stay_nights: parseInt(e.target.value||'0') } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input className="col-span-1" value={s.currency_symbol} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], currency_symbol: e.target.value } as Season; setLocalSeasons(arr);
+                  }} />
+                  <Input className="col-span-1" value={s.status} onChange={(e)=>{
+                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], status: (e.target.value as any) } as Season; setLocalSeasons(arr);
+                  }} />
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setLocalSeasons([...(seasonsState||[]), {
+                season_name: 'New Season', start_date: format(new Date(), 'yyyy-MM-dd'), end_date: format(new Date(), 'yyyy-MM-dd'), price_per_night: 0, min_stay_nights: 4, currency_symbol: '€', status: 'draft'
+              }])}>Add season</Button>
+              <Button size="sm" onClick={() => upsertSeasons.mutateAsync(seasonsState as Season[])}>Save seasons</Button>
+            </div>
+          </div>
+
+          {/* Settings */}
+          <div className="space-y-2">
+            <h4 className="text-sm font-medium">Settings</h4>
+            <div className="grid md:grid-cols-3 gap-3">
+              <div>
+                <Label>Cleaning fee</Label>
+                <Input type="number" value={settingsState.cleaning_fee || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), cleaning_fee: parseFloat(e.target.value||'0') })} />
+              </div>
+              <div>
+                <Label>Service fee</Label>
+                <Input type="number" value={settingsState.service_fee || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), service_fee: parseFloat(e.target.value||'0') })} />
+              </div>
+              <div>
+                <Label>Inquiry email</Label>
+                <Input value={settingsState.inquiry_email || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), inquiry_email: e.target.value })} />
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={()=> upsertSettings.mutateAsync({ ...(settingsState||{}), status: 'draft' })}>Save draft</Button>
+              <Button size="sm" onClick={()=> upsertSettings.mutateAsync({ ...(settingsState||{}), status: 'published' })}>Publish</Button>
+            </div>
+          </div>
+
+          {/* Availability calendar */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium">Availability</h4>
+            <div className="grid md:grid-cols-[1fr,240px] gap-4">
+              <div className="border rounded-xl p-3">
+                <Calendar
+                  mode="range"
+                  numberOfMonths={2}
+                  selected={calRange as any}
+                  onSelect={setCalRange as any}
+                  className="p-3 pointer-events-auto"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Mark as</Label>
+                <div className="flex gap-2">
+                  <Button variant={markAs==='blocked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('blocked')}>Blocked</Button>
+                  <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
+                </div>
+                <Button className="w-full" disabled={!calRange.from || !calRange.to} onClick={() => {
+                  if (!calRange.from || !calRange.to) return;
+                  const days = eachDayOfInterval({ start: calRange.from, end: calRange.to });
+                  const rows = days.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
+                  upsertAvailability.mutate(rows);
+                }}>Apply to selected</Button>
+                <div className="text-xs text-muted-foreground">
+                  Currently blocked/booked: {availability?.length || 0} days
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default AvailabilityPricing;

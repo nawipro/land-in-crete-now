@@ -11,6 +11,7 @@ import Crawl from "./pages/Crawl";
 import Login from "./pages/admin/Login";
 import ContentManager from "./pages/admin/ContentManager";
 import About from "./pages/About";
+import Booking from "./pages/Booking";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/explore-area" element={<ExploreArea />} />
           <Route path="/crawl" element={<Crawl />} />
+          <Route path="/booking" element={<Booking />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/content" element={<ContentManager />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
