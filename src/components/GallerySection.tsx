@@ -28,6 +28,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'living-room', name: 'LIVING ROOM' },
     { id: 'bed-room-1', name: 'BED ROOM 1' },
     { id: 'bed-room-2', name: 'BED ROOM 2' },
+    { id: 'bed-room-3', name: 'BED ROOM 3' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -100,6 +101,15 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 50, category: 'bed-room-2', src: '/lovable-uploads/4b24e34d-8d7b-4093-bd82-1b66c7178621.png', alt: 'Bedroom 2 – bathroom shower' },
     { id: 51, category: 'bed-room-2', src: '/lovable-uploads/d9d44efd-5443-48bd-95b8-398af1a8b763.png', alt: 'Bedroom 2 – bathroom with tub and shower' },
     { id: 52, category: 'bed-room-2', src: '/lovable-uploads/8b0207a4-cde8-4c7b-8386-fd8835ebc3d8.png', alt: 'Bedroom 2 – vanity and toilet' },
+    // Bedroom 3 defaults
+    { id: 53, category: 'bed-room-3', src: '/lovable-uploads/7925bc99-5c63-405e-9890-6345c6a5d32a.png', alt: 'Bedroom 3 – bright room with sea view window' },
+    { id: 54, category: 'bed-room-3', src: '/lovable-uploads/cc772d3d-8e07-4be1-889f-fbe8e860c874.png', alt: 'Bedroom 3 – bed facing window and TV cabinet' },
+    { id: 55, category: 'bed-room-3', src: '/lovable-uploads/e45052d2-172f-486f-8afa-0612093bfd7d.png', alt: 'Bedroom 3 – open window with sea view' },
+    { id: 56, category: 'bed-room-3', src: '/lovable-uploads/9c193e2d-c130-46bc-9e5f-5fb0db8c4881.png', alt: 'Bedroom 3 – bed and artwork' },
+    { id: 57, category: 'bed-room-3', src: '/lovable-uploads/3830ea0d-4907-4830-ace7-bd3a304cd1e6.png', alt: 'Bedroom 3 – pillows and pendant light detail' },
+    { id: 58, category: 'bed-room-3', src: '/lovable-uploads/5c750d84-e0a3-40e9-ad3d-9af87cff4564.png', alt: 'Bedroom 3 – view from doorway' },
+    { id: 59, category: 'bed-room-3', src: '/lovable-uploads/5fba73ec-c41e-4dc6-8e0f-1de7228a2c17.png', alt: 'Bedroom 3 – bathroom with bathtub' },
+    { id: 60, category: 'bed-room-3', src: '/lovable-uploads/83e5abc8-1e73-4da6-b04e-f701f917a491.png', alt: 'Bedroom 3 – bathroom vanity and toilet' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];

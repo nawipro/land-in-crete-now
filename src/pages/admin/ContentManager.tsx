@@ -42,7 +42,8 @@ const DEFAULTS: Record<PageSlug, any> = {
       { id: 'living-room', title: 'LIVING ROOM', order: 6 },
       { id: 'balconies', title: 'BALCONIES', order: 7 },
       { id: 'bed-room-1', title: 'BED ROOM 1', order: 8 },
-      { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 }
+      { id: 'bed-room-2', title: 'BED ROOM 2', order: 9 },
+      { id: 'bed-room-3', title: 'BED ROOM 3', order: 10 }
     ],
       images: [
         { url: '/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png', alt: 'Outdoor villa – front garden', categoryId: 'outdoor', order: 1 },
@@ -101,9 +102,18 @@ const DEFAULTS: Record<PageSlug, any> = {
         { url: '/lovable-uploads/e039fbf6-1a84-4ae8-98b5-5f6d92373551.png', alt: 'Bedroom 2 – bathroom vanity and mirror', categoryId: 'bed-room-2', order: 49 },
         { url: '/lovable-uploads/4b24e34d-8d7b-4093-bd82-1b66c7178621.png', alt: 'Bedroom 2 – bathroom shower', categoryId: 'bed-room-2', order: 50 },
         { url: '/lovable-uploads/d9d44efd-5443-48bd-95b8-398af1a8b763.png', alt: 'Bedroom 2 – bathroom with tub and shower', categoryId: 'bed-room-2', order: 51 },
-        { url: '/lovable-uploads/8b0207a4-cde8-4c7b-8386-fd8835ebc3d8.png', alt: 'Bedroom 2 – vanity and toilet', categoryId: 'bed-room-2', order: 52 },
+         { url: '/lovable-uploads/8b0207a4-cde8-4c7b-8386-fd8835ebc3d8.png', alt: 'Bedroom 2 – vanity and toilet', categoryId: 'bed-room-2', order: 52 },
+         // Bedroom 3
+         { url: '/lovable-uploads/7925bc99-5c63-405e-9890-6345c6a5d32a.png', alt: 'Bedroom 3 – bright room with sea view window', categoryId: 'bed-room-3', order: 53 },
+         { url: '/lovable-uploads/cc772d3d-8e07-4be1-889f-fbe8e860c874.png', alt: 'Bedroom 3 – bed facing window and TV cabinet', categoryId: 'bed-room-3', order: 54 },
+         { url: '/lovable-uploads/e45052d2-172f-486f-8afa-0612093bfd7d.png', alt: 'Bedroom 3 – open window with sea view', categoryId: 'bed-room-3', order: 55 },
+         { url: '/lovable-uploads/9c193e2d-c130-46bc-9e5f-5fb0db8c4881.png', alt: 'Bedroom 3 – bed and artwork', categoryId: 'bed-room-3', order: 56 },
+         { url: '/lovable-uploads/3830ea0d-4907-4830-ace7-bd3a304cd1e6.png', alt: 'Bedroom 3 – pillows and pendant light detail', categoryId: 'bed-room-3', order: 57 },
+         { url: '/lovable-uploads/5c750d84-e0a3-40e9-ad3d-9af87cff4564.png', alt: 'Bedroom 3 – view from doorway', categoryId: 'bed-room-3', order: 58 },
+         { url: '/lovable-uploads/5fba73ec-c41e-4dc6-8e0f-1de7228a2c17.png', alt: 'Bedroom 3 – bathroom with bathtub', categoryId: 'bed-room-3', order: 59 },
+         { url: '/lovable-uploads/83e5abc8-1e73-4da6-b04e-f701f917a491.png', alt: 'Bedroom 3 – bathroom vanity and toilet', categoryId: 'bed-room-3', order: 60 },
        ]
-   },
+    },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
   booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
   contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }
