@@ -41,13 +41,13 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   const { data: settings } = useQuery({
     queryKey: ['booking_settings'],
     queryFn: async () => {
-      const { data } = await supabase
-        .from('booking_settings')
-        .select('*')
-        .eq('is_active', true)
-        .eq('status', 'published')
-        .maybeSingle();
-      return data || { cleaning_fee: 0, service_fee: 0, inquiry_email: '', tourist_tax_high: 0, tourist_tax_low: 0 };
+      const { data, error } = await (supabase as any)
+        .from('settings')
+        .select('key, value');
+      if (error) return {} as any;
+      const obj: any = {};
+      (data || []).forEach((row: any) => { obj[row.key] = row.value; });
+      return obj;
     }
   });
 
@@ -110,8 +110,9 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   }, [range, seasons]);
 
 const cleaningTotal = useMemo(() => {
-    const base = settings?.cleaning_fee || 0;
-    return nights > 0 ? base * Math.ceil(nights / 5) : 0;
+    const base = parseFloat(settings?.cleaning_fee || '0') || 0;
+    const freeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
+    return nights > 0 ? base * Math.ceil(nights / freeNights) : 0;
   }, [settings, nights]);
 
   const touristTaxTotal = useMemo(() => {

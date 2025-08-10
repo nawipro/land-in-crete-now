@@ -16,6 +16,7 @@ interface Season {
   end_date: string;
   price_per_night: number;
   min_stay_nights: number;
+  tourist_tax_per_guest?: number;
   currency_symbol: string;
   status: 'draft' | 'published';
 }
@@ -40,13 +41,13 @@ const AvailabilityPricing: React.FC = () => {
   const { data: settings } = useQuery({
     queryKey: ['adm_settings'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('booking_settings')
-        .select('*')
-        .eq('is_active', true)
-        .maybeSingle();
-      if (error) return { cleaning_fee: 0, service_fee: 0, inquiry_email: '', status: 'draft' } as any;
-      return data || { cleaning_fee: 0, service_fee: 0, inquiry_email: '', status: 'draft' };
+      const { data, error } = await (supabase as any)
+        .from('settings')
+        .select('key, value');
+      if (error) throw error;
+      const obj: any = {};
+      (data || []).forEach((row: any) => { obj[row.key] = row.value; });
+      return obj;
     }
   });
 
@@ -63,14 +64,14 @@ const AvailabilityPricing: React.FC = () => {
 
   const [localSeasons, setLocalSeasons] = useState<Season[] | null>(null);
   const [selectedDays, setSelectedDays] = useState<Date[]>([]);
-  const [markAs, setMarkAs] = useState<'blocked'|'booked'>('blocked');
+  const [markAs, setMarkAs] = useState<'available'|'blocked'|'booked'>('blocked');
   const [localSettings, setLocalSettings] = useState<any | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [monthlyPrices, setMonthlyPrices] = useState<number[]>(Array(12).fill(0));
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const seasonsState = localSeasons ?? seasons ?? [];
-  const settingsState = localSettings ?? settings ?? { cleaning_fee: 0, service_fee: 0, inquiry_email: '' };
+  const settingsState = localSettings ?? settings ?? { cleaning_free_nights: '5', cleaning_fee: '80', tax_high_season_rate: '15', tax_off_season_rate: '8', tax_high_season_start: '2025-04-01', tax_high_season_end: '2025-10-31', currency: 'EUR' };
 
 const upsertSeasons = useMutation({
     mutationFn: async (rows: Season[]) => {
@@ -89,18 +90,9 @@ const upsertSeasons = useMutation({
 
 const upsertSettings = useMutation({
     mutationFn: async (payload: any) => {
-      const { data } = await supabase
-        .from('booking_settings')
-        .select('*')
-        .eq('is_active', true)
-        .maybeSingle();
-      if (data) {
-        const { error } = await supabase.from('booking_settings').update(payload).eq('id', data.id);
-        if (error) throw error;
-      } else {
-        const { error } = await supabase.from('booking_settings').insert({ ...payload, is_active: true, status: payload.status || 'draft' });
-        if (error) throw error;
-      }
+      const rows = Object.entries(payload).map(([key, val]) => ({ key, value: String(val ?? '') }));
+      const { error } = await (supabase as any).from('settings').upsert(rows).select();
+      if (error) throw error;
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['adm_settings'] });
@@ -112,7 +104,7 @@ const upsertSettings = useMutation({
   });
 
 const upsertAvailability = useMutation({
-    mutationFn: async (rows: { date: string; status: 'blocked'|'booked' }[]) => {
+    mutationFn: async (rows: { date: string; status: 'available'|'blocked'|'booked' }[]) => {
       const { error } = await supabase.from('availability').upsert(rows, { onConflict: 'date' }).select();
       if (error) throw error;
     },
@@ -122,6 +114,20 @@ const upsertAvailability = useMutation({
     },
     onError: (e: any) => {
       toast({ title: 'Failed to update availability', description: e.message, variant: 'destructive' as any });
+    }
+  });
+
+  const clearAvailability = useMutation({
+    mutationFn: async (dates: string[]) => {
+      const { error } = await supabase.from('availability').delete().in('date', dates);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['adm_availability'] });
+      toast({ title: 'Availability cleared' });
+    },
+    onError: (e: any) => {
+      toast({ title: 'Failed to clear availability', description: e.message, variant: 'destructive' as any });
     }
   });
 
@@ -251,25 +257,36 @@ const upsertAvailability = useMutation({
             <h4 className="text-sm font-medium">Settings</h4>
             <div className="grid md:grid-cols-3 gap-3">
               <div>
-                <Label>Cleaning fee (per 5 nights)</Label>
-                <Input type="number" value={settingsState.cleaning_fee || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), cleaning_fee: parseFloat(e.target.value||'0') })} />
+                <Label>Cleaning free nights</Label>
+                <Input type="number" value={settingsState.cleaning_free_nights || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), cleaning_free_nights: e.target.value })} />
               </div>
               <div>
-                <Label>Tourist tax – in season (per person per night)</Label>
-                <Input type="number" value={settingsState.tourist_tax_high || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tourist_tax_high: parseFloat(e.target.value||'0') })} />
+                <Label>Cleaning fee</Label>
+                <Input type="number" value={settingsState.cleaning_fee || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), cleaning_fee: e.target.value })} />
               </div>
               <div>
-                <Label>Tourist tax – off season (per person per night)</Label>
-                <Input type="number" value={settingsState.tourist_tax_low || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tourist_tax_low: parseFloat(e.target.value||'0') })} />
+                <Label>Currency</Label>
+                <Input value={settingsState.currency || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), currency: e.target.value })} />
               </div>
-              <div className="md:col-span-3">
-                <Label>Inquiry email</Label>
-                <Input value={settingsState.inquiry_email || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), inquiry_email: e.target.value })} />
+              <div>
+                <Label>High season tax rate (%)</Label>
+                <Input type="number" value={settingsState.tax_high_season_rate || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_rate: e.target.value })} />
+              </div>
+              <div>
+                <Label>Off season tax rate (%)</Label>
+                <Input type="number" value={settingsState.tax_off_season_rate || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_off_season_rate: e.target.value })} />
+              </div>
+              <div>
+                <Label>High season start</Label>
+                <Input type="date" value={settingsState.tax_high_season_start || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_start: e.target.value })} />
+              </div>
+              <div>
+                <Label>High season end</Label>
+                <Input type="date" value={settingsState.tax_high_season_end || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tax_high_season_end: e.target.value })} />
               </div>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={()=> upsertSettings.mutateAsync({ ...(settingsState||{}), status: 'draft' })}>Save draft</Button>
-              <Button size="sm" onClick={()=> upsertSettings.mutateAsync({ ...(settingsState||{}), status: 'published' })}>Publish</Button>
+              <Button size="sm" onClick={()=> upsertSettings.mutateAsync(settingsState)}>Save</Button>
             </div>
           </div>
 
@@ -299,12 +316,18 @@ const upsertAvailability = useMutation({
                     <div className="h-3 w-3 rounded-full bg-destructive/70" title="Blocked" />
                     <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
                     <div className="h-3 w-3 rounded-full bg-secondary/70" title="Booked" />
+                    <Button variant={markAs==='available'?'default':'outline'} size="sm" onClick={()=>setMarkAs('available')}>Available</Button>
                     <Button variant="ghost" size="sm" className="ml-auto" onClick={()=> setSelectedDays([])}>Clear selection</Button>
                   </div>
                   <Button className="w-full" disabled={(selectedDays?.length || 0) === 0} onClick={() => {
                     if (!selectedDays || selectedDays.length === 0) return;
-                    const rows = selectedDays.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
-                    upsertAvailability.mutate(rows);
+                    const dates = selectedDays.map((d) => format(d, 'yyyy-MM-dd'));
+                    if (markAs === 'available') {
+                      clearAvailability.mutate(dates);
+                    } else {
+                      const rows = dates.map((date) => ({ date, status: markAs }));
+                      upsertAvailability.mutate(rows as any);
+                    }
                     setSelectedDays([]);
                   }}>Apply to selected</Button>
                   <div className="text-xs text-muted-foreground">
