@@ -79,7 +79,29 @@ const DEFAULTS: Record<PageSlug, any> = {
         { url: '/lovable-uploads/98e27587-c03d-4938-92e4-c997f60ca03d.png', alt: 'Living room – leather sofa and coffee table', categoryId: 'living-room', order: 30 },
         { url: '/lovable-uploads/0ed3769e-ddea-4f5f-8657-8888643a909b.png', alt: 'Living room – archway view to kitchen', categoryId: 'living-room', order: 31 },
         { url: '/lovable-uploads/6668c6f2-b4f5-4b23-ab06-d536f9fcb36e.png', alt: 'Living room – armchair by window with sea view', categoryId: 'living-room', order: 32 },
-        { url: '/lovable-uploads/61dc4378-4d22-4b4d-b534-4acb8d083a59.png', alt: 'Living room – entryway and window with natural light', categoryId: 'living-room', order: 33 }
+        { url: '/lovable-uploads/61dc4378-4d22-4b4d-b534-4acb8d083a59.png', alt: 'Living room – entryway and window with natural light', categoryId: 'living-room', order: 33 },
+        // Balconies defaults
+        { url: '/lovable-uploads/7171ad66-0628-4615-93c0-8f63cb57530b.png', alt: 'Balcony – sea view over pool and hillside', categoryId: 'balconies', order: 34 },
+        { url: '/lovable-uploads/d444242b-16ec-4051-9a27-c42daaac757b.png', alt: 'Balcony – rustic bench with shutters and decor', categoryId: 'balconies', order: 35 },
+        { url: '/lovable-uploads/fc5b6502-8bb3-49dc-9387-e7b494783222.png', alt: 'Balcony – wine bottle and glasses with pool and sea view', categoryId: 'balconies', order: 36 },
+        { url: '/lovable-uploads/9a3bf05d-7192-4fd0-8ed4-74dc0fc0fe0a.png', alt: 'Balcony – dining table set with panoramic sea view', categoryId: 'balconies', order: 37 },
+        { url: '/lovable-uploads/87de0f88-1982-4cea-9c90-5693f4c7d935.png', alt: 'Balcony – pool and sea view from upper terrace', categoryId: 'balconies', order: 38 },
+        { url: '/lovable-uploads/4580ac6e-c8b0-4bc9-b68b-173838cf0060.png', alt: 'Balcony – cozy corner with bench and macrame wall hanging', categoryId: 'balconies', order: 39 },
+        // Bedroom 1 defaults
+        { url: '/lovable-uploads/ee91f65f-0775-46b4-94a8-be2a27122aae.png', alt: 'Bedroom 1 – bright room with balcony doors and window', categoryId: 'bed-room-1', order: 40 },
+        { url: '/lovable-uploads/eca4d710-7fee-4d01-a099-177b0960e6c6.png', alt: 'Bedroom 1 – sea view from window above bed', categoryId: 'bed-room-1', order: 41 },
+        { url: '/lovable-uploads/5567f900-8d91-4231-978b-a8754c577779.png', alt: 'Bedroom 1 – view to pool and sea from window', categoryId: 'bed-room-1', order: 42 },
+        { url: '/lovable-uploads/70c8831a-de26-43b6-a47a-3bc2ca306524.png', alt: 'Bedroom 1 – wardrobe and balcony doors', categoryId: 'bed-room-1', order: 43 },
+        { url: '/lovable-uploads/e92f3097-8ebf-47c3-b94f-48816a3afaa1.png', alt: 'Bedroom 1 – side view of bed and window', categoryId: 'bed-room-1', order: 44 },
+        // Bedroom 2 defaults
+        { url: '/lovable-uploads/ddf17b2e-03d7-4b73-b263-2045f07b067b.png', alt: 'Bedroom 2 – wardrobe and balcony doors with AC', categoryId: 'bed-room-2', order: 45 },
+        { url: '/lovable-uploads/34b34cf9-3d63-4d99-9bf9-b9955337cdb9.png', alt: 'Bedroom 2 – bed with woven decor between two windows', categoryId: 'bed-room-2', order: 46 },
+        { url: '/lovable-uploads/e5393da9-7f8e-45d3-8406-e3bd950943d3.png', alt: 'Bedroom 2 – bed facing en-suite bathroom', categoryId: 'bed-room-2', order: 47 },
+        { url: '/lovable-uploads/df2e670f-cd51-4ea0-87c9-82c2dcf2b251.png', alt: 'Bedroom 2 – balcony view to sea and pool', categoryId: 'bed-room-2', order: 48 },
+        { url: '/lovable-uploads/e039fbf6-1a84-4ae8-98b5-5f6d92373551.png', alt: 'Bedroom 2 – bathroom vanity and mirror', categoryId: 'bed-room-2', order: 49 },
+        { url: '/lovable-uploads/4b24e34d-8d7b-4093-bd82-1b66c7178621.png', alt: 'Bedroom 2 – bathroom shower', categoryId: 'bed-room-2', order: 50 },
+        { url: '/lovable-uploads/d9d44efd-5443-48bd-95b8-398af1a8b763.png', alt: 'Bedroom 2 – bathroom with tub and shower', categoryId: 'bed-room-2', order: 51 },
+        { url: '/lovable-uploads/8b0207a4-cde8-4c7b-8386-fd8835ebc3d8.png', alt: 'Bedroom 2 – vanity and toilet', categoryId: 'bed-room-2', order: 52 },
        ]
    },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
