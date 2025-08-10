@@ -26,6 +26,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'sunset', name: 'SUNSET' },
     { id: 'balconies', name: 'BALCONIES' },
     { id: 'living-room', name: 'LIVING ROOM' },
+    { id: 'bed-room-1', name: 'BED ROOM 1' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -83,6 +84,12 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 37, category: 'balconies', src: '/lovable-uploads/9a3bf05d-7192-4fd0-8ed4-74dc0fc0fe0a.png', alt: 'Balcony – dining table set with panoramic sea view' },
     { id: 38, category: 'balconies', src: '/lovable-uploads/87de0f88-1982-4cea-9c90-5693f4c7d935.png', alt: 'Balcony – pool and sea view from upper terrace' },
     { id: 39, category: 'balconies', src: '/lovable-uploads/4580ac6e-c8b0-4bc9-b68b-173838cf0060.png', alt: 'Balcony – cozy corner with bench and macrame wall hanging' },
+    // Bedroom 1 defaults
+    { id: 40, category: 'bed-room-1', src: '/lovable-uploads/ee91f65f-0775-46b4-94a8-be2a27122aae.png', alt: 'Bedroom 1 – bright room with balcony doors and window' },
+    { id: 41, category: 'bed-room-1', src: '/lovable-uploads/eca4d710-7fee-4d01-a099-177b0960e6c6.png', alt: 'Bedroom 1 – sea view from window above bed' },
+    { id: 42, category: 'bed-room-1', src: '/lovable-uploads/5567f900-8d91-4231-978b-a8754c577779.png', alt: 'Bedroom 1 – view to pool and sea from window' },
+    { id: 43, category: 'bed-room-1', src: '/lovable-uploads/70c8831a-de26-43b6-a47a-3bc2ca306524.png', alt: 'Bedroom 1 – wardrobe and balcony doors' },
+    { id: 44, category: 'bed-room-1', src: '/lovable-uploads/e92f3097-8ebf-47c3-b94f-48816a3afaa1.png', alt: 'Bedroom 1 – side view of bed and window' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
