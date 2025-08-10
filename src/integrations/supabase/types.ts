@@ -28,7 +28,7 @@ export type Database = {
           date: string
           id?: string
           note?: string | null
-          status: string
+          status?: string
           updated_at?: string
         }
         Update: {
@@ -144,6 +144,7 @@ export type Database = {
           season_name: string
           start_date: string
           status: string
+          tourist_tax_per_guest: number
           updated_at: string
         }
         Insert: {
@@ -156,6 +157,7 @@ export type Database = {
           season_name: string
           start_date: string
           status?: string
+          tourist_tax_per_guest?: number
           updated_at?: string
         }
         Update: {
@@ -168,7 +170,29 @@ export type Database = {
           season_name?: string
           start_date?: string
           status?: string
+          tourist_tax_per_guest?: number
           updated_at?: string
+        }
+        Relationships: []
+      }
+      settings: {
+        Row: {
+          created_at: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          updated_at?: string
+          value?: string
         }
         Relationships: []
       }
