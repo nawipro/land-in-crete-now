@@ -389,7 +389,7 @@ const ContentManager: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-6">
             <Card className="min-h-[60vh]"><CardContent className="p-6">
               {loading ? <p>Loading…</p> : (
-                <ScrollArea className="h-[70vh] pr-4">
+                <ScrollArea className="h-[70vh] pr-4 overflow-x-auto">
                   {renderEditor()}
                 </ScrollArea>
               )}

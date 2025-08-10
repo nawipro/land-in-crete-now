@@ -47,7 +47,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
         .eq('is_active', true)
         .eq('status', 'published')
         .maybeSingle();
-      return data || { cleaning_fee: 0, service_fee: 0, inquiry_email: '' };
+      return data || { cleaning_fee: 0, service_fee: 0, inquiry_email: '', tourist_tax_high: 0, tourist_tax_low: 0 };
     }
   });
 
@@ -109,11 +109,28 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     return { nights: days.length, subtotal: sum };
   }, [range, seasons]);
 
+const cleaningTotal = useMemo(() => {
+    const base = settings?.cleaning_fee || 0;
+    return nights > 0 ? base * Math.ceil(nights / 5) : 0;
+  }, [settings, nights]);
+
+  const touristTaxTotal = useMemo(() => {
+    const high = settings?.tourist_tax_high || 0;
+    const low = settings?.tourist_tax_low || 0;
+    if (!range.from || !range.to) return 0;
+    const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
+    let sum = 0;
+    for (const d of days) {
+      const inSeason = !!getSeasonForDate(d);
+      const rate = inSeason ? high : low;
+      sum += rate * guests;
+    }
+    return sum;
+  }, [settings, range, guests, seasons]);
+
   const total = useMemo(() => {
-    const cleaning = settings?.cleaning_fee || 0;
-    const service = settings?.service_fee || 0;
-    return perNightBreakdown.subtotal + cleaning + service;
-  }, [perNightBreakdown, settings]);
+    return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;
+  }, [perNightBreakdown, cleaningTotal, touristTaxTotal]);
 
   const validRange = range.from && range.to && nights >= minStay && !rangeHasBlocked;
 
@@ -197,7 +214,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">{lang==='he'?'הודעה':'Message'}</Label>
-                      <Input id="message" value={message} onChange={(e)=>setMessage(e.target.value)} placeholder={lang==='he'?'פרטים נוספים/בקשות':'Additional details/requests'} />
+                      <Input id="message" className="text-base" value={message} onChange={(e)=>setMessage(e.target.value)} placeholder={lang==='he'?'פרטים נוספים/בקשות':'Additional details/requests'} />
                     </div>
                     <Button className="w-full" asChild disabled={!validRange}>
                       <a href={mailto}>
@@ -226,12 +243,12 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                     <span>{currency}{perNightBreakdown.subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{lang==='he'?'דמי ניקיון':'Cleaning fee'}</span>
-                    <span>{currency}{(settings?.cleaning_fee||0).toFixed(2)}</span>
+                    <span>{lang==='he'?'דמי ניקיון (כל 5 לילות)':'Cleaning fee (per 5 nights)'}</span>
+                    <span>{currency}{cleaningTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{lang==='he'?'דמי שירות':'Service fee'}</span>
-                    <span>{currency}{(settings?.service_fee||0).toFixed(2)}</span>
+                    <span>{lang==='he'?'מס תיירות':'Tourist tax'}</span>
+                    <span>{currency}{touristTaxTotal.toFixed(2)}</span>
                   </div>
                   <div className="border-t mt-2 pt-2 flex justify-between font-semibold">
                     <span>{lang==='he'?'סה"כ':'Total'}</span>

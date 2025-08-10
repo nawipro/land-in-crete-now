@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
+import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { format, eachDayOfInterval } from 'date-fns';
 
@@ -23,6 +24,7 @@ type DateRange = { from?: Date; to?: Date };
 
 const AvailabilityPricing: React.FC = () => {
   const qc = useQueryClient();
+  const { toast } = useToast();
   const { data: seasons } = useQuery({
     queryKey: ['adm_seasons'],
     queryFn: async () => {
@@ -67,15 +69,21 @@ const AvailabilityPricing: React.FC = () => {
   const seasonsState = localSeasons ?? seasons ?? [];
   const settingsState = localSettings ?? settings ?? { cleaning_fee: 0, service_fee: 0, inquiry_email: '' };
 
-  const upsertSeasons = useMutation({
+const upsertSeasons = useMutation({
     mutationFn: async (rows: Season[]) => {
       const { error } = await supabase.from('price_seasons').upsert(rows).select();
       if (error) throw error;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_seasons'] })
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['adm_seasons'] });
+      toast({ title: 'Seasons saved' });
+    },
+    onError: (e: any) => {
+      toast({ title: 'Failed to save seasons', description: e.message, variant: 'destructive' as any });
+    }
   });
 
-  const upsertSettings = useMutation({
+const upsertSettings = useMutation({
     mutationFn: async (payload: any) => {
       const { data } = await supabase
         .from('booking_settings')
@@ -90,15 +98,27 @@ const AvailabilityPricing: React.FC = () => {
         if (error) throw error;
       }
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_settings'] })
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['adm_settings'] });
+      toast({ title: 'Settings saved' });
+    },
+    onError: (e: any) => {
+      toast({ title: 'Failed to save settings', description: e.message, variant: 'destructive' as any });
+    }
   });
 
-  const upsertAvailability = useMutation({
+const upsertAvailability = useMutation({
     mutationFn: async (rows: { date: string; status: 'blocked'|'booked' }[]) => {
       const { error } = await supabase.from('availability').upsert(rows, { onConflict: 'date' }).select();
       if (error) throw error;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['adm_availability'] })
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['adm_availability'] });
+      toast({ title: 'Availability updated' });
+    },
+    onError: (e: any) => {
+      toast({ title: 'Failed to update availability', description: e.message, variant: 'destructive' as any });
+    }
   });
 
   const blockedSet = useMemo(() => new Set((availability||[]).map((a: any) => a.status ? a.date : '').filter(Boolean)), [availability]);
@@ -110,44 +130,48 @@ const AvailabilityPricing: React.FC = () => {
           <CardTitle>Availability & Pricing</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Seasons table */}
+{/* Seasons table */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Seasons</h4>
-            <div className="grid grid-cols-12 gap-2 text-xs font-medium text-muted-foreground">
-              <div className="col-span-2">Name</div>
-              <div className="col-span-2">Start</div>
-              <div className="col-span-2">End</div>
-              <div className="col-span-2">Price / night</div>
-              <div className="col-span-2">Min nights</div>
-              <div className="col-span-1">Curr</div>
-              <div className="col-span-1">Status</div>
-            </div>
-            <div className="space-y-2">
-              {seasonsState.map((s: Season, idx: number) => (
-                <div key={s.id || idx} className="grid grid-cols-12 gap-2">
-                  <Input className="col-span-2" value={s.season_name} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], season_name: e.target.value } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input type="date" className="col-span-2" value={s.start_date} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], start_date: e.target.value } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input type="date" className="col-span-2" value={s.end_date} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], end_date: e.target.value } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input type="number" className="col-span-2" value={s.price_per_night} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], price_per_night: parseFloat(e.target.value||'0') } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input type="number" className="col-span-2" value={s.min_stay_nights} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], min_stay_nights: parseInt(e.target.value||'0') } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input className="col-span-1" value={s.currency_symbol} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], currency_symbol: e.target.value } as Season; setLocalSeasons(arr);
-                  }} />
-                  <Input className="col-span-1" value={s.status} onChange={(e)=>{
-                    const arr = [...seasonsState]; arr[idx] = { ...arr[idx], status: (e.target.value as any) } as Season; setLocalSeasons(arr);
-                  }} />
+            <div className="overflow-x-auto">
+              <div className="min-w-[1000px]">
+                <div className="grid grid-cols-12 gap-2 text-xs font-medium text-muted-foreground">
+                  <div className="col-span-2">Name</div>
+                  <div className="col-span-2">Start</div>
+                  <div className="col-span-2">End</div>
+                  <div className="col-span-2">Price / night</div>
+                  <div className="col-span-2">Min nights</div>
+                  <div className="col-span-1">Curr</div>
+                  <div className="col-span-1">Status</div>
                 </div>
-              ))}
+                <div className="space-y-2">
+                  {seasonsState.map((s: Season, idx: number) => (
+                    <div key={s.id || idx} className="grid grid-cols-12 gap-2">
+                      <Input className="col-span-2" value={s.season_name} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], season_name: e.target.value } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input type="date" className="col-span-2" value={s.start_date} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], start_date: e.target.value } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input type="date" className="col-span-2" value={s.end_date} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], end_date: e.target.value } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input type="number" className="col-span-2" value={s.price_per_night} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], price_per_night: parseFloat(e.target.value||'0') } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input type="number" className="col-span-2" value={s.min_stay_nights} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], min_stay_nights: parseInt(e.target.value||'0') } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input className="col-span-1" value={s.currency_symbol} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], currency_symbol: e.target.value } as Season; setLocalSeasons(arr);
+                      }} />
+                      <Input className="col-span-1" value={s.status} onChange={(e)=>{
+                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], status: (e.target.value as any) } as Season; setLocalSeasons(arr);
+                      }} />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setLocalSeasons([...(seasonsState||[]), {
@@ -157,19 +181,23 @@ const AvailabilityPricing: React.FC = () => {
             </div>
           </div>
 
-          {/* Settings */}
+{/* Settings */}
           <div className="space-y-2">
             <h4 className="text-sm font-medium">Settings</h4>
             <div className="grid md:grid-cols-3 gap-3">
               <div>
-                <Label>Cleaning fee</Label>
+                <Label>Cleaning fee (per 5 nights)</Label>
                 <Input type="number" value={settingsState.cleaning_fee || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), cleaning_fee: parseFloat(e.target.value||'0') })} />
               </div>
               <div>
-                <Label>Service fee</Label>
-                <Input type="number" value={settingsState.service_fee || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), service_fee: parseFloat(e.target.value||'0') })} />
+                <Label>Tourist tax – in season (per person per night)</Label>
+                <Input type="number" value={settingsState.tourist_tax_high || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tourist_tax_high: parseFloat(e.target.value||'0') })} />
               </div>
               <div>
+                <Label>Tourist tax – off season (per person per night)</Label>
+                <Input type="number" value={settingsState.tourist_tax_low || 0} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), tourist_tax_low: parseFloat(e.target.value||'0') })} />
+              </div>
+              <div className="md:col-span-3">
                 <Label>Inquiry email</Label>
                 <Input value={settingsState.inquiry_email || ''} onChange={(e)=> setLocalSettings({ ...(settingsState||{}), inquiry_email: e.target.value })} />
               </div>
