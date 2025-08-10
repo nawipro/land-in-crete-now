@@ -62,7 +62,7 @@ const AvailabilityPricing: React.FC = () => {
   });
 
   const [localSeasons, setLocalSeasons] = useState<Season[] | null>(null);
-  const [calRange, setCalRange] = useState<DateRange>({});
+  const [selectedDays, setSelectedDays] = useState<Date[]>([]);
   const [markAs, setMarkAs] = useState<'blocked'|'booked'>('blocked');
   const [localSettings, setLocalSettings] = useState<any | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
@@ -137,7 +137,8 @@ const upsertAvailability = useMutation({
     setMonthlyPrices((prev) => (prev.every((v) => v === 0) ? arr : prev));
   }, [selectedYear, seasonsState]);
 
-  const blockedSet = useMemo(() => new Set((availability||[]).map((a: any) => a.status ? a.date : '').filter(Boolean)), [availability]);
+  const blockedDates = useMemo(() => (availability||[]).filter((a: any) => a.status === 'blocked').map((a: any) => new Date(a.date)), [availability]);
+  const bookedDates = useMemo(() => (availability||[]).filter((a: any) => a.status === 'booked').map((a: any) => new Date(a.date)), [availability]);
 
   return (
     <div className="space-y-8">
@@ -279,28 +280,37 @@ const upsertAvailability = useMutation({
               <div className="min-w-[720px] grid md:grid-cols-[1fr,240px] gap-4">
                 <div className="border rounded-xl p-3">
                   <Calendar
-                    mode="range"
+                    mode="multiple"
                     numberOfMonths={2}
-                    selected={calRange as any}
-                    onSelect={setCalRange as any}
+                    selected={selectedDays as any}
+                    onSelect={setSelectedDays as any}
+                    modifiers={{ blocked: blockedDates, booked: bookedDates }}
+                    modifiersClassNames={{
+                      blocked: "bg-destructive/30 text-destructive-foreground",
+                      booked: "bg-secondary/30 text-secondary-foreground",
+                    }}
                     className="p-3 pointer-events-auto"
                   />
                 </div>
                 <div className="space-y-2">
                   <Label>Mark as</Label>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 items-center">
                     <Button variant={markAs==='blocked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('blocked')}>Blocked</Button>
+                    <div className="h-3 w-3 rounded-full bg-destructive/70" title="Blocked" />
                     <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
+                    <div className="h-3 w-3 rounded-full bg-secondary/70" title="Booked" />
+                    <Button variant="ghost" size="sm" className="ml-auto" onClick={()=> setSelectedDays([])}>Clear selection</Button>
                   </div>
-                  <Button className="w-full" disabled={!calRange?.from || !calRange?.to} onClick={() => {
-                    if (!calRange?.from || !calRange?.to) return;
-                    const days = eachDayOfInterval({ start: calRange.from, end: calRange.to });
-                    const rows = days.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
+                  <Button className="w-full" disabled={(selectedDays?.length || 0) === 0} onClick={() => {
+                    if (!selectedDays || selectedDays.length === 0) return;
+                    const rows = selectedDays.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
                     upsertAvailability.mutate(rows);
+                    setSelectedDays([]);
                   }}>Apply to selected</Button>
                   <div className="text-xs text-muted-foreground">
-                    Currently blocked/booked: {availability?.length || 0} days
+                    Blocked: {(availability||[]).filter((a: any)=>a.status==='blocked').length || 0} · Booked: {(availability||[]).filter((a: any)=>a.status==='booked').length || 0}
                   </div>
+                  <div className="text-xs text-muted-foreground">Selected: {selectedDays.length} day(s)</div>
                 </div>
               </div>
             </div>
