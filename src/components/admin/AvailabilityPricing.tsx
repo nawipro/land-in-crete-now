@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { format, eachDayOfInterval } from 'date-fns';
+import { format, eachDayOfInterval, startOfMonth, endOfMonth } from 'date-fns';
 
 interface Season {
   id?: string;
@@ -65,6 +65,9 @@ const AvailabilityPricing: React.FC = () => {
   const [calRange, setCalRange] = useState<DateRange>({});
   const [markAs, setMarkAs] = useState<'blocked'|'booked'>('blocked');
   const [localSettings, setLocalSettings] = useState<any | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [monthlyPrices, setMonthlyPrices] = useState<number[]>(Array(12).fill(0));
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const seasonsState = localSeasons ?? seasons ?? [];
   const settingsState = localSettings ?? settings ?? { cleaning_fee: 0, service_fee: 0, inquiry_email: '' };
@@ -120,6 +123,18 @@ const upsertAvailability = useMutation({
       toast({ title: 'Failed to update availability', description: e.message, variant: 'destructive' as any });
     }
   });
+
+  useEffect(() => {
+    // Prefill monthly prices from existing seasons for the selected year (only if empty)
+    const arr = Array(12).fill(0);
+    for (let m = 0; m < 12; m++) {
+      const start = startOfMonth(new Date(selectedYear, m, 1));
+      const iso = format(start, 'yyyy-MM-dd');
+      const season: any = seasonsState.find((s: any) => iso >= s.start_date && iso <= s.end_date);
+      if (season) arr[m] = Number(season.price_per_night) || 0;
+    }
+    setMonthlyPrices((prev) => (prev.every((v) => v === 0) ? arr : prev));
+  }, [selectedYear, seasonsState]);
 
   const blockedSet = useMemo(() => new Set((availability||[]).map((a: any) => a.status ? a.date : '').filter(Boolean)), [availability]);
 
@@ -178,6 +193,58 @@ const upsertAvailability = useMutation({
                 season_name: 'New Season', start_date: format(new Date(), 'yyyy-MM-dd'), end_date: format(new Date(), 'yyyy-MM-dd'), price_per_night: 0, min_stay_nights: 4, currency_symbol: '€', status: 'draft'
               }])}>Add season</Button>
               <Button size="sm" onClick={() => upsertSeasons.mutateAsync(seasonsState as Season[])}>Save seasons</Button>
+            </div>
+
+            {/* Monthly quick edit */}
+            <div className="rounded-lg border p-3 mt-4">
+              <div className="flex items-center gap-3 mb-3">
+                <Label className="text-sm">Monthly prices (quick edit)</Label>
+                <div className="flex items-center gap-2">
+                  <Label className="text-xs">Year</Label>
+                  <Input type="number" className="w-28" value={selectedYear} onChange={(e)=> setSelectedYear(parseInt(e.target.value||`${new Date().getFullYear()}`) || new Date().getFullYear())} />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                {months.map((m, i) => (
+                  <div key={m} className="space-y-1">
+                    <Label className="text-xs">{m}</Label>
+                    <Input type="number" value={monthlyPrices[i] ?? 0} onChange={(e)=>{
+                      const arr = [...monthlyPrices]; arr[i] = parseFloat(e.target.value||'0'); setMonthlyPrices(arr);
+                    }} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-end mt-3">
+                <Button size="sm" variant="secondary" onClick={() => {
+                  try {
+                    let next = (seasonsState as any[]).filter((s: any) => {
+                      const sd = new Date(s.start_date);
+                      const ed = new Date(s.end_date);
+                      const isYear = sd.getFullYear() === selectedYear && ed.getFullYear() === selectedYear;
+                      const monthEnd = endOfMonth(sd);
+                      const matchesMonthBounds = sd.getDate() === 1 && ed.getDate() === monthEnd.getDate();
+                      return !(isYear && matchesMonthBounds);
+                    }) as Season[];
+
+                    for (let i = 0; i < 12; i++) {
+                      const price = monthlyPrices[i] || 0;
+                      if (price <= 0) continue;
+                      const mStart = startOfMonth(new Date(selectedYear, i, 1));
+                      const mEnd = endOfMonth(mStart);
+                      const startISO = format(mStart, 'yyyy-MM-dd');
+                      const endISO = format(mEnd, 'yyyy-MM-dd');
+                      const existing = (seasonsState as any[]).find((s: any) => s.start_date === startISO && s.end_date === endISO) as Season | undefined;
+                      const base: Partial<Season> = existing ?? { min_stay_nights: 4, currency_symbol: '€', status: 'draft' };
+                      next.push({ ...(base as any), id: existing?.id, season_name: `${months[i]} ${selectedYear}`, start_date: startISO, end_date: endISO, price_per_night: price, min_stay_nights: (base.min_stay_nights as number) || 4, currency_symbol: (base.currency_symbol as string) || '€', status: (base.status as any) || 'draft' } as Season);
+                    }
+
+                    setLocalSeasons(next);
+                    toast({ title: 'Monthly prices applied', description: 'Review and click "Save seasons" to persist.' });
+                  } catch (e: any) {
+                    toast({ title: 'Apply failed', description: e.message, variant: 'destructive' as any });
+                  }
+                }}>Apply to seasons</Button>
+              </div>
             </div>
           </div>
 
