@@ -292,8 +292,8 @@ const upsertAvailability = useMutation({
                     <Button variant={markAs==='blocked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('blocked')}>Blocked</Button>
                     <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
                   </div>
-                  <Button className="w-full" disabled={!calRange.from || !calRange.to} onClick={() => {
-                    if (!calRange.from || !calRange.to) return;
+                  <Button className="w-full" disabled={!calRange?.from || !calRange?.to} onClick={() => {
+                    if (!calRange?.from || !calRange?.to) return;
                     const days = eachDayOfInterval({ start: calRange.from, end: calRange.to });
                     const rows = days.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
                     upsertAvailability.mutate(rows);
