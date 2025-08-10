@@ -74,7 +74,8 @@ const AvailabilityPricing: React.FC = () => {
 
 const upsertSeasons = useMutation({
     mutationFn: async (rows: Season[]) => {
-      const { error } = await supabase.from('price_seasons').upsert(rows).select();
+      const payload = rows.map((r) => ({ ...r, status: 'published' as const }));
+      const { error } = await supabase.from('price_seasons').upsert(payload).select();
       if (error) throw error;
     },
     onSuccess: () => {
@@ -156,8 +157,7 @@ const upsertAvailability = useMutation({
                   <div className="col-span-2">End</div>
                   <div className="col-span-2">Price / night</div>
                   <div className="col-span-2">Min nights</div>
-                  <div className="col-span-1">Curr</div>
-                  <div className="col-span-1">Status</div>
+                  <div className="col-span-2">Curr</div>
                 </div>
                 <div className="space-y-2">
                   {seasonsState.map((s: Season, idx: number) => (
@@ -177,11 +177,8 @@ const upsertAvailability = useMutation({
                       <Input type="number" className="col-span-2" value={s.min_stay_nights} onChange={(e)=>{
                         const arr = [...seasonsState]; arr[idx] = { ...arr[idx], min_stay_nights: parseInt(e.target.value||'0') } as Season; setLocalSeasons(arr);
                       }} />
-                      <Input className="col-span-1" value={s.currency_symbol} onChange={(e)=>{
+                      <Input className="col-span-2" value={s.currency_symbol} onChange={(e)=>{
                         const arr = [...seasonsState]; arr[idx] = { ...arr[idx], currency_symbol: e.target.value } as Season; setLocalSeasons(arr);
-                      }} />
-                      <Input className="col-span-1" value={s.status} onChange={(e)=>{
-                        const arr = [...seasonsState]; arr[idx] = { ...arr[idx], status: (e.target.value as any) } as Season; setLocalSeasons(arr);
                       }} />
                     </div>
                   ))}
@@ -190,7 +187,7 @@ const upsertAvailability = useMutation({
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setLocalSeasons([...(seasonsState||[]), {
-                season_name: 'New Season', start_date: format(new Date(), 'yyyy-MM-dd'), end_date: format(new Date(), 'yyyy-MM-dd'), price_per_night: 0, min_stay_nights: 4, currency_symbol: '€', status: 'draft'
+                season_name: 'New Season', start_date: format(new Date(), 'yyyy-MM-dd'), end_date: format(new Date(), 'yyyy-MM-dd'), price_per_night: 0, min_stay_nights: 4, currency_symbol: '€', status: 'published'
               }])}>Add season</Button>
               <Button size="sm" onClick={() => upsertSeasons.mutateAsync(seasonsState as Season[])}>Save seasons</Button>
             </div>
@@ -234,8 +231,8 @@ const upsertAvailability = useMutation({
                       const startISO = format(mStart, 'yyyy-MM-dd');
                       const endISO = format(mEnd, 'yyyy-MM-dd');
                       const existing = (seasonsState as any[]).find((s: any) => s.start_date === startISO && s.end_date === endISO) as Season | undefined;
-                      const base: Partial<Season> = existing ?? { min_stay_nights: 4, currency_symbol: '€', status: 'draft' };
-                      next.push({ ...(base as any), id: existing?.id, season_name: `${months[i]} ${selectedYear}`, start_date: startISO, end_date: endISO, price_per_night: price, min_stay_nights: (base.min_stay_nights as number) || 4, currency_symbol: (base.currency_symbol as string) || '€', status: (base.status as any) || 'draft' } as Season);
+                      const base: Partial<Season> = existing ?? { min_stay_nights: 4, currency_symbol: '€', status: 'published' };
+                      next.push({ ...(base as any), id: existing?.id, season_name: `${months[i]} ${selectedYear}`, start_date: startISO, end_date: endISO, price_per_night: price, min_stay_nights: (base.min_stay_nights as number) || 4, currency_symbol: (base.currency_symbol as string) || '€', status: (base.status as any) || 'published' } as Season);
                     }
 
                     setLocalSeasons(next);
@@ -278,30 +275,32 @@ const upsertAvailability = useMutation({
           {/* Availability calendar */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Availability</h4>
-            <div className="grid md:grid-cols-[1fr,240px] gap-4">
-              <div className="border rounded-xl p-3">
-                <Calendar
-                  mode="range"
-                  numberOfMonths={2}
-                  selected={calRange as any}
-                  onSelect={setCalRange as any}
-                  className="p-3 pointer-events-auto"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Mark as</Label>
-                <div className="flex gap-2">
-                  <Button variant={markAs==='blocked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('blocked')}>Blocked</Button>
-                  <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
+            <div className="overflow-x-auto">
+              <div className="min-w-[720px] grid md:grid-cols-[1fr,240px] gap-4">
+                <div className="border rounded-xl p-3">
+                  <Calendar
+                    mode="range"
+                    numberOfMonths={2}
+                    selected={calRange as any}
+                    onSelect={setCalRange as any}
+                    className="p-3 pointer-events-auto"
+                  />
                 </div>
-                <Button className="w-full" disabled={!calRange.from || !calRange.to} onClick={() => {
-                  if (!calRange.from || !calRange.to) return;
-                  const days = eachDayOfInterval({ start: calRange.from, end: calRange.to });
-                  const rows = days.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
-                  upsertAvailability.mutate(rows);
-                }}>Apply to selected</Button>
-                <div className="text-xs text-muted-foreground">
-                  Currently blocked/booked: {availability?.length || 0} days
+                <div className="space-y-2">
+                  <Label>Mark as</Label>
+                  <div className="flex gap-2">
+                    <Button variant={markAs==='blocked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('blocked')}>Blocked</Button>
+                    <Button variant={markAs==='booked'?'default':'outline'} size="sm" onClick={()=>setMarkAs('booked')}>Booked</Button>
+                  </div>
+                  <Button className="w-full" disabled={!calRange.from || !calRange.to} onClick={() => {
+                    if (!calRange.from || !calRange.to) return;
+                    const days = eachDayOfInterval({ start: calRange.from, end: calRange.to });
+                    const rows = days.map((d) => ({ date: format(d, 'yyyy-MM-dd'), status: markAs }));
+                    upsertAvailability.mutate(rows);
+                  }}>Apply to selected</Button>
+                  <div className="text-xs text-muted-foreground">
+                    Currently blocked/booked: {availability?.length || 0} days
+                  </div>
                 </div>
               </div>
             </div>
