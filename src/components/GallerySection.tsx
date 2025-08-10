@@ -171,7 +171,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredImages.map((image, index) => (
             <Card 
-              key={image.id} 
+              key={`${image.category}-${image.src}`}
               className="overflow-hidden cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-none"
               onClick={() => setSelectedImage(withBase(image.src))}
             >
