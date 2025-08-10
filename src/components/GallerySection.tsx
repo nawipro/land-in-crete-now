@@ -27,6 +27,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 'balconies', name: 'BALCONIES' },
     { id: 'living-room', name: 'LIVING ROOM' },
     { id: 'bed-room-1', name: 'BED ROOM 1' },
+    { id: 'bed-room-2', name: 'BED ROOM 2' },
   ];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [
@@ -90,6 +91,15 @@ const GallerySection: React.FC<GallerySectionProps> = ({ translations, content }
     { id: 42, category: 'bed-room-1', src: '/lovable-uploads/5567f900-8d91-4231-978b-a8754c577779.png', alt: 'Bedroom 1 – view to pool and sea from window' },
     { id: 43, category: 'bed-room-1', src: '/lovable-uploads/70c8831a-de26-43b6-a47a-3bc2ca306524.png', alt: 'Bedroom 1 – wardrobe and balcony doors' },
     { id: 44, category: 'bed-room-1', src: '/lovable-uploads/e92f3097-8ebf-47c3-b94f-48816a3afaa1.png', alt: 'Bedroom 1 – side view of bed and window' },
+    // Bedroom 2 defaults
+    { id: 45, category: 'bed-room-2', src: '/lovable-uploads/ddf17b2e-03d7-4b73-b263-2045f07b067b.png', alt: 'Bedroom 2 – wardrobe and balcony doors with AC' },
+    { id: 46, category: 'bed-room-2', src: '/lovable-uploads/34b34cf9-3d63-4d99-9bf9-b9955337cdb9.png', alt: 'Bedroom 2 – bed with woven decor between two windows' },
+    { id: 47, category: 'bed-room-2', src: '/lovable-uploads/e5393da9-7f8e-45d3-8406-e3bd950943d3.png', alt: 'Bedroom 2 – bed facing en-suite bathroom' },
+    { id: 48, category: 'bed-room-2', src: '/lovable-uploads/df2e670f-cd51-4ea0-87c9-82c2dcf2b251.png', alt: 'Bedroom 2 – balcony view to sea and pool' },
+    { id: 49, category: 'bed-room-2', src: '/lovable-uploads/e039fbf6-1a84-4ae8-98b5-5f6d92373551.png', alt: 'Bedroom 2 – bathroom vanity and mirror' },
+    { id: 50, category: 'bed-room-2', src: '/lovable-uploads/4b24e34d-8d7b-4093-bd82-1b66c7178621.png', alt: 'Bedroom 2 – bathroom shower' },
+    { id: 51, category: 'bed-room-2', src: '/lovable-uploads/d9d44efd-5443-48bd-95b8-398af1a8b763.png', alt: 'Bedroom 2 – bathroom with tub and shower' },
+    { id: 52, category: 'bed-room-2', src: '/lovable-uploads/8b0207a4-cde8-4c7b-8386-fd8835ebc3d8.png', alt: 'Bedroom 2 – vanity and toilet' },
   ];
 
   let galleryImages = [] as { id: number; category: string; src: string; alt: string }[];
