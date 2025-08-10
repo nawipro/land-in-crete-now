@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      availability: {
+        Row: {
+          created_at: string
+          date: string
+          id: string
+          note: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: string
+          note?: string | null
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: string
+          note?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      booking_settings: {
+        Row: {
+          cleaning_fee: number
+          created_at: string
+          id: string
+          inquiry_email: string
+          is_active: boolean
+          service_fee: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          cleaning_fee?: number
+          created_at?: string
+          id?: string
+          inquiry_email?: string
+          is_active?: boolean
+          service_fee?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          cleaning_fee?: number
+          created_at?: string
+          id?: string
+          inquiry_email?: string
+          is_active?: boolean
+          service_fee?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       page_content: {
         Row: {
           data: Json
@@ -64,6 +124,45 @@ export type Database = {
           created_at?: string | null
           id?: string
           slug?: string
+        }
+        Relationships: []
+      }
+      price_seasons: {
+        Row: {
+          created_at: string
+          currency_symbol: string
+          end_date: string
+          id: string
+          min_stay_nights: number
+          price_per_night: number
+          season_name: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency_symbol?: string
+          end_date: string
+          id?: string
+          min_stay_nights?: number
+          price_per_night: number
+          season_name: string
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency_symbol?: string
+          end_date?: string
+          id?: string
+          min_stay_nights?: number
+          price_per_night?: number
+          season_name?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
