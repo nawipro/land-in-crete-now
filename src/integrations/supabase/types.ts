@@ -196,6 +196,39 @@ export type Database = {
         }
         Relationships: []
       }
+      tax_seasons: {
+        Row: {
+          created_at: string
+          end_date: string
+          id: string
+          season_name: string
+          start_date: string
+          status: string
+          tax_per_guest_per_night: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end_date: string
+          id?: string
+          season_name: string
+          start_date: string
+          status?: string
+          tax_per_guest_per_night?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string
+          id?: string
+          season_name?: string
+          start_date?: string
+          status?: string
+          tax_per_guest_per_night?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -38,6 +38,19 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     }
   });
 
+  // Tax seasons are managed separately from pricing seasons
+  const { data: taxSeasons } = useQuery({
+    queryKey: ['tax_seasons'],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from('tax_seasons')
+        .select('*')
+        .eq('status', 'published')
+        .order('start_date', { ascending: true });
+      return data || [];
+    }
+  });
+
   const { data: settings } = useQuery({
     queryKey: ['booking_settings'],
     queryFn: async () => {
@@ -67,6 +80,12 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     if (!seasons || seasons.length === 0) return null;
     const iso = toISO(date);
     return seasons.find((s: any) => iso >= s.start_date && iso <= s.end_date) || null;
+  };
+
+  const getTaxSeasonForDate = (date: Date) => {
+    if (!taxSeasons || taxSeasons.length === 0) return null;
+    const iso = toISO(date);
+    return taxSeasons.find((s: any) => iso >= s.start_date && iso <= s.end_date) || null;
   };
 
   const nights = useMemo(() => {
@@ -116,16 +135,16 @@ const cleaningTotal = useMemo(() => {
   }, [settings, nights]);
 
   const touristTaxTotal = useMemo(() => {
-    if (!range.from || !range.to) return 0;
+    if (!range.from || !range.to || !taxSeasons) return 0;
     const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
     let sum = 0;
     for (const d of days) {
-      const s = getSeasonForDate(d);
-      const perGuest = s?.tourist_tax_per_guest ?? 0;
+      const s = getTaxSeasonForDate(d);
+      const perGuest = s?.tax_per_guest_per_night ?? 0;
       sum += perGuest * guests;
     }
     return sum;
-  }, [range, guests, seasons]);
+  }, [range, guests, taxSeasons]);
 
   const total = useMemo(() => {
     return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;
