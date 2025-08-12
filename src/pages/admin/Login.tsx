@@ -15,6 +15,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [mode, setMode] = React.useState<'signin' | 'signup'>('signin');
+  const [resetLoading, setResetLoading] = React.useState(false);
 
   React.useEffect(() => {
     const supabase = getSupabaseClient();
@@ -82,8 +83,31 @@ const Login: React.FC = () => {
       setLoading(false);
     }
   };
+  const handleResetPassword = async () => {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      toast({ title: 'Supabase לא מוגדר', description: 'חבר את הפרויקט ל‑Supabase (הכפתור הירוק למעלה) ורענן.' });
+      return;
+    }
+    if (!email) {
+      toast({ title: 'אנא הזן אימייל', description: 'נשלח קישור לאיפוס סיסמה לאימייל שלך.' });
+      return;
+    }
+    setResetLoading(true);
+    try {
+      const redirectTo = `${window.location.origin}/admin/reset-password`;
+      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      toast({ title: 'נשלח מייל לאיפוס סיסמה', description: 'בדוק את תיבת הדואר והקליק על הקישור.' });
+    } catch (err: any) {
+      toast({ title: 'שגיאה', description: err?.message || 'שליחת מייל נכשלה' });
+    } finally {
+      setResetLoading(false);
+    }
+  };
 
   return (
+
     <main className="min-h-screen flex items-center justify-center p-6">
       <Card className="w-full max-w-md">
         <CardContent className="p-6 space-y-4">
@@ -115,6 +139,11 @@ const Login: React.FC = () => {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (mode === 'signin' ? 'מתחבר…' : 'נרשם…') : (mode === 'signin' ? 'התחבר' : 'הרשם')}
             </Button>
+            <div className="flex justify-end">
+              <Button variant="link" type="button" onClick={handleResetPassword} disabled={resetLoading}>
+                {resetLoading ? 'שולח…' : 'שכחתי סיסמה?'}
+              </Button>
+            </div>
           </form>
 
           <section className="pt-2 border-t space-y-1">

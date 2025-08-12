@@ -13,6 +13,7 @@ import ContentManager from "./pages/admin/ContentManager";
 import About from "./pages/About";
 import Booking from "./pages/Booking";
 import TaxSeasons from "./pages/admin/TaxSeasons";
+import ResetPassword from "./pages/admin/ResetPassword";
 
 const queryClient = new QueryClient();
 
@@ -29,9 +30,10 @@ const App = () => (
           <Route path="/crawl" element={<Crawl />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/reset-password" element={<ResetPassword />} />
           <Route path="/admin/content" element={<ContentManager />} />
           <Route path="/admin/tax-seasons" element={<TaxSeasons />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
