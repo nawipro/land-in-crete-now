@@ -7,6 +7,7 @@ import GallerySection from '@/components/GallerySection';
 import BookingSection from '@/components/BookingSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import AdminAccess from '@/components/AdminAccess';
 import { translations } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
@@ -42,6 +43,7 @@ const Index = () => {
       </main>
       
       <Footer translations={currentTranslations} />
+      <AdminAccess />
     </div>
   );
 };
