@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -37,6 +36,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/30123456789', '_blank');
   };
 
   return (
@@ -131,14 +134,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                     <div className="flex-shrink-0 w-12 h-12 bg-mediterranean-blue/10 rounded-full flex items-center justify-center">
                       <Phone className="h-6 w-6 text-mediterranean-blue" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h4 className="font-semibold mb-1">{translations.contact.info.phone}</h4>
-                      <p className="text-muted-foreground">+30 123 456 789</p>
+                      <p className="text-muted-foreground mb-3">+30 123 456 789</p>
                       <Button
                         variant="outline"
                         size="sm"
-                        className="mt-2"
-                        onClick={() => window.open('https://wa.me/30123456789', '_blank')}
+                        className="hover:bg-mediterranean-blue hover:text-white transition-all duration-300 active:scale-[0.98]"
+                        onClick={handleWhatsAppClick}
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
                         WhatsApp
@@ -179,7 +182,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="flex-1"
+                    className="flex-1 hover:bg-mediterranean-blue hover:text-white transition-all duration-300 active:scale-[0.98]"
                     onClick={() => window.open('https://facebook.com/nowweland', '_blank')}
                   >
                     <Facebook className="h-5 w-5 mr-2" />
@@ -188,7 +191,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="flex-1"
+                    className="flex-1 hover:bg-mediterranean-blue hover:text-white transition-all duration-300 active:scale-[0.98]"
                     onClick={() => window.open('https://instagram.com/nowweland', '_blank')}
                   >
                     <Instagram className="h-5 w-5 mr-2" />

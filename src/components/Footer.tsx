@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart, Phone, Mail, MapPin } from 'lucide-react';
+import { Heart, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { Facebook, Instagram } from 'lucide-react';
 
 interface FooterProps {
@@ -8,6 +8,10 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ translations }) => {
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/30123456789', '_blank');
+  };
+
   return (
     <footer className="bg-mediterranean-blue text-white py-12">
       <div className="container mx-auto px-4">
@@ -54,10 +58,13 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
           <div>
             <h4 className="text-lg font-semibold mb-4">{translations.footer.contact}</h4>
             <div className="space-y-3 text-blue-100">
-              <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex items-center hover:text-white transition-all duration-300 hover:bg-white/10 p-2 rounded-md -ml-2 active:scale-[0.98]"
+              >
+                <MessageCircle className="h-4 w-4 mr-3 flex-shrink-0" />
                 <span>+30 123 456 789</span>
-              </div>
+              </button>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-3 flex-shrink-0" />
                 <span>info@nowweland.com</span>
