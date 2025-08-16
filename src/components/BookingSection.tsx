@@ -99,18 +99,21 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     return Math.max(0, differenceInCalendarDays(range.to, range.from));
   }, [range]);
 
+  // Always allow minimum 1 night, regardless of season
   const minStay = useMemo(() => {
     const d = range.from || new Date();
     const s = getSeasonForDate(d);
-    return s?.min_stay_nights ?? 3; // Default to 3 nights if no season found
+    return s?.min_stay_nights ?? 1; // Default to 1 night instead of 3
   }, [range.from, seasons]);
 
+  // Always return a price, even if 0
   const nightlyRate = useMemo(() => {
     const d = range.from || new Date();
     const s = getSeasonForDate(d);
-    return s?.price_per_night ?? 100; // Default rate if no season found
+    return s?.price_per_night ?? 0; // Return 0 if no season found
   }, [range.from, seasons]);
 
+  // Always return a currency symbol
   const currency = useMemo(() => {
     const d = range.from || new Date();
     const s = getSeasonForDate(d);
@@ -129,15 +132,15 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     let sum = 0;
     for (const d of days) {
       const s = getSeasonForDate(d);
-      sum += s?.price_per_night ?? 100; // Default rate
+      sum += s?.price_per_night ?? 0; // Add 0 if no season found
     }
     return { nights: days.length, subtotal: sum };
   }, [range, seasons]);
 
   const cleaningTotal = useMemo(() => {
-    const base = parseFloat(settings?.cleaning_fee || '80') || 80; // Default cleaning fee
+    const base = parseFloat(settings?.cleaning_fee || '0') || 0; // Default to 0
     const freeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
-    return nights > 0 ? base * Math.ceil(nights / freeNights) : 0;
+    return nights > 0 && base > 0 ? base * Math.ceil(nights / freeNights) : 0;
   }, [settings, nights]);
 
   const touristTaxTotal = useMemo(() => {
@@ -146,7 +149,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     let sum = 0;
     for (const d of days) {
       const s = getTaxSeasonForDate(d);
-      const perGuest = s?.tax_per_guest_per_night ?? 2; // Default tax rate
+      const perGuest = s?.tax_per_guest_per_night ?? 0; // Default to 0
       sum += perGuest * guests;
     }
     return sum;
@@ -156,6 +159,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;
   }, [perNightBreakdown, cleaningTotal, touristTaxTotal]);
 
+  // Remove the dependency on having a season - allow booking if dates are selected and minimum stay is met
   const validRange = range.from && range.to && nights >= minStay && !rangeHasBlocked;
 
   const minStayText = lang === 'he'
@@ -246,9 +250,9 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                       {rangeHasBlocked && (
                         <p className="text-xs text-destructive">{lang==='he'?'התאריכים הנבחרים כוללים ימים חסומים/תפוסים':'The selected range includes blocked/booked days'}</p>
                       )}
-                      {!seasons || seasons.length === 0 ? (
-                        <p className="text-xs text-orange-600">{lang==='he'?'אין עונות מחיר מוגדרות. נא להגדיר בדף האדמין.':'No price seasons defined. Please configure in admin panel.'}</p>
-                      ) : null}
+                      {nightlyRate === 0 && range.from && (
+                        <p className="text-xs text-orange-600">{lang==='he'?'אין מחיר מוגדר לתאריכים אלה. יש ליצור קשר לקבלת הצעת מחיר.':'No price defined for these dates. Please contact for a quote.'}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="guests">{translations.booking.form.guests}</Label>
@@ -281,10 +285,13 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                   <div className="text-4xl font-bold text-mediterranean-blue mb-2">{currency}{nightlyRate?.toFixed(0) || 0}</div>
                   <div className="text-muted-foreground">{translations.booking.pricing.pernight}</div>
                   <div className="text-sm text-muted-foreground mt-2">{minStayText}</div>
+                  {nightlyRate === 0 && (
+                    <div className="text-xs text-orange-600 mt-1">{lang==='he'?'ללא מחיר מוגדר':'No price set'}</div>
+                  )}
                 </div>
                 <div className="mt-6 text-sm space-y-1">
                   <div className="flex justify-between">
-                    <span>{lang==='he'?'לילות':'Nights'} × {nightlyRate ? nightlyRate.toFixed(0) : '-'}</span>
+                    <span>{lang==='he'?'לילות':'Nights'} × {nightlyRate ? nightlyRate.toFixed(0) : '0'}</span>
                     <span>{currency}{perNightBreakdown.subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
