@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface HeroSectionProps {
   translations: any;
@@ -9,8 +9,10 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
+  const navigate = useNavigate();
+
   const handleBookNow = () => {
-    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
+    navigate('/booking');
   };
 
   const handleExploreVilla = () => {
