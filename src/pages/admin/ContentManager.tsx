@@ -346,10 +346,10 @@ const ContentManager: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-rows-[auto,1fr]">
-      <header className="border-b py-3">
+    <div className="min-h-screen grid grid-rows-[auto,1fr] bg-cream-white">
+      <header className="border-b py-3 bg-white/90 backdrop-blur-sm">
         <div className="container flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Content Manager</h1>
+          <h1 className="text-xl font-semibold text-deep-navy">Content Manager</h1>
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => navigate('/')}>View site</Button>
             <Button variant="secondary" onClick={logout}>Log out</Button>
@@ -357,7 +357,7 @@ const ContentManager: React.FC = () => {
         </div>
       </header>
       <main className="grid md:grid-cols-[280px,1fr]">
-        <aside className="border-r p-4">
+        <aside className="border-r p-4 bg-white/50">
           <PagePicker value={page} onChange={(p) => setPage(p)} lang={lang} />
           <div className="mt-6">
             <h3 className="text-sm font-medium mb-2">Language</h3>
