@@ -2,90 +2,67 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
 interface HeroSectionProps {
   translations: any;
   content?: any;
 }
-
-const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({
+  translations,
+  content
+}) => {
   const navigate = useNavigate();
-
   const handleBookNow = () => {
     navigate('/booking');
   };
-
   const handleExploreVilla = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('about')?.scrollIntoView({
+      behavior: 'smooth'
+    });
   };
-
-  return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+  return <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Hero Background (CMS if available) */}
       <div className="absolute inset-0">
-        <img
-          src={content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"}
-          alt={content?.hero_image?.alt || translations.hero?.alt || 'Hero background'}
-          className="w-full h-full"
-          style={{
-            objectFit: (content?.hero_image?.fit as 'cover' | 'contain') || 'cover',
-            objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`
-          }}
-        />
+        <img src={content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"} alt={content?.hero_image?.alt || translations.hero?.alt || 'Hero background'} className="w-full h-full" style={{
+        objectFit: content?.hero_image?.fit as 'cover' | 'contain' || 'cover',
+        objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`
+      }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent"></div>
       </div>
 
       {/* Split layout: title at top, buttons at bottom */}
       <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-between items-center">
         {/* Top: Title & Subtitle */}
-        <div className="pt-12 sm:pt-20 text-center animate-gentle-fade" style={{ maxWidth: '860px' }}>
-          <h1 
-            className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight whitespace-pre-line"
-            style={{ 
-              color: '#FFFFFF',
-              textShadow: '0 0 8px rgba(0,0,0,0.45)'
-            }}
-          >
+        <div style={{
+        maxWidth: '860px'
+      }} className="pt-12 sm:pt-20 text-center animate-gentle-fade py-[120px]">
+          <h1 className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight whitespace-pre-line" style={{
+          color: '#FFFFFF',
+          textShadow: '0 0 8px rgba(0,0,0,0.45)'
+        }}>
             {content?.hero_title || translations.hero.title}
           </h1>
-          <p 
-            className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed whitespace-pre-line"
-            style={{ 
-              color: '#FFFFFF',
-              textShadow: '0 0 8px rgba(0,0,0,0.45)'
-            }}
-          >
+          <p className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed whitespace-pre-line" style={{
+          color: '#FFFFFF',
+          textShadow: '0 0 8px rgba(0,0,0,0.45)'
+        }}>
             {content?.hero_subtitle || translations.hero.subtitle}
           </p>
 
           {/* Feature chips under subtitle */}
-          {(content?.chips || []).length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2 justify-center">
-              {(content?.chips || []).map((chip: string, i: number) => (
-                <span key={i} className="px-3 py-1 rounded-full bg-white/20 border border-white/40 text-white text-sm backdrop-blur-sm">
+          {(content?.chips || []).length > 0 && <div className="mt-4 flex flex-wrap gap-2 justify-center">
+              {(content?.chips || []).map((chip: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-white/20 border border-white/40 text-white text-sm backdrop-blur-sm">
                   {chip}
-                </span>
-              ))}
-            </div>
-          )}
+                </span>)}
+            </div>}
         </div>
 
         {/* Bottom: Primary Actions */}
         <div className="pb-24 sm:pb-28 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button 
-            size="lg" 
-            onClick={handleBookNow}
-            className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
+          <Button size="lg" onClick={handleBookNow} className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
             <Calendar className="h-5 w-5 mr-2" />
             {translations.hero.cta}
           </Button>
-          <Button 
-            variant="outline" 
-            size="lg"
-            onClick={handleExploreVilla}
-            className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm"
-          >
+          <Button variant="outline" size="lg" onClick={handleExploreVilla} className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm">
             {translations.hero.explore}
           </Button>
         </div>
@@ -98,8 +75,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
           <ArrowDown className="h-5 w-5 text-white drop-shadow-lg" />
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
