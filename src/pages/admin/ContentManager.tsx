@@ -134,7 +134,7 @@ const ContentManager: React.FC = () => {
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
   const [lang, setLang] = React.useState<'en' | 'he'>('he');
-  const [data, setData] = React.useState<any>(() => DEFAULTS[page]);
+  const [data, setData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -179,6 +179,11 @@ const ContentManager: React.FC = () => {
       }
       if (isMounted) setData(next);
       setLoading(false);
+    }
+    
+    // Initialize with defaults for the current page first
+    if (!data || Object.keys(data).length === 0) {
+      setData(DEFAULTS[page]);
     }
     
     load();
