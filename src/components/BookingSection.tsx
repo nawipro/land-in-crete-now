@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
-import { eachDayOfInterval, format, addDays, differenceInCalendarDays } from 'date-fns';
+import { eachDayOfInterval, format, addDays, differenceInCalendarDays, startOfDay, isAfter, isBefore } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -25,6 +25,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   const [message, setMessage] = useState('');
 
   const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
+  const today = startOfDay(new Date());
 
   const { data: seasons } = useQuery({
     queryKey: ['price_seasons'],
@@ -82,6 +83,28 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
 
   const blockedSet = useMemo(() => new Set((blocked || []).map((d: any) => d.date)), [blocked]);
 
+  // Get available date range based on seasons
+  const availableDateRange = useMemo(() => {
+    if (!seasons || seasons.length === 0) return { start: null, end: null };
+    
+    // Find the earliest start date and latest end date from all seasons
+    const futureSsons = seasons.filter((s: any) => new Date(s.end_date) >= today);
+    if (futureSsons.length === 0) return { start: null, end: null };
+    
+    const earliestStart = futureSsons.reduce((earliest: any, season: any) => {
+      const seasonStart = new Date(season.start_date);
+      const effectiveStart = isAfter(seasonStart, today) ? seasonStart : today;
+      return !earliest || isBefore(effectiveStart, earliest) ? effectiveStart : earliest;
+    }, null);
+    
+    const latestEnd = futureSsons.reduce((latest: any, season: any) => {
+      const seasonEnd = new Date(season.end_date);
+      return !latest || isAfter(seasonEnd, latest) ? seasonEnd : latest;
+    }, null);
+    
+    return { start: earliestStart, end: latestEnd };
+  }, [seasons, today]);
+
   const getSeasonForDate = (date: Date) => {
     if (!seasons || seasons.length === 0) return null;
     const iso = toISO(date);
@@ -99,26 +122,23 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     return Math.max(0, differenceInCalendarDays(range.to, range.from));
   }, [range]);
 
-  // Always allow minimum 1 night, regardless of season
   const minStay = useMemo(() => {
-    const d = range.from || new Date();
+    const d = range.from || today;
     const s = getSeasonForDate(d);
-    return s?.min_stay_nights ?? 1; // Default to 1 night instead of 3
-  }, [range.from, seasons]);
+    return s?.min_stay_nights ?? 1;
+  }, [range.from, seasons, today]);
 
-  // Always return a price, even if 0
   const nightlyRate = useMemo(() => {
-    const d = range.from || new Date();
+    const d = range.from || today;
     const s = getSeasonForDate(d);
-    return s?.price_per_night ?? 0; // Return 0 if no season found
-  }, [range.from, seasons]);
+    return s?.price_per_night ?? 0;
+  }, [range.from, seasons, today]);
 
-  // Always return a currency symbol
   const currency = useMemo(() => {
-    const d = range.from || new Date();
+    const d = range.from || today;
     const s = getSeasonForDate(d);
     return s?.currency_symbol ?? '€';
-  }, [range.from, seasons]);
+  }, [range.from, seasons, today]);
 
   const rangeHasBlocked = useMemo(() => {
     if (!range.from || !range.to || blockedLoading) return false;
@@ -132,13 +152,13 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     let sum = 0;
     for (const d of days) {
       const s = getSeasonForDate(d);
-      sum += s?.price_per_night ?? 0; // Add 0 if no season found
+      sum += s?.price_per_night ?? 0;
     }
     return { nights: days.length, subtotal: sum };
   }, [range, seasons]);
 
   const cleaningTotal = useMemo(() => {
-    const base = parseFloat(settings?.cleaning_fee || '0') || 0; // Default to 0
+    const base = parseFloat(settings?.cleaning_fee || '0') || 0;
     const freeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
     return nights > 0 && base > 0 ? base * Math.ceil(nights / freeNights) : 0;
   }, [settings, nights]);
@@ -149,7 +169,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     let sum = 0;
     for (const d of days) {
       const s = getTaxSeasonForDate(d);
-      const perGuest = s?.tax_per_guest_per_night ?? 0; // Default to 0
+      const perGuest = s?.tax_per_guest_per_night ?? 0;
       sum += perGuest * guests;
     }
     return sum;
@@ -159,7 +179,6 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;
   }, [perNightBreakdown, cleaningTotal, touristTaxTotal]);
 
-  // Remove the dependency on having a season - allow booking if dates are selected and minimum stay is met
   const validRange = range.from && range.to && nights >= minStay && !rangeHasBlocked;
 
   const minStayText = lang === 'he'
@@ -177,7 +196,6 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     setRange(next);
   };
 
-  // Get inquiry email with fallback
   const inquiryEmail = settings?.inquiry_email || 'info@nowweland.com';
 
   const subject = encodeURIComponent('Now We Land – Booking inquiry');
@@ -191,7 +209,6 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   ].filter(Boolean).join('\n'));
   const mailto = `mailto:${inquiryEmail}?subject=${subject}&body=${body}`;
 
-  // Show loading state if data is still loading
   if (blockedLoading) {
     return (
       <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
@@ -199,6 +216,47 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-mediterranean-blue mx-auto"></div>
             <p className="mt-2 text-muted-foreground">{lang === 'he' ? 'טוען...' : 'Loading...'}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show message if no seasons available
+  if (!availableDateRange.start || !availableDateRange.end) {
+    return (
+      <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-cormorant font-bold text-mediterranean-blue mb-3">
+              {translations.booking.title}
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              {translations.booking.subtitle}
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto text-center">
+            <Card className="rounded-2xl shadow-md">
+              <CardContent className="p-8">
+                <div className="text-orange-600 mb-4">
+                  <CalendarIcon className="h-12 w-12 mx-auto mb-4" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {lang === 'he' ? 'אין תאריכים זמינים כרגע' : 'No dates currently available'}
+                </h3>
+                <p className="text-muted-foreground">
+                  {lang === 'he' 
+                    ? 'אנא צרו קשר ישירות לקבלת מידע על זמינות עתידית' 
+                    : 'Please contact us directly for information about future availability'
+                  }
+                </p>
+                <Button className="mt-4" asChild>
+                  <a href={`mailto:${inquiryEmail}`}>
+                    {lang === 'he' ? 'צרו קשר' : 'Contact Us'}
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -232,9 +290,15 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                       selected={range as any}
                       onSelect={handleSelect}
                       disabled={[
-                        { before: new Date() },
+                        // Only block dates before today
+                        { before: today },
+                        // Block dates outside available seasons
+                        { before: availableDateRange.start },
+                        { after: availableDateRange.end },
+                        // Block specifically blocked dates
                         ...Array.from(blockedSet).map((d) => new Date(d))
                       ]}
+                      defaultMonth={availableDateRange.start}
                       className="p-3 pointer-events-auto"
                     />
                   </div>
@@ -247,6 +311,14 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                         placeholder={lang==='he'?'בחרו תאריכים':'Select dates'} 
                       />
                       <p className="text-xs text-muted-foreground">{minStayText}</p>
+                      {availableDateRange.start && availableDateRange.end && (
+                        <p className="text-xs text-green-600">
+                          {lang === 'he' 
+                            ? `זמין מ-${format(availableDateRange.start, 'dd/MM/yyyy')} עד ${format(availableDateRange.end, 'dd/MM/yyyy')}`
+                            : `Available from ${format(availableDateRange.start, 'dd/MM/yyyy')} to ${format(availableDateRange.end, 'dd/MM/yyyy')}`
+                          }
+                        </p>
+                      )}
                       {rangeHasBlocked && (
                         <p className="text-xs text-destructive">{lang==='he'?'התאריכים הנבחרים כוללים ימים חסומים/תפוסים':'The selected range includes blocked/booked days'}</p>
                       )}
