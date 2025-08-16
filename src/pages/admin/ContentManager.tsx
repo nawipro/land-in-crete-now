@@ -134,7 +134,7 @@ const ContentManager: React.FC = () => {
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
   const [lang, setLang] = React.useState<'en' | 'he'>('he');
-  const [data, setData] = React.useState<any>(null);
+  const [data, setData] = React.useState<any>(DEFAULTS['home']);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -148,11 +148,9 @@ const ContentManager: React.FC = () => {
     });
   }, [supabase, navigate]);
 
-  // Initialize data when page changes or when component mounts
+  // Initialize data when page changes
   React.useEffect(() => {
-    if (!data || !DEFAULTS[page]) {
-      setData(DEFAULTS[page]);
-    }
+    setData(DEFAULTS[page]);
   }, [page]);
 
   React.useEffect(() => {
