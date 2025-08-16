@@ -346,10 +346,10 @@ const ContentManager: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-rows-[auto,1fr] bg-cream-white">
+    <div className="min-h-screen grid grid-rows-[auto,1fr] bg-mediterranean-cream-white">
       <header className="border-b py-3 bg-white/90 backdrop-blur-sm">
         <div className="container flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-deep-navy">Content Manager</h1>
+          <h1 className="text-xl font-semibold text-mediterranean-deep-navy">Content Manager</h1>
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => navigate('/')}>View site</Button>
             <Button variant="secondary" onClick={logout}>Log out</Button>
