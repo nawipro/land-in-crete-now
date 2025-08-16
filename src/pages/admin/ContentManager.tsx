@@ -356,10 +356,10 @@ const ContentManager: React.FC = () => {
     <div className="min-h-screen grid grid-rows-[auto,1fr] bg-stone-50">
       <header className="border-b py-3 bg-white/90 backdrop-blur-sm">
         <div className="container flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-slate-800">Content Manager</h1>
+          <h1 className="text-xl font-semibold text-slate-800">מנהל תוכן</h1>
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => navigate('/')}>View site</Button>
-            <Button variant="secondary" onClick={logout}>Log out</Button>
+            <Button variant="outline" onClick={() => navigate('/')}>צפה באתר</Button>
+            <Button variant="secondary" onClick={logout}>התנתק</Button>
           </div>
         </div>
       </header>
@@ -367,7 +367,7 @@ const ContentManager: React.FC = () => {
         <aside className="border-r p-4 bg-white/50">
           <PagePicker value={page} onChange={(p) => setPage(p)} lang={lang} />
           <div className="mt-6">
-            <h3 className="text-sm font-medium mb-2">Language</h3>
+            <h3 className="text-sm font-medium mb-2">שפה</h3>
             <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
               <TabsList className="grid grid-cols-2">
                 <TabsTrigger value="he">עברית</TabsTrigger>
@@ -378,18 +378,18 @@ const ContentManager: React.FC = () => {
           <div className="mt-6">
             <Tabs value={status} onValueChange={(v) => setStatus(v as any)}>
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="draft">Draft</TabsTrigger>
-                <TabsTrigger value="published">Published</TabsTrigger>
+                <TabsTrigger value="draft">טיוטה</TabsTrigger>
+                <TabsTrigger value="published">פורסם</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
         </aside>
-        <section className="p-4">
+        <section className="p-4 pb-24">
           <div className="grid lg:grid-cols-2 gap-6">
             <Card className="min-h-[60vh]"><CardContent className="p-6">
               {loading ? (
                 <div className="flex items-center justify-center h-32">
-                  <p className="text-muted-foreground">Loading...</p>
+                  <p className="text-muted-foreground">טוען...</p>
                 </div>
               ) : data ? (
                 <ScrollArea className="h-[70vh] pr-4 overflow-x-auto">
@@ -397,15 +397,15 @@ const ContentManager: React.FC = () => {
                 </ScrollArea>
               ) : (
                 <div className="flex items-center justify-center h-32">
-                  <p className="text-muted-foreground">No data available</p>
+                  <p className="text-muted-foreground">אין נתונים זמינים</p>
                 </div>
               )}
             </CardContent></Card>
             <PreviewPane slug={page} data={data} lang={lang} />
           </div>
-          <PublishBar onSave={onSave} onPublish={onPublish} />
         </section>
       </main>
+      <PublishBar onSave={onSave} onPublish={onPublish} />
     </div>
   );
 };
