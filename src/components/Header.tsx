@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail, MessageCircle } from 'lucide-react';
+import { Menu, X, Phone, Mail } from 'lucide-react';
 import { Facebook, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -43,10 +44,6 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
     { name: currentLang === 'en' ? 'Explore Area' : 'גלו את האזור', href: '/explore-area' },
   ];
 
-  const handleWhatsAppClick = () => {
-    window.open('https://wa.me/30123456789', '_blank');
-  };
-
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-md' : 'bg-transparent'
@@ -78,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
             ))}
           </nav>
 
-          {/* Social Media & Language Switcher & WhatsApp Contact - Enhanced hover effects */}
+          {/* Social Media & Language Switcher & Contact - Enhanced hover effects */}
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <a
@@ -99,13 +96,10 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
               </a>
             </div>
             <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} />
-            <button
-              onClick={handleWhatsAppClick}
-              className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-all duration-300 hover:shadow-lg active:scale-[0.98] px-2 py-1 rounded-md hover:bg-accent/50"
-            >
-              <MessageCircle className="h-4 w-4" />
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
+              <Phone className="h-4 w-4" />
               <span>+30 123 456 789</span>
-            </button>
+            </div>
           </div>
 
           {/* Mobile menu button - Enhanced effects */}
@@ -157,13 +151,10 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
                   <Instagram className="h-5 w-5" />
                 </a>
               </div>
-              <button
-                onClick={handleWhatsAppClick}
-                className="flex items-center w-full px-3 py-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-all duration-300 hover:bg-accent/50 rounded-md active:scale-[0.98]"
-              >
-                <MessageCircle className="h-4 w-4 mr-2" />
+              <div className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
+                <Phone className="h-4 w-4 mr-2" />
                 <span>+30 123 456 789</span>
-              </button>
+              </div>
               <div className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
                 <Mail className="h-4 w-4 mr-2" />
                 <span>info@nowweland.com</span>
