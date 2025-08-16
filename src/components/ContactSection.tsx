@@ -11,9 +11,10 @@ import { useToast } from '@/hooks/use-toast';
 
 interface ContactSectionProps {
   translations: any;
+  content?: any;
 }
 
-const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
+const ContactSection: React.FC<ContactSectionProps> = ({ translations, content }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,15 +40,44 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
     }));
   };
 
+  // Use content from CMS if available, otherwise fall back to translations
+  const contactData = {
+    title: content?.title || translations.contact.title,
+    subtitle: content?.subtitle || translations.contact.subtitle,
+    phone: content?.phone || '+30 123 456 789',
+    email: content?.email || 'info@nowweland.com',
+    address: content?.address || 'Akrotiri, Chania, Crete, Greece',
+    whatsapp: content?.whatsapp || '+30 123 456 789',
+    facebook_url: content?.facebook_url || 'https://facebook.com/nowweland',
+    instagram_url: content?.instagram_url || 'https://instagram.com/nowweland',
+    form: {
+      title: content?.form?.title || translations.contact.form.title,
+      name: content?.form?.name || translations.contact.form.name,
+      email: content?.form?.email || translations.contact.form.email,
+      phone: content?.form?.phone || translations.contact.form.phone,
+      message: content?.form?.message || translations.contact.form.message,
+      send: content?.form?.send || translations.contact.form.send,
+    },
+    info: {
+      title: content?.info?.title || translations.contact.info.title,
+      phone: content?.info?.phone || translations.contact.info.phone,
+      email: content?.info?.email || translations.contact.info.email,
+      location: content?.info?.location || translations.contact.info.location,
+    },
+    social: {
+      title: content?.social?.title || translations.contact.social.title,
+    }
+  };
+
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-playfair font-bold text-mediterranean-blue mb-6">
-            {translations.contact.title}
+            {contactData.title}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {translations.contact.subtitle}
+            {contactData.subtitle}
           </p>
         </div>
 
@@ -56,14 +86,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
           <Card className="shadow-xl">
             <CardHeader>
               <CardTitle className="text-2xl font-playfair text-mediterranean-blue">
-                {translations.contact.form.title}
+                {contactData.form.title}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name">{translations.contact.form.name}</Label>
+                    <Label htmlFor="name">{contactData.form.name}</Label>
                     <Input
                       id="name"
                       name="name"
@@ -73,7 +103,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email">{translations.contact.form.email}</Label>
+                    <Label htmlFor="email">{contactData.form.email}</Label>
                     <Input
                       id="email"
                       name="email"
@@ -86,7 +116,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="phone">{translations.contact.form.phone}</Label>
+                  <Label htmlFor="phone">{contactData.form.phone}</Label>
                   <Input
                     id="phone"
                     name="phone"
@@ -97,7 +127,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">{translations.contact.form.message}</Label>
+                  <Label htmlFor="message">{contactData.form.message}</Label>
                   <Textarea
                     id="message"
                     name="message"
@@ -112,7 +142,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                   type="submit" 
                   className="w-full bg-mediterranean-blue hover:bg-aegean-blue text-white py-3 text-lg font-semibold"
                 >
-                  {translations.contact.form.send}
+                  {contactData.form.send}
                 </Button>
               </form>
             </CardContent>
@@ -123,7 +153,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
             <Card className="shadow-lg">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-playfair font-bold text-mediterranean-blue mb-6">
-                  {translations.contact.info.title}
+                  {contactData.info.title}
                 </h3>
                 
                 <div className="space-y-6">
@@ -132,13 +162,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                       <Phone className="h-6 w-6 text-mediterranean-blue" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1">{translations.contact.info.phone}</h4>
-                      <p className="text-muted-foreground">+30 123 456 789</p>
+                      <h4 className="font-semibold mb-1">{contactData.info.phone}</h4>
+                      <p className="text-muted-foreground">{contactData.phone}</p>
                       <Button
                         variant="outline"
                         size="sm"
                         className="mt-2"
-                        onClick={() => window.open('https://wa.me/30123456789', '_blank')}
+                        onClick={() => window.open(`https://wa.me/${contactData.whatsapp.replace(/[^0-9]/g, '')}`, '_blank')}
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
                         WhatsApp
@@ -151,8 +181,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                       <Mail className="h-6 w-6 text-mediterranean-blue" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1">{translations.contact.info.email}</h4>
-                      <p className="text-muted-foreground">info@nowweland.com</p>
+                      <h4 className="font-semibold mb-1">{contactData.info.email}</h4>
+                      <p className="text-muted-foreground">{contactData.email}</p>
                     </div>
                   </div>
 
@@ -161,8 +191,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                       <MapPin className="h-6 w-6 text-mediterranean-blue" />
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1">{translations.contact.info.location}</h4>
-                      <p className="text-muted-foreground">Akrotiri, Chania, Crete, Greece</p>
+                      <h4 className="font-semibold mb-1">{contactData.info.location}</h4>
+                      <p className="text-muted-foreground">{contactData.address}</p>
                     </div>
                   </div>
                 </div>
@@ -173,14 +203,14 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
             <Card className="shadow-lg">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-playfair font-bold text-mediterranean-blue mb-6">
-                  {translations.contact.social.title}
+                  {contactData.social.title}
                 </h3>
                 <div className="flex space-x-4">
                   <Button
                     variant="outline"
                     size="lg"
                     className="flex-1"
-                    onClick={() => window.open('https://facebook.com/nowweland', '_blank')}
+                    onClick={() => window.open(contactData.facebook_url, '_blank')}
                   >
                     <Facebook className="h-5 w-5 mr-2" />
                     Facebook
@@ -189,7 +219,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations }) => {
                     variant="outline"
                     size="lg"
                     className="flex-1"
-                    onClick={() => window.open('https://instagram.com/nowweland', '_blank')}
+                    onClick={() => window.open(contactData.instagram_url, '_blank')}
                   >
                     <Instagram className="h-5 w-5 mr-2" />
                     Instagram

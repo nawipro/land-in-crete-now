@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,13 +11,14 @@ import { supabase } from '@/integrations/supabase/client';
 
 interface BookingSectionProps {
   translations: any;
+  content?: any;
 }
 
 type DateRange = { from?: Date; to?: Date };
 
 const toISO = (d: Date) => format(d, 'yyyy-MM-dd');
 
-const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
+const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }) => {
   const [range, setRange] = useState<DateRange>({});
   const [guests, setGuests] = useState(2);
   const [name, setName] = useState('');
@@ -80,6 +80,28 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
       return (data || []).filter((d: any) => d.status === 'blocked' || d.status === 'booked');
     }
   });
+
+  // Use content from CMS if available, otherwise fall back to translations
+  const bookingData = {
+    title: content?.title || translations.booking.title,
+    subtitle: content?.subtitle || translations.booking.subtitle,
+    form: {
+      title: content?.form?.title || translations.booking.form.title,
+      guests: content?.form?.guests || translations.booking.form.guests,
+    },
+    pricing: {
+      pernight: content?.pricing?.pernight || translations.booking.pricing.pernight,
+    },
+    includes: {
+      title: content?.includes?.title || translations.booking.includes.title,
+      wifi: content?.includes?.wifi || translations.booking.includes.wifi,
+      pool: content?.includes?.pool || translations.booking.includes.pool,
+      parking: content?.includes?.parking || translations.booking.includes.parking,
+      garden: content?.includes?.garden || translations.booking.includes.garden,
+      seaview: content?.includes?.seaview || translations.booking.includes.seaview,
+      hidden_bay: content?.includes?.hidden_bay || (lang==='he'?'גישה למפרץ הנסתר':'Hidden Bay Access'),
+    }
+  };
 
   const blockedSet = useMemo(() => new Set((blocked || []).map((d: any) => d.date)), [blocked]);
 
@@ -229,10 +251,10 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-cormorant font-bold text-mediterranean-blue mb-3">
-              {translations.booking.title}
+              {bookingData.title}
             </h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-              {translations.booking.subtitle}
+              {bookingData.subtitle}
             </p>
           </div>
           <div className="max-w-2xl mx-auto text-center">
@@ -268,10 +290,10 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-cormorant font-bold text-mediterranean-blue mb-3">
-            {translations.booking.title}
+            {bookingData.title}
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            {translations.booking.subtitle}
+            {bookingData.subtitle}
           </p>
         </div>
 
@@ -279,7 +301,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
           <div className="lg:col-span-2">
             <Card className="rounded-2xl shadow-md">
               <CardHeader>
-                <CardTitle className="text-2xl">{translations.booking.form.title}</CardTitle>
+                <CardTitle className="text-2xl">{bookingData.form.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-[1fr,280px] gap-6">
@@ -327,7 +349,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="guests">{translations.booking.form.guests}</Label>
+                      <Label htmlFor="guests">{bookingData.form.guests}</Label>
                       <Input id="guests" type="number" min={1} max={8} value={guests} onChange={(e) => setGuests(parseInt(e.target.value||'0')||1)} />
                     </div>
                     <div className="space-y-2">
@@ -355,7 +377,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
               <CardContent className="p-6">
                 <div className="text-center">
                   <div className="text-4xl font-bold text-mediterranean-blue mb-2">{currency}{nightlyRate?.toFixed(0) || 0}</div>
-                  <div className="text-muted-foreground">{translations.booking.pricing.pernight}</div>
+                  <div className="text-muted-foreground">{bookingData.pricing.pernight}</div>
                   <div className="text-sm text-muted-foreground mt-2">{minStayText}</div>
                   {nightlyRate === 0 && (
                     <div className="text-xs text-orange-600 mt-1">{lang==='he'?'ללא מחיר מוגדר':'No price set'}</div>
@@ -384,14 +406,14 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
 
             <Card className="rounded-2xl shadow">
               <CardContent className="p-6">
-                <h4 className="font-semibold mb-4 text-mediterranean-blue">{translations.booking.includes.title}</h4>
+                <h4 className="font-semibold mb-4 text-mediterranean-blue">{bookingData.includes.title}</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• {translations.booking.includes.wifi}</li>
-                  <li>• {translations.booking.includes.pool}</li>
-                  <li>• {translations.booking.includes.parking}</li>
-                  <li>• {translations.booking.includes.garden}</li>
-                  <li>• {translations.booking.includes.seaview}</li>
-                  <li>• {lang==='he'?'גישה למפרץ הנסתר':'Hidden Bay Access'}</li>
+                  <li>• {bookingData.includes.wifi}</li>
+                  <li>• {bookingData.includes.pool}</li>
+                  <li>• {bookingData.includes.parking}</li>
+                  <li>• {bookingData.includes.garden}</li>
+                  <li>• {bookingData.includes.seaview}</li>
+                  <li>• {bookingData.includes.hidden_bay}</li>
                 </ul>
               </CardContent>
             </Card>

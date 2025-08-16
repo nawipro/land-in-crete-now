@@ -122,8 +122,53 @@ const DEFAULTS: Record<PageSlug, any> = {
         ]
         },
   explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
-  booking: { intro: 'Simple instructions text…', mailto: 'bookings@nowweland.com', whatsapp: '+30…', cta: { text: 'Send inquiry', href: 'mailto:…' } },
-  contact: { address: '…', phone: '+30…', email: '…', map_embed_url: '…' }
+  booking: {
+    title: 'Book Your Stay',
+    subtitle: 'Check availability and secure your perfect vacation dates',
+    form: {
+      title: 'Booking Details',
+      guests: 'Guests'
+    },
+    pricing: {
+      pernight: 'per night'
+    },
+    includes: {
+      title: "What's included",
+      wifi: 'Free WiFi',
+      pool: 'Private Pool',
+      parking: 'Free Parking',
+      garden: 'Garden & BBQ',
+      seaview: 'Sea Views',
+      hidden_bay: 'Hidden Bay Access'
+    }
+  },
+  contact: {
+    title: 'Get in Touch',
+    subtitle: 'Ready to book or have questions? We\'re here to help make your stay perfect.',
+    phone: '+30 123 456 789',
+    email: 'info@nowweland.com',
+    address: 'Akrotiri, Chania, Crete, Greece',
+    whatsapp: '+30 123 456 789',
+    facebook_url: 'https://facebook.com/nowweland',
+    instagram_url: 'https://instagram.com/nowweland',
+    form: {
+      title: 'Send us a message',
+      name: 'Your Name',
+      email: 'Email Address',
+      phone: 'Phone Number',
+      message: 'Your Message',
+      send: 'Send Message'
+    },
+    info: {
+      title: 'Contact Information',
+      phone: 'Phone',
+      email: 'Email',
+      location: 'Location'
+    },
+    social: {
+      title: 'Follow Us'
+    }
+  }
 };
 
 const ContentManager: React.FC = () => {
@@ -325,14 +370,30 @@ const ContentManager: React.FC = () => {
       case 'booking':
         return (
           <div className="space-y-6">
-            <FieldText label="Intro" value={data.intro || ''} onChange={(v) => setData({ ...data, intro: v })} textarea />
-            <div className="grid md:grid-cols-3 gap-4">
-              <FieldText label="Email (mailto)" value={data.mailto || ''} onChange={(v) => setData({ ...data, mailto: v })} />
-              <FieldText label="WhatsApp" value={data.whatsapp || ''} onChange={(v) => setData({ ...data, whatsapp: v })} />
-              <>
-                <FieldText label="CTA text" value={data.cta?.text || ''} onChange={(v) => setData({ ...data, cta: { ...(data.cta||{}), text: v } })} />
-                <FieldText label="CTA href" value={data.cta?.href || ''} onChange={(v) => setData({ ...data, cta: { ...(data.cta||{}), href: v } })} />
-              </>
+            <FieldText label="Title" value={data.title || ''} onChange={(v) => setData({ ...data, title: v })} />
+            <FieldText label="Subtitle" value={data.subtitle || ''} onChange={(v) => setData({ ...data, subtitle: v })} textarea />
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Form Settings</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <FieldText label="Form title" value={data.form?.title || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), title: v } })} />
+                <FieldText label="Guests label" value={data.form?.guests || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), guests: v } })} />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Pricing</h4>
+              <FieldText label="Per night text" value={data.pricing?.pernight || ''} onChange={(v) => setData({ ...data, pricing: { ...(data.pricing||{}), pernight: v } })} />
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">What's Included</h4>
+              <FieldText label="Includes title" value={data.includes?.title || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), title: v } })} />
+              <div className="grid md:grid-cols-2 gap-4">
+                <FieldText label="WiFi" value={data.includes?.wifi || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), wifi: v } })} />
+                <FieldText label="Pool" value={data.includes?.pool || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), pool: v } })} />
+                <FieldText label="Parking" value={data.includes?.parking || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), parking: v } })} />
+                <FieldText label="Garden" value={data.includes?.garden || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), garden: v } })} />
+                <FieldText label="Sea View" value={data.includes?.seaview || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), seaview: v } })} />
+                <FieldText label="Hidden Bay" value={data.includes?.hidden_bay || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), hidden_bay: v } })} />
+              </div>
             </div>
             <AvailabilityPricing />
           </div>
@@ -341,12 +402,39 @@ const ContentManager: React.FC = () => {
       default:
         return (
           <div className="space-y-6">
-            <FieldText label="Address" value={data.address || ''} onChange={(v) => setData({ ...data, address: v })} />
+            <FieldText label="Title" value={data.title || ''} onChange={(v) => setData({ ...data, title: v })} />
+            <FieldText label="Subtitle" value={data.subtitle || ''} onChange={(v) => setData({ ...data, subtitle: v })} textarea />
             <div className="grid md:grid-cols-2 gap-4">
               <FieldText label="Phone" value={data.phone || ''} onChange={(v) => setData({ ...data, phone: v })} />
               <FieldText label="Email" value={data.email || ''} onChange={(v) => setData({ ...data, email: v })} />
             </div>
-            <FieldText label="Map embed URL" value={data.map_embed_url || ''} onChange={(v) => setData({ ...data, map_embed_url: v })} textarea />
+            <FieldText label="Address" value={data.address || ''} onChange={(v) => setData({ ...data, address: v })} />
+            <div className="grid md:grid-cols-2 gap-4">
+              <FieldText label="WhatsApp" value={data.whatsapp || ''} onChange={(v) => setData({ ...data, whatsapp: v })} />
+              <FieldText label="Facebook URL" value={data.facebook_url || ''} onChange={(v) => setData({ ...data, facebook_url: v })} />
+            </div>
+            <FieldText label="Instagram URL" value={data.instagram_url || ''} onChange={(v) => setData({ ...data, instagram_url: v })} />
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Form Labels</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <FieldText label="Form title" value={data.form?.title || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), title: v } })} />
+                <FieldText label="Send button" value={data.form?.send || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), send: v } })} />
+                <FieldText label="Name field" value={data.form?.name || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), name: v } })} />
+                <FieldText label="Email field" value={data.form?.email || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), email: v } })} />
+                <FieldText label="Phone field" value={data.form?.phone || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), phone: v } })} />
+                <FieldText label="Message field" value={data.form?.message || ''} onChange={(v) => setData({ ...data, form: { ...(data.form||{}), message: v } })} />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium">Contact Info Labels</h4>
+              <div className="grid md:grid-cols-2 gap-4">
+                <FieldText label="Info title" value={data.info?.title || ''} onChange={(v) => setData({ ...data, info: { ...(data.info||{}), title: v } })} />
+                <FieldText label="Social title" value={data.social?.title || ''} onChange={(v) => setData({ ...data, social: { ...(data.social||{}), title: v } })} />
+                <FieldText label="Phone label" value={data.info?.phone || ''} onChange={(v) => setData({ ...data, info: { ...(data.info||{}), phone: v } })} />
+                <FieldText label="Email label" value={data.info?.email || ''} onChange={(v) => setData({ ...data, info: { ...(data.info||{}), email: v } })} />
+                <FieldText label="Location label" value={data.info?.location || ''} onChange={(v) => setData({ ...data, info: { ...(data.info||{}), location: v } })} />
+              </div>
+            </div>
           </div>
         );
     }
