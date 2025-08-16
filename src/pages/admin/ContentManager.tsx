@@ -134,7 +134,7 @@ const ContentManager: React.FC = () => {
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
   const [lang, setLang] = React.useState<'en' | 'he'>('he');
-  const [data, setData] = React.useState<any>(DEFAULTS['home']);
+  const [data, setData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -147,6 +147,13 @@ const ContentManager: React.FC = () => {
       }
     });
   }, [supabase, navigate]);
+
+  // Initialize data when page changes or when component mounts
+  React.useEffect(() => {
+    if (!data || !DEFAULTS[page]) {
+      setData(DEFAULTS[page]);
+    }
+  }, [page]);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -380,10 +387,18 @@ const ContentManager: React.FC = () => {
         <section className="p-4">
           <div className="grid lg:grid-cols-2 gap-6">
             <Card className="min-h-[60vh]"><CardContent className="p-6">
-              {loading ? <p>Loading…</p> : (
+              {loading ? (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-muted-foreground">Loading...</p>
+                </div>
+              ) : data ? (
                 <ScrollArea className="h-[70vh] pr-4 overflow-x-auto">
                   {renderEditor()}
                 </ScrollArea>
+              ) : (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-muted-foreground">No data available</p>
+                </div>
               )}
             </CardContent></Card>
             <PreviewPane slug={page} data={data} lang={lang} />
