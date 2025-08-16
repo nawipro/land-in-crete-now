@@ -134,7 +134,7 @@ const ContentManager: React.FC = () => {
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
   const [lang, setLang] = React.useState<'en' | 'he'>('he');
-  const [data, setData] = React.useState<any>(DEFAULTS['home']);
+  const [data, setData] = React.useState<any>(() => DEFAULTS['home']);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -147,11 +147,6 @@ const ContentManager: React.FC = () => {
       }
     });
   }, [supabase, navigate]);
-
-  // Initialize data when page changes
-  React.useEffect(() => {
-    setData(DEFAULTS[page]);
-  }, [page]);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -185,7 +180,11 @@ const ContentManager: React.FC = () => {
       if (isMounted) setData(next);
       setLoading(false);
     }
+    
+    // Initialize with defaults first, then load from database
+    setData(DEFAULTS[page]);
     load();
+    
     return () => { isMounted = false; };
   }, [page, status, lang, supabase]);
 
