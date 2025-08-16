@@ -38,7 +38,6 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
     }
   });
 
-  // Tax seasons are managed separately from pricing seasons
   const { data: taxSeasons } = useQuery({
     queryKey: ['tax_seasons'],
     queryFn: async () => {
@@ -57,19 +56,26 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
       const { data, error } = await (supabase as any)
         .from('settings')
         .select('key, value');
-      if (error) return {} as any;
+      if (error) {
+        console.error('Error fetching settings:', error);
+        return {} as any;
+      }
       const obj: any = {};
       (data || []).forEach((row: any) => { obj[row.key] = row.value; });
       return obj;
     }
   });
 
-  const { data: blocked } = useQuery({
+  const { data: blocked, isLoading: blockedLoading } = useQuery({
     queryKey: ['availability'],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('availability')
         .select('date, status');
+      if (error) {
+        console.error('Error fetching availability:', error);
+        return [];
+      }
       return (data || []).filter((d: any) => d.status === 'blocked' || d.status === 'booked');
     }
   });
@@ -96,13 +102,13 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   const minStay = useMemo(() => {
     const d = range.from || new Date();
     const s = getSeasonForDate(d);
-    return s?.min_stay_nights ?? 4;
+    return s?.min_stay_nights ?? 3; // Default to 3 nights if no season found
   }, [range.from, seasons]);
 
   const nightlyRate = useMemo(() => {
     const d = range.from || new Date();
     const s = getSeasonForDate(d);
-    return s?.price_per_night ?? 0;
+    return s?.price_per_night ?? 100; // Default rate if no season found
   }, [range.from, seasons]);
 
   const currency = useMemo(() => {
@@ -112,35 +118,35 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations }) => {
   }, [range.from, seasons]);
 
   const rangeHasBlocked = useMemo(() => {
-    if (!range.from || !range.to) return false;
+    if (!range.from || !range.to || blockedLoading) return false;
     const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
     return days.some((d) => blockedSet.has(toISO(d)));
-  }, [range, blockedSet]);
+  }, [range, blockedSet, blockedLoading]);
 
   const perNightBreakdown = useMemo(() => {
-    if (!range.from || !range.to || !seasons) return { nights: 0, subtotal: 0 };
+    if (!range.from || !range.to) return { nights: 0, subtotal: 0 };
     const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
     let sum = 0;
     for (const d of days) {
       const s = getSeasonForDate(d);
-      sum += s?.price_per_night ?? 0;
+      sum += s?.price_per_night ?? 100; // Default rate
     }
     return { nights: days.length, subtotal: sum };
   }, [range, seasons]);
 
-const cleaningTotal = useMemo(() => {
-    const base = parseFloat(settings?.cleaning_fee || '0') || 0;
+  const cleaningTotal = useMemo(() => {
+    const base = parseFloat(settings?.cleaning_fee || '80') || 80; // Default cleaning fee
     const freeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
     return nights > 0 ? base * Math.ceil(nights / freeNights) : 0;
   }, [settings, nights]);
 
   const touristTaxTotal = useMemo(() => {
-    if (!range.from || !range.to || !taxSeasons) return 0;
+    if (!range.from || !range.to) return 0;
     const days = eachDayOfInterval({ start: range.from, end: addDays(range.to, -1) });
     let sum = 0;
     for (const d of days) {
       const s = getTaxSeasonForDate(d);
-      const perGuest = s?.tax_per_guest_per_night ?? 0;
+      const perGuest = s?.tax_per_guest_per_night ?? 2; // Default tax rate
       sum += perGuest * guests;
     }
     return sum;
@@ -157,7 +163,6 @@ const cleaningTotal = useMemo(() => {
     : `Minimum ${minStay} nights stay`;
 
   const handleSelect = (next: any) => {
-    // Prevent selecting invalid range shorter than minStay by just not setting 'to'
     if (next?.from && next?.to) {
       const len = Math.max(0, differenceInCalendarDays(next.to, next.from));
       if (len < minStay) {
@@ -168,6 +173,9 @@ const cleaningTotal = useMemo(() => {
     setRange(next);
   };
 
+  // Get inquiry email with fallback
+  const inquiryEmail = settings?.inquiry_email || 'info@nowweland.com';
+
   const subject = encodeURIComponent('Now We Land – Booking inquiry');
   const body = encodeURIComponent([
     lang === 'he' ? 'פרטי פנייה:' : 'Inquiry details:',
@@ -177,7 +185,21 @@ const cleaningTotal = useMemo(() => {
     name ? `${lang==='he'?'שם':'Name'}: ${name}` : '',
     message ? `${lang==='he'?'הודעה':'Message'}: ${message}` : ''
   ].filter(Boolean).join('\n'));
-  const mailto = `mailto:${settings?.inquiry_email || ''}?subject=${subject}&body=${body}`;
+  const mailto = `mailto:${inquiryEmail}?subject=${subject}&body=${body}`;
+
+  // Show loading state if data is still loading
+  if (blockedLoading) {
+    return (
+      <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-mediterranean-blue mx-auto"></div>
+            <p className="mt-2 text-muted-foreground">{lang === 'he' ? 'טוען...' : 'Loading...'}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
@@ -192,7 +214,6 @@ const cleaningTotal = useMemo(() => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-          {/* Left: Calendar + form */}
           <div className="lg:col-span-2">
             <Card className="rounded-2xl shadow-md">
               <CardHeader>
@@ -216,11 +237,18 @@ const cleaningTotal = useMemo(() => {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label>{lang==='he'?'טווח תאריכים':'Date range'}</Label>
-                      <Input readOnly value={range.from && range.to ? `${format(range.from,'dd/MM/yyyy')} → ${format(range.to,'dd/MM/yyyy')}` : ''} placeholder={lang==='he'?'בחרו תאריכים':'Select dates'} />
+                      <Input 
+                        readOnly 
+                        value={range.from && range.to ? `${format(range.from,'dd/MM/yyyy')} → ${format(range.to,'dd/MM/yyyy')}` : ''} 
+                        placeholder={lang==='he'?'בחרו תאריכים':'Select dates'} 
+                      />
                       <p className="text-xs text-muted-foreground">{minStayText}</p>
                       {rangeHasBlocked && (
                         <p className="text-xs text-destructive">{lang==='he'?'התאריכים הנבחרים כוללים ימים חסומים/תפוסים':'The selected range includes blocked/booked days'}</p>
                       )}
+                      {!seasons || seasons.length === 0 ? (
+                        <p className="text-xs text-orange-600">{lang==='he'?'אין עונות מחיר מוגדרות. נא להגדיר בדף האדמין.':'No price seasons defined. Please configure in admin panel.'}</p>
+                      ) : null}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="guests">{translations.booking.form.guests}</Label>
@@ -246,7 +274,6 @@ const cleaningTotal = useMemo(() => {
             </Card>
           </div>
 
-          {/* Right: Price summary */}
           <div className="space-y-6">
             <Card className="rounded-2xl shadow">
               <CardContent className="p-6">
