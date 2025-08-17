@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,7 +6,7 @@ import { translations as dict } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
 const Booking: React.FC = () => {
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('he');
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
 
   useEffect(() => {
     document.title = 'Book Your Stay | Now We Land';

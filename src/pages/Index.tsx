@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
@@ -12,7 +11,7 @@ import { translations } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
 const Index = () => {
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('he');
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
 
   useEffect(() => {
     // Set document direction based on language
