@@ -63,6 +63,9 @@ const GallerySection: React.FC<GallerySectionProps> = ({
   }, {
     id: 'terrace-family-suite',
     name: 'TERRACE FAMILY SUITE'
+  }, {
+    id: 'kitchen',
+    name: 'KITCHEN'
   }];
   // Merge CMS categories with defaults (avoid duplicates)
   const mergedCategoryList = [...(cmsCategories.length ? cmsCategories.map(c => ({
@@ -412,6 +415,38 @@ const GallerySection: React.FC<GallerySectionProps> = ({
     category: 'terrace-family-suite',
     src: '/lovable-uploads/e5aa503c-c418-4f4d-ad9a-a218937864c1.png',
     alt: 'Terrace Family Suite – sofa area with bathroom entrance'
+  },
+  // Kitchen defaults
+  {
+    id: 65,
+    category: 'kitchen',
+    src: '/lovable-uploads/01be3a91-7d9c-4ca2-816c-6f1c6a051246.png',
+    alt: 'Kitchen – blue cabinets with dining area and blue chairs'
+  }, {
+    id: 66,
+    category: 'kitchen',
+    src: '/lovable-uploads/5f8d35d5-33b8-4648-883e-c1f9db774b14.png',
+    alt: 'Kitchen – dining area with wooden cabinet and stone stairs'
+  }, {
+    id: 67,
+    category: 'kitchen',
+    src: '/lovable-uploads/9c4e3266-c6f0-4a53-8e13-d67319abe0cd.png',
+    alt: 'Kitchen – dining area with stone fireplace and sea view'
+  }, {
+    id: 68,
+    category: 'kitchen',
+    src: '/lovable-uploads/dd533a7c-92b0-4bff-a64f-9e84eb8cbfaf.png',
+    alt: 'Kitchen – living area with stone fireplace and wooden cabinet'
+  }, {
+    id: 69,
+    category: 'kitchen',
+    src: '/lovable-uploads/9923e3cb-7231-4b17-b809-91f1b00065ca.png',
+    alt: 'Kitchen – dining area with stone fireplace and stairs'
+  }, {
+    id: 70,
+    category: 'kitchen',
+    src: '/lovable-uploads/6aab1831-46b1-45f7-8d1b-63b4b299a706.png',
+    alt: 'Kitchen – detail of stone fireplace with candles and decor'
   }];
   let galleryImages = [] as {
     id: number;
