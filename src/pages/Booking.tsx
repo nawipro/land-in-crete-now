@@ -6,7 +6,11 @@ import { translations as dict } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
 const Booking: React.FC = () => {
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
+  // Clear any stored language preference and force English
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>(() => {
+    localStorage.removeItem('preferredLanguage');
+    return 'en';
+  });
 
   useEffect(() => {
     document.title = 'Book Your Stay | Now We Land';

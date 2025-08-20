@@ -11,7 +11,12 @@ import { translations } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
 const Index = () => {
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>('en');
+  // Clear any stored language preference and force English
+  const [currentLang, setCurrentLang] = useState<'en' | 'he'>(() => {
+    // Force English as default and clear any stored preferences
+    localStorage.removeItem('preferredLanguage');
+    return 'en';
+  });
 
   useEffect(() => {
     // Set document direction based on language
