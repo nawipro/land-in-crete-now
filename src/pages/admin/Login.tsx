@@ -14,7 +14,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const [mode, setMode] = React.useState<'signin' | 'signup'>('signin');
+  // Removed signup mode for security - admin access only for existing users
   const [resetLoading, setResetLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -53,30 +53,12 @@ const Login: React.FC = () => {
       cleanupAuthState();
       try { await supabase.auth.signOut({ scope: 'global' } as any); } catch {}
 
-      if (mode === 'signin') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast({ title: 'ברוך הבא' });
-        // Force reload + redirect handled in listener
-        window.location.href = '/admin/content';
-      } else {
-        const redirectUrl = `${window.location.origin}/admin/content`;
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: redirectUrl }
-        });
-        if (error) throw error;
-        if (data.session) {
-          toast({ title: 'נרשמת והתחברת בהצלחה' });
-          window.location.href = '/admin/content';
-        } else {
-          toast({
-            title: 'כמעט סיימנו',
-            description: 'נשלח מייל אישור. אחרי אישור תופנה אוטומטית לאדמין.'
-          });
-        }
-      }
+      // Only sign in - no signup for security
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      toast({ title: 'ברוך הבא' });
+      // Force reload + redirect handled in listener
+      window.location.href = '/admin/content';
     } catch (err: any) {
       toast({ title: 'שגיאה', description: err?.message || 'הפעולה נכשלה' });
     } finally {
@@ -112,20 +94,11 @@ const Login: React.FC = () => {
       <Card className="w-full max-w-md">
         <CardContent className="p-6 space-y-4">
           <header className="space-y-1">
-            <h1 className="text-2xl font-semibold">{mode === 'signin' ? 'התחברות אדמין' : 'הרשמת אדמין'}</h1>
+            <h1 className="text-2xl font-semibold">התחברות אדמין</h1>
             <p className="text-sm text-muted-foreground">
-              {mode === 'signin' ? 'היכנס עם אימייל וסיסמה' : 'צור משתמש עם אימייל וסיסמה'}
+              היכנס עם אימייל וסיסמה
             </p>
           </header>
-
-          <div className="flex gap-2">
-            <Button variant={mode === 'signin' ? 'default' : 'outline'} size="sm" onClick={() => setMode('signin')}>
-              התחברות
-            </Button>
-            <Button variant={mode === 'signup' ? 'default' : 'outline'} size="sm" onClick={() => setMode('signup')}>
-              הרשמה
-            </Button>
-          </div>
 
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
@@ -137,7 +110,7 @@ const Login: React.FC = () => {
               <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? (mode === 'signin' ? 'מתחבר…' : 'נרשם…') : (mode === 'signin' ? 'התחבר' : 'הרשם')}
+              {loading ? 'מתחבר…' : 'התחבר'}
             </Button>
             <div className="flex justify-end">
               <Button variant="link" type="button" onClick={handleResetPassword} disabled={resetLoading}>
@@ -147,9 +120,9 @@ const Login: React.FC = () => {
           </form>
 
           <section className="pt-2 border-t space-y-1">
-            <h2 className="text-sm font-medium">הגדרה ראשונית</h2>
+            <h2 className="text-sm font-medium">אבטחה</h2>
             <p className="text-xs text-muted-foreground">
-              ודא שהגדרת ב‑Supabase את Site URL ו‑Redirect URLs תחת Authentication ▶ URL Configuration. לבדיקות אפשר לשקול לבטל Confirm email.
+              גישה מוגבלת למשתמשים קיימים בלבד. אין אפשרות הרשמה עצמית למערכת האדמין.
             </p>
           </section>
         </CardContent>
