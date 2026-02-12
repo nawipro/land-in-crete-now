@@ -67,8 +67,8 @@ export const translations = {
       }
     },
     booking: {
-      title: 'Book Your Stay',
-      subtitle: 'Check availability and secure your perfect vacation dates',
+      title: 'Secure Your Summer Escape',
+      subtitle: 'Limited availability — only a few weeks remain for this summer. Don\'t miss your chance to experience this.',
       form: {
         title: 'Check Availability',
         checkin: 'Check-in Date',
@@ -195,8 +195,8 @@ export const translations = {
       }
     },
     booking: {
-      title: 'הזמינו את השהות שלכם',
-      subtitle: 'בדקו זמינות והבטיחו את תאריכי החופשה המושלמים שלכם',
+      title: 'הבטיחו את הבריחה הקיצית שלכם',
+      subtitle: 'זמינות מוגבלת — נותרו רק מספר שבועות לקיץ הזה. אל תפספסו את ההזדמנות.',
       form: {
         title: 'בדיקת זמינות',
         checkin: 'תאריך כניסה',
