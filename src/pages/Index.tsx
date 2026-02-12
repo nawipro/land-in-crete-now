@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
+import DayAtVillaSection from '@/components/DayAtVillaSection';
 import GallerySection from '@/components/GallerySection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import BookingSection from '@/components/BookingSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
@@ -43,7 +45,9 @@ const Index = () => {
       <main>
         <HeroSection translations={currentTranslations} content={homeContent || undefined} />
         <AboutSection translations={currentTranslations} content={aboutContent || undefined} />
+        <DayAtVillaSection />
         <GallerySection translations={currentTranslations} content={galleryContent || undefined} />
+        <TestimonialsSection />
         <BookingSection translations={currentTranslations} content={bookingContent || undefined} />
         <ContactSection translations={currentTranslations} content={contactContent || undefined} />
       </main>
