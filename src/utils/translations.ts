@@ -123,7 +123,7 @@ export const translations = {
       description: 'Experience the perfect blend of luxury and tranquility at our boutique villa in Crete. Your dream vacation awaits.',
       quickLinks: 'Quick Links',
       contact: 'Contact Info',
-      copyright: '© 2024 Now We Land Villa.',
+      copyright: '© 2025 Now We Land Villa.',
       madeWith: 'Made with love for your perfect vacation.'
     }
   },
@@ -251,7 +251,7 @@ export const translations = {
       description: 'חוו את השילוב המושלם של יוקרה ושקט בווילה הבוטיק שלנו בכרתים. חופשת החלומות שלכם מחכה.',
       quickLinks: 'קישורים מהירים',
       contact: 'פרטי התקשרות',
-      copyright: '© 2024 וילה עכשיו אנחנו נוחתים.',
+      copyright: '© 2025 וילה עכשיו אנחנו נוחתים.',
       madeWith: 'נעשה באהבה לחופשה המושלמת שלכם.'
     }
   }

@@ -56,11 +56,11 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
             <div className="space-y-3 text-blue-100">
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
-                <span>+30 123 456 789</span>
+                <span>+30 6973693867</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-3 flex-shrink-0" />
-                <span>info@nowweland.com</span>
+                <span>aegeanvillas.adm@gmail.com</span>
               </div>
               <div className="flex items-start">
                 <MapPin className="h-4 w-4 mr-3 flex-shrink-0 mt-1" />

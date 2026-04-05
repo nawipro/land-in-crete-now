@@ -5,19 +5,19 @@ import { Card, CardContent } from '@/components/ui/card';
 const TestimonialsSection: React.FC = () => {
   const reviews = [
     {
+      name: 'Michal Ben Loulou',
+      location: 'Google Maps Review',
+      text: 'We stayed at this lovely house for a full week in April, two families, and it was simply perfect. The house is very spacious and spread over two floors. The location is excellent – just a 15-minute drive from both Chania city and the airport. There\'s also a beautiful beach only 10 minutes away on foot. The private pool is a real treat, and the house feels like your own private sanctuary.',
+    },
+    {
+      name: 'Jakob',
+      location: 'Google Maps Review',
+      text: 'Very nice house amazing view and beautiful pool we enjoyed very much. The experience was unforgettable.',
+    },
+    {
       name: 'Sarah & James',
       location: 'London, UK',
-      text: 'We have traveled all over Greece, but nothing compares to this. The hidden bay, the sunsets from the pool \u2014 it felt like our own private paradise. We did not want to leave.',
-    },
-    {
-      name: 'Marco & Elena',
-      location: 'Milan, Italy',
-      text: 'The villa exceeded every expectation. Waking up to the sea view, cooking dinner with local ingredients, watching the kids play in the garden \u2014 pure magic.',
-    },
-    {
-      name: 'David R.',
-      location: 'New York, USA',
-      text: 'If you are looking for total peace and beauty, this is it. No crowds, no noise \u2014 just the sound of the waves and the most incredible sunsets I have ever seen.',
+      text: 'We have traveled all over Greece, but nothing compares to this. The hidden bay, the sunsets from the pool — it felt like our own private paradise. We did not want to leave.',
     },
   ];
 

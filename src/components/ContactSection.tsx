@@ -44,10 +44,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations, content }
   const contactData = {
     title: content?.title || translations.contact.title,
     subtitle: content?.subtitle || translations.contact.subtitle,
-    phone: content?.phone || '+30 123 456 789',
-    email: content?.email || 'info@nowweland.com',
+    phone: content?.phone || '+30 6973693867',
+    email: content?.email || 'aegeanvillas.adm@gmail.com',
     address: content?.address || 'Akrotiri, Chania, Crete, Greece',
-    whatsapp: content?.whatsapp || '+30 123 456 789',
+    whatsapp: content?.whatsapp || '+30 6973693867',
     facebook_url: content?.facebook_url || 'https://facebook.com/nowweland',
     instagram_url: content?.instagram_url || 'https://instagram.com/nowweland',
     form: {
