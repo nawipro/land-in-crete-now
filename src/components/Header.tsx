@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
           <div className="flex-shrink-0">
             <button
               onClick={() => handleNavClick('#home')}
-              className="text-xl lg:text-2xl font-playfair font-bold text-mediterranean-blue hover:opacity-80 transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
+              className="text-xl lg:text-2xl font-playfair-display font-bold text-mediterranean-blue hover:opacity-80 transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
             >
               Now We Land
             </button>

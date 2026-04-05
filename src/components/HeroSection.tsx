@@ -35,7 +35,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         <div style={{
         maxWidth: '860px'
       }} className="pt-12 sm:pt-20 text-center animate-gentle-fade py-[120px]">
-          <h1 className="text-5xl lg:text-7xl font-playfair font-light mb-4 leading-tight whitespace-pre-line" style={{
+          <h1 className="text-5xl lg:text-7xl font-playfair-display font-light mb-4 leading-tight whitespace-pre-line" style={{
           color: '#FFFFFF',
           textShadow: '0 0 8px rgba(0,0,0,0.45)'
         }}>
