@@ -98,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
             <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} />
             <div className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
               <Phone className="h-4 w-4" />
-              <span>+30 6973693867</span>
+              <span>+30 697 369 3867</span>
             </div>
           </div>
 
@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
               </div>
               <div className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
                 <Phone className="h-4 w-4 mr-2" />
-                <span>+30 6973693867</span>
+                <span>+30 697 369 3867</span>
               </div>
               <div className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
                 <Mail className="h-4 w-4 mr-2" />

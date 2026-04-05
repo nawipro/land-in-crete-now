@@ -475,7 +475,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({
     const descriptions = translations.gallery.descriptions || {};
     return descriptions[categoryId] || '';
   };
-  return <section id="gallery" className="py-24 bg-sky-50">
+  return <section id="gallery" className="py-24 bg-white">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-20 animate-soft-slide-up">
@@ -488,8 +488,8 @@ const GallerySection: React.FC<GallerySectionProps> = ({
         </div>
 
         {/* Category Filter - Refined */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
-          {galleryCategories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} className={`rounded-full px-6 py-3 font-inter transition-all duration-300 ${selectedCategory === category.id ? 'bg-mediterranean-blue text-white shadow-lg' : 'border-mediterranean-blue/30 text-mediterranean-blue hover:bg-mediterranean-blue/10'}`}>
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {galleryCategories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} className={`rounded-full px-4 py-1.5 text-xs font-inter transition-all duration-300 h-auto ${selectedCategory === category.id ? 'bg-mediterranean-blue text-white shadow-md' : 'bg-white border-mediterranean-blue/20 text-mediterranean-blue hover:bg-mediterranean-blue/5'}`}>
               {category.name}
             </Button>)}
         </div>
