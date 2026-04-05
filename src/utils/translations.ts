@@ -9,7 +9,7 @@ export const translations = {
     },
     hero: {
       title: 'Now We Land',
-      subtitle: 'A Private Boutique Villa in Akrotiri, Chania, Crete',
+      subtitle: 'A Private Boutique Villa in Akrotiri, Chania, Crete\nExperience Mediterranean tranquility just 90 meters from a hidden cove',
       location: 'Akrotiri, Chania, Crete',
       cta: 'Book Now',
       explore: 'Explore Villa'
@@ -137,7 +137,7 @@ export const translations = {
     },
     hero: {
       title: 'עכשיו אנחנו נוחתים',
-      subtitle: 'וילה בוטיק פרטית באקרוטירי, חאניה, כרתים',
+      subtitle: 'וילה בוטיק פרטית באקרוטירי, חאניה, כרתים\nחוו שלווה ים-תיכונית רק 90 מטרים ממפרץ נסתר',
       location: 'אקרוטירי, חאניה, כרתים',
       cta: 'הזמן עכשיו',
       explore: 'חקור את הוילה'

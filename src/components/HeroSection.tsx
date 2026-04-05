@@ -47,12 +47,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}>
             {content?.hero_subtitle || translations.hero.subtitle}
           </p>
-          <p className="mt-3 text-base lg:text-lg font-source-sans font-light leading-relaxed" style={{
-          color: 'rgba(255,255,255,0.9)',
-          textShadow: '0 0 6px rgba(0,0,0,0.4)'
-        }}>
-            Where golden sunsets meet absolute privacy — your own slice of Crete, far from the crowds.
-          </p>
+
 
           {/* Feature chips under subtitle */}
           {(content?.chips || []).length > 0 && <div className="mt-4 flex flex-wrap gap-2 justify-center">
