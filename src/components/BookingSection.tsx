@@ -21,7 +21,10 @@ const toISO = (d: Date) => format(d, 'yyyy-MM-dd');
 const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }) => {
   const [range, setRange] = useState<DateRange>({});
   const [guests, setGuests] = useState(2);
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
   const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
@@ -226,7 +229,10 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
     range.from && range.to ? `${lang==='he'?'תאריכים':'Dates'}: ${format(range.from, 'dd MMM yyyy')} → ${format(range.to, 'dd MMM yyyy')} (${nights} ${lang==='he'?'לילות':'nights'})` : '',
     `${lang==='he'?'אורחים':'Guests'}: ${guests}`,
     `${lang==='he'?'סיכום מחיר':'Price total'}: ${currency}${total.toFixed(2)}`,
-    name ? `${lang==='he'?'שם':'Name'}: ${name}` : '',
+    firstName ? `${lang==='he'?'שם פרטי':'First Name'}: ${firstName}` : '',
+    lastName ? `${lang==='he'?'שם משפחה':'Last Name'}: ${lastName}` : '',
+    email ? `${lang==='he'?'אימייל':'Email'}: ${email}` : '',
+    phone ? `${lang==='he'?'טלפון':'Phone'}: ${phone}` : '',
     message ? `${lang==='he'?'הודעה':'Message'}: ${message}` : ''
   ].filter(Boolean).join('\n'));
   const mailto = `mailto:${inquiryEmail}?subject=${subject}&body=${body}`;
@@ -353,8 +359,20 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
                       <Input id="guests" type="number" min={1} max={8} value={guests} onChange={(e) => setGuests(parseInt(e.target.value||'0')||1)} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="name">{lang==='he'?'שם מלא':'Full Name'}</Label>
-                      <Input id="name" value={name} onChange={(e)=>setName(e.target.value)} placeholder={lang==='he'?'שם מלא':'Full Name'} />
+                      <Label htmlFor="firstName">{lang==='he'?'שם פרטי':'First Name'}</Label>
+                      <Input id="firstName" value={firstName} onChange={(e)=>setFirstName(e.target.value)} placeholder={lang==='he'?'שם פרטי':'First Name'} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName">{lang==='he'?'שם משפחה':'Last Name'}</Label>
+                      <Input id="lastName" value={lastName} onChange={(e)=>setLastName(e.target.value)} placeholder={lang==='he'?'שם משפחה':'Last Name'} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">{lang==='he'?'אימייל':'Email'}</Label>
+                      <Input id="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder={lang==='he'?'אימייל':'Email'} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">{lang==='he'?'טלפון':'Phone'}</Label>
+                      <Input id="phone" type="tel" value={phone} onChange={(e)=>setPhone(e.target.value)} placeholder={lang==='he'?'טלפון':'Phone'} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">{lang==='he'?'הודעה':'Message'}</Label>
