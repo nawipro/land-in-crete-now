@@ -194,27 +194,27 @@ const GallerySection: React.FC<GallerySectionProps> = ({
     id: 22,
     category: 'sunset',
     src: '/lovable-uploads/6be09474-ca9b-4709-a76d-69549d31243a.png',
-    alt: ''
+    alt: 'Sunset over the Cretan Sea from villa terrace'
   }, {
     id: 23,
     category: 'sunset',
     src: '/lovable-uploads/70addbb5-bbb4-47a6-92ef-3d0c69b55d5d.png',
-    alt: ''
+    alt: 'Golden sunset sky above the Mediterranean'
   }, {
     id: 24,
     category: 'sunset',
     src: '/lovable-uploads/8573aa1d-be2b-4739-8999-05a16fb24a34.png',
-    alt: ''
+    alt: 'Sunset colours reflected on the pool surface'
   }, {
     id: 25,
     category: 'sunset',
     src: '/lovable-uploads/6c68c096-2633-442e-adb6-5631763becfb.png',
-    alt: ''
+    alt: 'Dusk panorama over the bay from the garden'
   }, {
     id: 26,
     category: 'sunset',
     src: '/lovable-uploads/5508ca10-156e-4cce-ad38-6888235e9ef0.png',
-    alt: ''
+    alt: 'Warm sunset light across the villa landscape'
   }, {
     id: 27,
     category: 'sunset',
@@ -475,7 +475,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({
     const descriptions = translations.gallery.descriptions || {};
     return descriptions[categoryId] || '';
   };
-  return <section id="gallery" className="py-24 bg-white">
+  return <section id="gallery" className="py-24 bg-[#FAF8F5]">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-20 animate-soft-slide-up">
@@ -489,7 +489,7 @@ const GallerySection: React.FC<GallerySectionProps> = ({
 
         {/* Category Filter - Refined */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {galleryCategories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} className={`rounded-full px-4 py-1.5 text-xs font-inter transition-all duration-300 h-auto ${selectedCategory === category.id ? 'bg-mediterranean-blue text-white shadow-md' : 'bg-white border-mediterranean-blue/20 text-mediterranean-blue hover:bg-mediterranean-blue/5'}`}>
+          {galleryCategories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? 'default' : 'outline'} onClick={() => setSelectedCategory(category.id)} className={`rounded-full px-4 py-1.5 text-xs font-inter transition-all duration-300 h-auto ${selectedCategory === category.id ? 'bg-[#3D2F28] text-[#FAF8F5] shadow-sm' : 'bg-white border-[#C4A882]/30 text-[#6B6560] hover:bg-[#F0EBE3] hover:border-[#C4A882]/60'}`}>
               {category.name}
             </Button>)}
         </div>
@@ -498,10 +498,10 @@ const GallerySection: React.FC<GallerySectionProps> = ({
 
         {/* Enhanced Gallery Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredImages.map((image, index) => <Card key={`${image.category}-${image.src}`} className="overflow-hidden cursor-pointer group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border-none" onClick={() => setSelectedImage(withBase(image.src))}>
+          {filteredImages.map((image, index) => <Card key={`${image.category}-${image.src}`} className="overflow-hidden cursor-pointer group hover:shadow-md transition-all duration-500 border-none" onClick={() => setSelectedImage(withBase(image.src))}>
               <CardContent className="p-0">
-                <div className="relative overflow-hidden">
-                  <img src={withBase(image.src)} alt={image.alt} className="w-full h-64 object-cover transition-transform duration-500" loading="lazy" onError={e => {
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  <img src={withBase(image.src)} alt={image.alt} className="w-full h-full object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]" loading="lazy" onError={e => {
                 e.currentTarget.src = 'placeholder.svg';
               }} />
                 </div>

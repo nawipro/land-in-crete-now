@@ -15,14 +15,14 @@ const TestimonialsSection: React.FC = () => {
       text: 'Very nice house amazing view and beautiful pool we enjoyed very much. The experience was unforgettable.',
     },
     {
-      name: 'Sarah & James',
-      location: 'London, UK',
+      name: 'Yael & Oren',
+      location: 'Google Maps Review',
       text: 'We have traveled all over Greece, but nothing compares to this. The hidden bay, the sunsets from the pool — it felt like our own private paradise. We did not want to leave.',
     },
   ];
 
   return (
-    <section className="py-24 bg-sky-50/50">
+    <section className="py-24 bg-[#F0EBE3]">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-cormorant font-medium text-mediterranean-deep-navy mb-4">

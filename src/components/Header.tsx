@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
                 onClick={() => handleNavClick(item.href)}
                 className={`relative text-foreground hover:text-mediterranean-blue transition-all duration-300 font-medium group ${
                   currentLang === 'he' ? 'px-1' : ''
-                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-mediterranean-blue after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left`}
+                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-[#C4A882] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left`}
               >
                 {item.name}
               </button>

@@ -26,7 +26,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     title: translations.about.features.amenities.title,
     description: translations.about.features.amenities.desc
   }];
-  return <section id="about" className="py-24 bg-gradient-coastal bg-sky-50">
+  return <section id="about" className="py-24 bg-[#FAF8F5]">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-20 animate-soft-slide-up">
@@ -63,10 +63,10 @@ const AboutSection: React.FC<AboutSectionProps> = ({
 
         {/* Features Grid - Refined Design */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, index) => <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/80 backdrop-blur-sm hover:-translate-y-2 group">
+          {features.map((feature, index) => <Card key={index} className="border-none shadow-sm hover:shadow-md transition-all duration-500 bg-white group hover:bg-[#F0EBE3]">
               <CardContent className="p-8 text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-mediterranean-blue/10 rounded-full mb-6 group-hover:bg-mediterranean-blue/20 transition-colors duration-300">
-                  <feature.icon className="h-10 w-10 text-mediterranean-blue" />
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-[#C4A882]/15 rounded-full mb-6 group-hover:bg-[#C4A882]/25 transition-colors duration-300">
+                  <feature.icon className="h-10 w-10 text-[#C4A882]" />
                 </div>
                 <h4 className="text-xl lg:text-2xl font-cormorant font-medium mb-4 text-mediterranean-deep-navy">
                   {feature.title}

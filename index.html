@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,12 +13,19 @@
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="https://nowweland.com/sitemap.xml" />
 
+    <!-- hreflang for bilingual support -->
+    <link rel="alternate" hreflang="en" href="https://nowweland.com/" />
+    <link rel="alternate" hreflang="he" href="https://nowweland.com/?lang=he" />
+    <link rel="alternate" hreflang="x-default" href="https://nowweland.com/" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://nowweland.com/" />
     <meta property="og:title" content="Now We Land - Boutique Villa in Crete" />
     <meta property="og:description" content="Luxury villa rental in Akrotiri, Crete. 90m from sea, private pool, stunning sunsets. Up to 8 guests. Book direct!" />
     <meta property="og:image" content="https://nowweland.com/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="he_IL" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -38,6 +44,57 @@
     <!-- Preload key fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Structured Data: LodgingBusiness (schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Now We Land",
+      "alternateName": "Now We Land Villa",
+      "description": "A luxury boutique villa in Akrotiri, Crete. 90m from the sea with private pool, stunning sunset views and access to a hidden private bay. Sleeps up to 8 guests.",
+      "url": "https://nowweland.com",
+      "telephone": "",
+      "email": "info@nowweland.com",
+      "image": [
+        "https://nowweland.com/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png",
+        "https://nowweland.com/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Akrotiri",
+        "addressRegion": "Chania",
+        "addressCountry": "GR",
+        "postalCode": "73100"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "35.5765",
+        "longitude": "24.0535"
+      },
+      "priceRange": "€€€",
+      "currenciesAccepted": "EUR",
+      "checkinTime": "15:00",
+      "checkoutTime": "11:00",
+      "numberOfRooms": "4",
+      "petsAllowed": false,
+      "amenityFeature": [
+        { "@type": "LocationFeatureSpecification", "name": "Private Pool", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Sea View", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Garden", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Private Bay Access", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "BBQ", "value": true }
+      ],
+      "tourBookingPage": "https://nowweland.com/booking",
+      "maximumAttendeeCapacity": 8,
+      "sameAs": [
+        "https://www.airbnb.com/rooms/1446397757629527434"
+      ]
+    }
+    </script>
   </head>
 
   <body>

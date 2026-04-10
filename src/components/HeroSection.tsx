@@ -26,7 +26,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         objectFit: content?.hero_image?.fit as 'cover' | 'contain' || 'cover',
         objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`
       }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-black/22"></div>
       </div>
 
       {/* Split layout: title at top, buttons at bottom */}
@@ -41,7 +41,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         }}>
             {content?.hero_title || translations.hero.title}
           </h1>
-          <p className="text-xl lg:text-2xl font-source-sans font-light leading-relaxed whitespace-pre-line" style={{
+          <p className="text-xl lg:text-2xl font-inter font-light leading-relaxed whitespace-pre-line" style={{
           color: '#FFFFFF',
           textShadow: '0 0 8px rgba(0,0,0,0.45)'
         }}>
@@ -57,24 +57,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>}
         </div>
 
-        {/* Bottom: Primary Actions */}
-        <div className="pb-24 sm:pb-28 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" onClick={handleBookNow} className="bg-mediterranean-blue hover:bg-mediterranean-aegean-blue text-white px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+        {/* Bottom: Primary CTA */}
+        <div className="pb-24 sm:pb-28 flex justify-center">
+          <Button size="lg" onClick={handleBookNow} className="bg-transparent border-2 border-white text-white hover:bg-[#3D2F28] hover:border-[#3D2F28] px-10 py-4 text-base font-inter font-medium rounded-full transition-all duration-300">
             <Calendar className="h-5 w-5 mr-2" />
             {translations.hero.cta}
-          </Button>
-          <Button variant="outline" size="lg" onClick={handleExploreVilla} className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-mediterranean-blue px-8 py-4 text-base font-source-sans font-medium rounded-full transition-all duration-300 shadow-lg hover:scale-105 backdrop-blur-sm">
-            {translations.hero.explore}
           </Button>
         </div>
 
       </div>
 
       {/* Elegant Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 border border-white/30">
-          <ArrowDown className="h-5 w-5 text-white drop-shadow-lg" />
-        </div>
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-70">
+        <ArrowDown className="h-5 w-5 text-white" />
       </div>
     </section>;
 };

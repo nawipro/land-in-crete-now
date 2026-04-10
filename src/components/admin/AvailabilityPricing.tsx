@@ -8,6 +8,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { format, eachDayOfInterval, startOfMonth, endOfMonth } from 'date-fns';
+import { RefreshCw, Check, AlertCircle } from 'lucide-react';
 
 interface Season {
   id?: string;
@@ -68,6 +69,8 @@ const AvailabilityPricing: React.FC = () => {
   const [localSettings, setLocalSettings] = useState<any | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [monthlyPrices, setMonthlyPrices] = useState<number[]>(Array(12).fill(0));
+  const [syncLoading, setSyncLoading] = useState(false);
+  const [syncResult, setSyncResult] = useState<{ok:boolean;message:string}|null>(null);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
   const seasonsState = seasons ?? [];
@@ -168,6 +171,25 @@ const upsertAvailability = useMutation({
     setMonthlyPrices((prev) => (prev.every((v) => v === 0) ? arr : prev));
   }, [selectedYear, seasonsState]);
 
+  const handleSync = async () => {
+    setSyncLoading(true);
+    setSyncResult(null);
+    try {
+      const { data, error } = await supabase.functions.invoke('sync-lodgify', {
+        body: { from: format(new Date(),'yyyy-MM-dd'), to: format(new Date(Date.now()+365*86400000),'yyyy-MM-dd') }
+      });
+      if (error) throw error;
+      const updated = data?.updated ?? 0;
+      setSyncResult({ ok: true, message: `✓ Synced ${updated} booked dates` });
+      qc.invalidateQueries({ queryKey: ['adm_availability'] });
+      toast({ title: `Calendar synced — ${updated} dates updated` });
+    } catch(e:any) {
+      const msg = e?.message ?? String(e);
+      setSyncResult({ ok: false, message: msg });
+      toast({ title: 'Sync failed', description: msg, variant: 'destructive' as any });
+    } finally { setSyncLoading(false); }
+  };
+
   const blockedDates = useMemo(() => (availability||[]).filter((a: any) => a.status === 'blocked').map((a: any) => new Date(a.date)), [availability]);
   const bookedDates = useMemo(() => (availability||[]).filter((a: any) => a.status === 'booked').map((a: any) => new Date(a.date)), [availability]);
 
@@ -225,7 +247,38 @@ const upsertAvailability = useMutation({
             </div>
           </div>
 
-          {/* Availability calendar */}
+          {/* iCal Sync */}
+          <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+            <h4 className="text-sm font-semibold flex items-center gap-2">
+              <RefreshCw className="h-4 w-4" /> Calendar Sync (Airbnb &amp; Lodgify)
+            </h4>
+            <p className="text-xs text-muted-foreground">Enter iCal URLs from Airbnb and Lodgify, then click <strong>Sync Calendars</strong> to pull in all bookings automatically.</p>
+            <div className="grid md:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <Label className="text-xs">Airbnb iCal URL</Label>
+                <Input type="url" value={settingsState.airbnb_ical_url || ''} onChange={(e)=>setLocalSettings({...(settingsState||{}),airbnb_ical_url:e.target.value})} placeholder="https://www.airbnb.com/calendar/ical/..." />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Lodgify iCal URL</Label>
+                <Input type="url" value={settingsState.lodgify_ical_url || ''} onChange={(e)=>setLocalSettings({...(settingsState||{}),lodgify_ical_url:e.target.value})} placeholder="https://www.lodgify.com/..." />
+              </div>
+            </div>
+            <div className="flex items-center gap-3 flex-wrap">
+              <Button size="sm" variant="secondary" onClick={()=>upsertSettings.mutateAsync(settingsState)}>Save URLs</Button>
+              <Button size="sm" onClick={handleSync} disabled={syncLoading} className="flex items-center gap-2">
+                <RefreshCw className={`h-4 w-4 ${syncLoading?'animate-spin':''}`}/>
+                {syncLoading ? 'Syncing...' : 'Sync Calendars Now'}
+              </Button>
+              {syncResult && (
+                <span className={`text-xs flex items-center gap-1 ${syncResult.ok?'text-green-600':'text-destructive'}`}>
+                  {syncResult.ok ? <Check className="h-3 w-3"/> : <AlertCircle className="h-3 w-3"/>}
+                  {syncResult.message}
+                </span>
+              )}
+            </div>
+          </div>
+
+                    {/* Availability calendar */}
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Availability</h4>
             <div className="overflow-x-auto">

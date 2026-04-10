@@ -9,41 +9,41 @@ export const translations = {
     },
     hero: {
       title: 'Now We Land',
-      subtitle: 'Experience Mediterranean tranquility just 90 meters from a hidden cove',
+      subtitle: 'A private villa on the Akrotiri Peninsula — 90 metres from a secret cove, a lifetime from ordinary',
       location: 'Akrotiri, Chania, Crete',
-      cta: 'Book Now',
+      cta: 'Reserve Your Stay',
       explore: 'Explore Villa'
     },
     about: {
-      title: 'About Our Villa',
-      description: 'Discover your perfect getaway in our stunning villa, just 90 meters from the sea with breathtaking sunset views and complete privacy.',
+      title: 'The Villa',
+      description: 'Akrotiri is Crete\'s best-kept secret — a peninsula of wild coastline, ancient monasteries, and impossibly blue water. From the villa, the sea is 90 metres away. Everything else worth seeing is within 20 minutes.',
       detailed: {
-        title: 'A Slice of Paradise',
-        description: 'Our villa is located just 90 meters from the sea, in a peaceful area with open sea views and spectacular sunsets. The property features 3 separate bedrooms and a private suite connected to a sunroom that can accommodate 2 additional guests.',
-        description2: 'With a private 43 sqm pool, beautiful garden with fruit trees, fully equipped kitchen, spacious living room, and multiple balconies, our villa comfortably hosts up to 8 guests in luxury and tranquility.'
+        title: 'Space, Privacy, and the Aegean',
+        description: 'Perched above the Cretan Sea on the Akrotiri peninsula, the villa sits in a quiet neighbourhood of fruit trees and stone walls. Three separate bedrooms, a private suite with sunroom, four bathrooms — all opening to terraces that face the water.',
+        description2: 'A 43 sqm private pool. A shaded garden built for long afternoons. A fully equipped kitchen for the nights you don\'t want to leave. Up to 8 guests, with enough space that everyone finds their own corner of quiet.'
       },
       features: {
         seaview: {
-          title: 'Sea Views & Sunsets',
-          desc: '90m from the sea with open views and spectacular sunsets'
+          title: 'Open Sea Views',
+          desc: '90m from the water — sunsets that stop conversation'
         },
         accommodation: {
-          title: 'Spacious Living',
-          desc: '3 bedrooms plus private suite with sunroom'
+          title: 'Four Bedrooms',
+          desc: '3 bedrooms + private suite with sunroom, sleeping up to 8'
         },
         capacity: {
-          title: 'Up to 8 Guests',
-          desc: 'Perfect for families and groups'
+          title: 'The Hidden Bay',
+          desc: 'A secret cove 2 minutes on foot — clear water, no crowds'
         },
         amenities: {
-          title: 'Premium Amenities',
-          desc: 'Private pool, garden, full kitchen, multiple balconies'
+          title: 'Everything Included',
+          desc: 'Private pool, garden, full kitchen, parking, fast WiFi'
         }
       }
     },
     gallery: {
-      title: 'Villa Gallery',
-      subtitle: 'Explore every corner of your future vacation home',
+      title: 'Inside & Out',
+      subtitle: 'Every room, every view, every corner — exactly as you will find it',
       categories: {
         all: 'All Photos',
         outdoor: 'Garden & Pool',
@@ -67,8 +67,8 @@ export const translations = {
       }
     },
     booking: {
-      title: 'Secure Your Summer Escape',
-      subtitle: 'Limited availability — only a few weeks remain for this summer. Don\'t miss your chance to experience this.',
+      title: 'Plan Your Stay',
+      subtitle: 'Select your dates below. We respond to every inquiry personally — usually within a few hours.',
       form: {
         title: 'Check Availability',
         checkin: 'Check-in Date',
@@ -96,7 +96,7 @@ export const translations = {
     },
     contact: {
       title: 'Get In Touch',
-      subtitle: 'Ready to book or have questions? We\'re here to help!',
+      subtitle: 'Questions about the villa, the area, or availability — we answer every message personally.',
       form: {
         title: 'Send us a Message',
         name: 'Full Name',
@@ -120,7 +120,7 @@ export const translations = {
       }
     },
     footer: {
-      description: 'Experience the perfect blend of luxury and tranquility at our boutique villa in Crete. Your dream vacation awaits.',
+      description: 'A private villa on the Akrotiri Peninsula, Chania — where the Aegean meets the mountains of Crete.',
       quickLinks: 'Quick Links',
       contact: 'Contact Info',
       copyright: '© 2025 Now We Land Villa.',
@@ -136,42 +136,42 @@ export const translations = {
       contact: 'יצירת קשר'
     },
     hero: {
-      title: 'עכשיו אנחנו נוחתים',
-      subtitle: 'חוו שלווה ים-תיכונית רק 90 מטרים ממפרץ נסתר',
+      title: 'Now We Land',
+      subtitle: 'וילה פרטית בחצי האי אקרוטירי — 90 מטרים ממפרץ נסתר, רחוק מהרגיל',
       location: 'אקרוטירי, חאניה, כרתים',
-      cta: 'הזמן עכשיו',
-      explore: 'חקור את הוילה'
+      cta: 'לבדיקת זמינות',
+      explore: 'לגלות את הוילה'
     },
     about: {
-      title: 'אודות הוילה שלנו',
-      description: 'גלה את החופשה המושלמת שלך בווילה המדהימה שלנו, רק 90 מטרים מהים עם נוף שקיעה עוצר נשימה ופרטיות מוחלטת.',
+      title: 'הוילה',
+      description: 'אקרוטירי הוא כרתים של המקומיים — חצי אי של חופים פראיים, מנזרים עתיקים ומים בגוון שלא ראיתם מחוץ לתמונה. מהווילה לים — 90 מטרים. מכל השאר ששווה לראות — עשרים דקות.',
       detailed: {
-        title: 'פיסת גן עדן',
-        description: 'הווילה שלנו ממוקמת רק 90 מטרים מהים, באזור שקט עם נוף פתוח לים ושקיעות מרהיבות. הנכס כולל 3 חדרי שינה נפרדים וסוויטה פרטית המחוברת לחדר שמש שיכול להכיל 2 אורחים נוספים.',
-        description2: 'עם בריכה פרטית של 43 מ"ר, גינה יפה עם עצי פרי, מטבח מאובזר במלואו, סלון מרווח ומספר מרפסות, הווילה שלנו מארחת בנוחות עד 8 אורחים ברוגע ובפינוק.'
+        title: 'מרחב, פרטיות, ואגאי',
+        description: 'הווילה יושבת על מדרון מול הים הכרתי, בשכונה שקטה של עצי פרי וגדרות אבן. שלושה חדרי שינה נפרדים, סוויטה פרטית עם חדר שמש, ארבעה חדרי רחצה — כולם נפתחים למרפסות עם נוף לים.',
+        description2: 'בריכה פרטית של 43 מ"ר. גינה מוצלת שנבנתה לצהריים ארוכים. מטבח מאובזר במלואו לערבות שלא תרצו לצאת מהם. עד 8 אורחים — עם מספיק מקום שכל אחד ימצא את הפינה השקטה שלו.'
       },
       features: {
         seaview: {
-          title: 'נוף ים ושקיעות',
-          desc: '90 מטרים מהים עם נוף פתוח ושקיעות מרהיבות'
+          title: 'נוף פתוח לים',
+          desc: '90 מטרים מהמים — שקיעות שעוצרות שיחות'
         },
         accommodation: {
-          title: 'מגורים מרווחים',
-          desc: '3 חדרי שינה בתוספת סוויטה פרטית עם חדר שמש'
+          title: 'ארבעה חדרי שינה',
+          desc: '3 חדרים + סוויטה עם חדר שמש, עד 8 אורחים'
         },
         capacity: {
-          title: 'עד 8 אורחים',
-          desc: 'מושלם למשפחות וקבוצות'
+          title: 'המפרץ הנסתר',
+          desc: 'מפרצון סודי 2 דקות ברגל — מים צלולים, בלי עומס'
         },
         amenities: {
-          title: 'מתקנים איכותיים',
-          desc: 'בריכה פרטית, גינה, מטבח מלא, מספר מרפסות'
+          title: 'הכל כלול',
+          desc: 'בריכה פרטית, גינה, מטבח מלא, חניה, WiFi מהיר'
         }
       }
     },
     gallery: {
-      title: 'גלריית הוילה',
-      subtitle: 'חקרו כל פינה בבית החופשה העתידי שלכם',
+      title: 'מבפנים ומבחוץ',
+      subtitle: 'כל חדר, כל נוף, כל פינה — בדיוק כפי שתמצאו אותם',
       categories: {
         all: 'כל התמונות',
         outdoor: 'גינה ובריכה',
@@ -195,8 +195,8 @@ export const translations = {
       }
     },
     booking: {
-      title: 'הבטיחו את הבריחה הקיצית שלכם',
-      subtitle: 'זמינות מוגבלת — נותרו רק מספר שבועות לקיץ הזה. אל תפספסו את ההזדמנות.',
+      title: 'תכננו את השהייה',
+      subtitle: 'בחרו תאריכים למטה. אנחנו עונים לכל פנייה באופן אישי — בדרך כלל תוך כמה שעות.',
       form: {
         title: 'בדיקת זמינות',
         checkin: 'תאריך כניסה',
@@ -224,7 +224,7 @@ export const translations = {
     },
     contact: {
       title: 'צרו קשר',
-      subtitle: 'מוכנים להזמין או יש שאלות? אנחנו כאן לעזור!',
+      subtitle: 'שאלות על הוילה, האזור, או זמינות — אנחנו עונים לכל הודעה באופן אישי.',
       form: {
         title: 'שלחו לנו הודעה',
         name: 'שם מלא',
@@ -248,7 +248,7 @@ export const translations = {
       }
     },
     footer: {
-      description: 'חוו את השילוב המושלם של יוקרה ושקט בווילה הבוטיק שלנו בכרתים. חופשת החלומות שלכם מחכה.',
+      description: 'וילה פרטית בחצי האי אקרוטירי, חאניה — שם האגאי פוגש את הרי כרתים.',
       quickLinks: 'קישורים מהירים',
       contact: 'פרטי התקשרות',
       copyright: '© 2025 וילה עכשיו אנחנו נוחתים.',

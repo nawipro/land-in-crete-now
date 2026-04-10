@@ -8,6 +8,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { eachDayOfInterval, format, addDays, differenceInCalendarDays, startOfDay, isAfter, isBefore } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface BookingSectionProps {
   translations: any;
@@ -27,6 +28,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
+  const isMobile = useIsMobile();
   const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
   const today = startOfDay(new Date());
 
@@ -113,16 +115,16 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
     if (!seasons || seasons.length === 0) return { start: null, end: null };
     
     // Find the earliest start date and latest end date from all seasons
-    const futureSsons = seasons.filter((s: any) => new Date(s.end_date) >= today);
-    if (futureSsons.length === 0) return { start: null, end: null };
+    const futureSeasons = seasons.filter((s: any) => new Date(s.end_date) >= today);
+    if (futureSeasons.length === 0) return { start: null, end: null };
     
-    const earliestStart = futureSsons.reduce((earliest: any, season: any) => {
+    const earliestStart = futureSeasons.reduce((earliest: any, season: any) => {
       const seasonStart = new Date(season.start_date);
       const effectiveStart = isAfter(seasonStart, today) ? seasonStart : today;
       return !earliest || isBefore(effectiveStart, earliest) ? effectiveStart : earliest;
     }, null);
     
-    const latestEnd = futureSsons.reduce((latest: any, season: any) => {
+    const latestEnd = futureSeasons.reduce((latest: any, season: any) => {
       const seasonEnd = new Date(season.end_date);
       return !latest || isAfter(seasonEnd, latest) ? seasonEnd : latest;
     }, null);
@@ -182,6 +184,8 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
     return { nights: days.length, subtotal: sum };
   }, [range, seasons]);
 
+  const cleaningFreeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
+
   const cleaningTotal = useMemo(() => {
     const base = parseFloat(settings?.cleaning_fee || '0') || 0;
     const freeNights = parseInt(settings?.cleaning_free_nights || '5') || 5;
@@ -204,7 +208,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
     return perNightBreakdown.subtotal + cleaningTotal + touristTaxTotal;
   }, [perNightBreakdown, cleaningTotal, touristTaxTotal]);
 
-  const validRange = range.from && range.to && nights >= minStay && !rangeHasBlocked;
+  const validRange = !!(range.from && range.to && nights >= minStay && !rangeHasBlocked);
 
   const minStayText = lang === 'he'
     ? `שהייה מינימלית של ${minStay} לילות`
@@ -239,7 +243,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
 
   if (blockedLoading) {
     return (
-      <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
+      <section id="booking" className="py-20 bg-[#F0EBE3]">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-mediterranean-blue mx-auto"></div>
@@ -253,10 +257,10 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   // Show message if no seasons available
   if (!availableDateRange.start || !availableDateRange.end) {
     return (
-      <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
+      <section id="booking" className="py-20 bg-[#F0EBE3]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-cormorant font-bold text-mediterranean-blue mb-3">
+            <h2 className="text-4xl md:text-5xl font-cormorant font-medium text-[#1A1714] mb-3">
               {bookingData.title}
             </h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -292,10 +296,10 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   }
 
   return (
-    <section id="booking" className="py-20 bg-mediterranean-stone-gray/20">
+    <section id="booking" className="py-20 bg-[#F0EBE3]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-cormorant font-bold text-mediterranean-blue mb-3">
+          <h2 className="text-4xl md:text-5xl font-cormorant font-medium text-[#1A1714] mb-3">
             {bookingData.title}
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -314,7 +318,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
                   <div className="border rounded-xl p-3">
                     <Calendar
                       mode="range"
-                      numberOfMonths={2}
+                      numberOfMonths={isMobile ? 1 : 2}
                       selected={range as any}
                       onSelect={handleSelect}
                       disabled={[
@@ -378,11 +382,9 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
                       <Label htmlFor="message">{lang==='he'?'הודעה':'Message'}</Label>
                       <Input id="message" className="text-base" value={message} onChange={(e)=>setMessage(e.target.value)} placeholder={lang==='he'?'פרטים נוספים/בקשות':'Additional details/requests'} />
                     </div>
-                    <Button className="w-full" asChild disabled={!validRange}>
-                      <a href={mailto}>
-                        <CalendarIcon className="h-5 w-5 mr-2" />
-                        {lang==='he'?'שליחת פניה':'Send Inquiry'}
-                      </a>
+                    <Button className="w-full bg-[#3D2F28] hover:bg-[#2E231E] text-[#FAF8F5] border-0" disabled={!validRange} onClick={()=>{if(validRange) window.location.href=mailto;}}>
+                      <CalendarIcon className="h-5 w-5 mr-2" />
+                      {lang==='he'?'שליחת פניה':'Send Inquiry'}
                     </Button>
                   </div>
                 </div>
@@ -407,7 +409,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
                     <span>{currency}{perNightBreakdown.subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{lang==='he'?'דמי ניקיון (כל 5 לילות)':'Cleaning fee (per 5 nights)'}</span>
+                    <span>{lang==='he'?`דמי ניקיון (כל ${cleaningFreeNights} לילות)`:`Cleaning fee (per ${cleaningFreeNights} nights)`}</span>
                     <span>{currency}{cleaningTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">

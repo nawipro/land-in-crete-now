@@ -9,13 +9,13 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ translations }) => {
   return (
-    <footer className="bg-mediterranean-blue text-white py-12">
+    <footer className="bg-[#3D2F28] text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <h3 className="text-2xl font-playfair font-bold mb-4">Now We Land</h3>
-            <p className="text-blue-100 mb-4 leading-relaxed">
+            <p className="text-[#C4A882]/80 mb-4 leading-relaxed">
               {translations.footer.description}
             </p>
             <div className="flex space-x-4">
@@ -41,7 +41,7 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
           {/* Quick Links */}
           <div>
             <h4 className="text-lg font-semibold mb-4">{translations.footer.quickLinks}</h4>
-            <ul className="space-y-2 text-blue-100">
+            <ul className="space-y-2 text-[#E8DDD5]">
               <li><a href="#home" className="hover:text-white transition-colors">{translations.nav.home}</a></li>
               <li><a href="#about" className="hover:text-white transition-colors">{translations.nav.about}</a></li>
               <li><a href="#gallery" className="hover:text-white transition-colors">{translations.nav.gallery}</a></li>
@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
           {/* Contact Info */}
           <div>
             <h4 className="text-lg font-semibold mb-4">{translations.footer.contact}</h4>
-            <div className="space-y-3 text-blue-100">
+            <div className="space-y-3 text-[#E8DDD5]">
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
                 <span>+30 6973693867</span>
@@ -70,7 +70,7 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
           </div>
         </div>
 
-        <div className="border-t border-blue-400 mt-8 pt-8 text-center text-blue-100">
+        <div className="border-t border-[#C4A882]/30 mt-8 pt-8 text-center text-[#E8DDD5]">
           <p className="flex items-center justify-center">
             {translations.footer.copyright} 
             <Heart className="h-4 w-4 mx-2 text-red-400 fill-current" />
