@@ -45,16 +45,16 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
   ];
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-md' : 'bg-transparent'
+    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      isScrolled ? 'bg-white/85 backdrop-blur-lg shadow-sm border-b border-black/5' : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-[68px]">
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => handleNavClick('#home')}
-              className="text-xl lg:text-2xl font-playfair-display font-bold text-mediterranean-blue hover:opacity-80 transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
+              className={`text-xl lg:text-[22px] font-playfair-display font-bold tracking-[0.03em] hover:opacity-75 transition-all duration-300 active:scale-[0.98] ${isScrolled ? 'text-[#3D2F28]' : 'text-white'}`}
             >
               Now We Land
             </button>
@@ -66,9 +66,9 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
               <button
                 key={item.name}
                 onClick={() => handleNavClick(item.href)}
-                className={`relative text-foreground hover:text-mediterranean-blue transition-all duration-300 font-medium group ${
+                className={`relative transition-all duration-300 font-normal text-[11px] uppercase tracking-[0.1em] group ${
                   currentLang === 'he' ? 'px-1' : ''
-                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-[#C4A882] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left`}
+                } ${isScrolled ? 'text-[#3D2F28] hover:text-[#1A1714]' : 'text-white/72 hover:text-white/95'} after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-[#C4A882] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left`}
               >
                 {item.name}
               </button>
@@ -82,29 +82,29 @@ const Header: React.FC<HeaderProps> = ({ currentLang, onLanguageChange, translat
                 href="https://facebook.com/nowweland"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-mediterranean-blue transition-all duration-300 hover:shadow-lg active:scale-[0.98] p-1 rounded-full"
+                className={`transition-all duration-300 active:scale-[0.98] p-1 rounded-full ${isScrolled ? 'text-[#6B6560] hover:text-[#1A1714]' : 'text-white/55 hover:text-white/90'}`}
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-4 w-4" />
               </a>
               <a
                 href="https://instagram.com/nowweland"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-mediterranean-blue transition-all duration-300 hover:shadow-lg active:scale-[0.98] p-1 rounded-full"
+                className={`transition-all duration-300 active:scale-[0.98] p-1 rounded-full ${isScrolled ? 'text-[#6B6560] hover:text-[#1A1714]' : 'text-white/55 hover:text-white/90'}`}
               >
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-4 w-4" />
               </a>
             </div>
-            <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} />
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-mediterranean-blue transition-colors duration-300">
-              <Phone className="h-4 w-4" />
+            <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} isScrolled={isScrolled} />
+            <div className={`flex items-center space-x-1.5 text-[11px] font-inter tracking-wide transition-colors duration-300 ${isScrolled ? 'text-[#6B6560]' : 'text-white/50'}`}>
+              <Phone className="h-3.5 w-3.5" />
               <span>+30 697 369 3867</span>
             </div>
           </div>
 
           {/* Mobile menu button - Enhanced effects */}
           <div className="lg:hidden flex items-center space-x-4">
-            <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} />
+            <LanguageSwitcher currentLang={currentLang} onLanguageChange={onLanguageChange} isScrolled={isScrolled} />
             <Button
               variant="ghost"
               size="sm"

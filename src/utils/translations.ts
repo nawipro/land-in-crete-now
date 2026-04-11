@@ -9,7 +9,7 @@ export const translations = {
     },
     hero: {
       title: 'Now We Land',
-      subtitle: 'A private villa on the Akrotiri Peninsula — 90 metres from a secret cove, a lifetime from ordinary',
+      subtitle: 'A private villa on the Akrotiri Peninsula. 90 metres from a secret cove, a lifetime from ordinary.',
       location: 'Akrotiri, Chania, Crete',
       cta: 'Reserve Your Stay',
       explore: 'Explore Villa'

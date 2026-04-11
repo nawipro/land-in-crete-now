@@ -246,7 +246,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
       <section id="booking" className="py-20 bg-[#F0EBE3]">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-mediterranean-blue mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3D2F28] mx-auto"></div>
             <p className="mt-2 text-muted-foreground">{lang === 'he' ? 'טוען...' : 'Loading...'}</p>
           </div>
         </div>
@@ -296,22 +296,30 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   }
 
   return (
-    <section id="booking" className="py-20 bg-[#F0EBE3]">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-cormorant font-medium text-[#1A1714] mb-3">
+    <section id="booking" className="py-24 bg-[#F0EBE3]">
+      <div className="container mx-auto px-6 lg:px-12">
+
+        {/* Section header — left-aligned, editorial */}
+        <div className="mb-12">
+          <p className="text-[10px] font-inter font-semibold uppercase tracking-[0.25em] text-[#C4A882] mb-4">
+            Reserve
+          </p>
+          <h2 className="text-4xl md:text-5xl font-cormorant font-medium text-[#1A1714] mb-3 leading-tight">
             {bookingData.title}
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[15px] font-inter text-[#6B6560] font-light max-w-lg">
             {bookingData.subtitle}
+          </p>
+          <p className="mt-5 text-[13px] font-inter text-[#C4A882] font-light italic">
+            14 minutes from the airport. You could be in the pool before sunset on arrival day.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           <div className="lg:col-span-2">
-            <Card className="rounded-2xl shadow-md">
-              <CardHeader>
-                <CardTitle className="text-2xl">{bookingData.form.title}</CardTitle>
+            <Card className="rounded-2xl shadow-sm border border-[#E8DDD5]">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl font-cormorant font-medium text-[#1A1714]">{bookingData.form.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-[1fr,280px] gap-6">
@@ -382,61 +390,91 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
                       <Label htmlFor="message">{lang==='he'?'הודעה':'Message'}</Label>
                       <Input id="message" className="text-base" value={message} onChange={(e)=>setMessage(e.target.value)} placeholder={lang==='he'?'פרטים נוספים/בקשות':'Additional details/requests'} />
                     </div>
-                    <Button className="w-full bg-[#3D2F28] hover:bg-[#2E231E] text-[#FAF8F5] border-0" disabled={!validRange} onClick={()=>{if(validRange) window.location.href=mailto;}}>
-                      <CalendarIcon className="h-5 w-5 mr-2" />
+                    <Button className="w-full bg-[#3D2F28] hover:bg-[#2E231E] text-[#FAF8F5] border-0 rounded-none h-11 text-[13px] tracking-wide font-inter" disabled={!validRange} onClick={()=>{if(validRange) window.location.href=mailto;}}>
+                      <CalendarIcon className="h-4 w-4 mr-2" />
                       {lang==='he'?'שליחת פניה':'Send Inquiry'}
                     </Button>
+                    <p className="text-[11px] font-inter text-[#6B6560] text-center leading-snug">
+                      {lang==='he'
+                        ? 'ללא תשלום היום — נחזור אליכם עם הפרטים תוך מספר שעות'
+                        : 'No payment today — we\'ll reply with details within a few hours'}
+                    </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <div className="space-y-6">
-            <Card className="rounded-2xl shadow">
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-mediterranean-blue mb-2">{currency}{nightlyRate?.toFixed(0) || 0}</div>
-                  <div className="text-muted-foreground">{bookingData.pricing.pernight}</div>
-                  <div className="text-sm text-muted-foreground mt-2">{minStayText}</div>
-                  {nightlyRate === 0 && (
-                    <div className="text-xs text-orange-600 mt-1">{lang==='he'?'ללא מחיר מוגדר':'No price set'}</div>
-                  )}
-                </div>
-                <div className="mt-6 text-sm space-y-1">
-                  <div className="flex justify-between">
-                    <span>{lang==='he'?'לילות':'Nights'} × {nightlyRate ? nightlyRate.toFixed(0) : '0'}</span>
+          <div className="space-y-5">
+            {/* Price card */}
+            <div className="rounded-2xl bg-white border border-[#E8DDD5] p-6">
+              <div className="flex items-baseline gap-1.5 mb-1">
+                <span className="text-[42px] font-cormorant font-medium text-[#1A1714] leading-none">{currency}{nightlyRate?.toFixed(0) || '—'}</span>
+                <span className="text-[13px] font-inter text-[#6B6560]">/ {bookingData.pricing.pernight}</span>
+              </div>
+              <p className="text-[11px] font-inter text-[#C4A882] uppercase tracking-[0.14em] mb-5">{minStayText}</p>
+              {nightlyRate === 0 && (
+                <p className="text-xs text-orange-600 mb-3">{lang==='he'?'ללא מחיר מוגדר':'No price set'}</p>
+              )}
+              {nights > 0 && (
+                <div className="border-t border-[#F0EBE3] pt-4 space-y-2 text-[13px] font-inter">
+                  <div className="flex justify-between text-[#6B6560]">
+                    <span>{lang==='he'?'לילות':'Nights'} × {currency}{nightlyRate ? nightlyRate.toFixed(0) : '0'}</span>
                     <span>{currency}{perNightBreakdown.subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>{lang==='he'?`דמי ניקיון (כל ${cleaningFreeNights} לילות)`:`Cleaning fee (per ${cleaningFreeNights} nights)`}</span>
+                  <div className="flex justify-between text-[#6B6560]">
+                    <span>{lang==='he'?`ניקיון (כל ${cleaningFreeNights} לילות)`:`Cleaning (per ${cleaningFreeNights} nights)`}</span>
                     <span>{currency}{cleaningTotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-[#6B6560]">
                     <span>{lang==='he'?'מס תיירות':'Tourist tax'}</span>
                     <span>{currency}{touristTaxTotal.toFixed(2)}</span>
                   </div>
-                  <div className="border-t mt-2 pt-2 flex justify-between font-semibold">
+                  <div className="border-t border-[#F0EBE3] pt-2 flex justify-between font-semibold text-[#1A1714]">
                     <span>{lang==='he'?'סה"כ':'Total'}</span>
                     <span>{currency}{total.toFixed(2)}</span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              )}
+            </div>
 
-            <Card className="rounded-2xl shadow">
-              <CardContent className="p-6">
-                <h4 className="font-semibold mb-4 text-mediterranean-blue">{bookingData.includes.title}</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• {bookingData.includes.wifi}</li>
-                  <li>• {bookingData.includes.pool}</li>
-                  <li>• {bookingData.includes.parking}</li>
-                  <li>• {bookingData.includes.garden}</li>
-                  <li>• {bookingData.includes.seaview}</li>
-                  <li>• {bookingData.includes.hidden_bay}</li>
-                </ul>
-              </CardContent>
-            </Card>
+            {/* What's included */}
+            <div className="rounded-2xl bg-white border border-[#E8DDD5] p-6">
+              <p className="text-[10px] font-inter font-semibold uppercase tracking-[0.2em] text-[#C4A882] mb-4">{bookingData.includes.title}</p>
+              <ul className="space-y-2.5">
+                {[bookingData.includes.wifi, bookingData.includes.pool, bookingData.includes.parking, bookingData.includes.garden, bookingData.includes.seaview, bookingData.includes.hidden_bay].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2.5 text-[13px] font-inter text-[#6B6560]">
+                    <span className="text-[#C4A882] text-xs">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Why Book Direct */}
+            <div className="rounded-2xl bg-[#3D2F28] text-white p-6 space-y-4">
+              <p className="text-xs font-inter font-semibold uppercase tracking-[0.18em] text-[#C4A882]">
+                Why Book Direct
+              </p>
+              <ul className="space-y-3 text-sm text-white/80 font-inter">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C4A882] mt-0.5">✓</span>
+                  <span>Best available rate — no platform commission</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C4A882] mt-0.5">✓</span>
+                  <span>Personal response within a few hours</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C4A882] mt-0.5">✓</span>
+                  <span>Flexible terms when you talk to us directly</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#C4A882] mt-0.5">✓</span>
+                  <span>Local tips, transport help, and area guidance</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

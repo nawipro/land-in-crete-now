@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Waves, Home, Users, Sunset } from 'lucide-react';
+import { Waves, Home, Users, Sunset, MapPin } from 'lucide-react';
 interface AboutSectionProps {
   translations: any;
   content?: any;
@@ -25,12 +25,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({
     icon: Sunset,
     title: translations.about.features.amenities.title,
     description: translations.about.features.amenities.desc
+  }, {
+    icon: MapPin,
+    title: 'Arrive. Disappear.',
+    description: '14 min from Chania Airport. 20 min from the Old Town. Close enough for day trips. Far enough to feel like your own world.'
   }];
   return <section id="about" className="py-24 bg-[#FAF8F5]">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="text-center mb-20 animate-soft-slide-up">
-          <h2 className="text-5xl lg:text-6xl font-cormorant font-medium text-mediterranean-deep-navy mb-8">
+          <h2 className="text-5xl lg:text-6xl font-cormorant font-medium text-[#1A1714] mb-8">
             {content?.headline || translations.about.title}
           </h2>
           <p className="text-xl lg:text-2xl font-inter text-mediterranean-stone-gray max-w-4xl mx-auto leading-relaxed font-light">
@@ -47,7 +51,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
           
           {/* Text Column */}
           <div className="lg:col-span-2 animate-gentle-fade">
-            <h3 className="text-3xl lg:text-4xl font-cormorant font-medium mb-8 text-mediterranean-deep-navy">
+            <h3 className="text-3xl lg:text-4xl font-cormorant font-medium mb-8 text-[#1A1714]">
               {translations.about.detailed.title}
             </h3>
             <div className="space-y-6">
@@ -62,13 +66,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         </div>
 
         {/* Features Grid - Refined Design */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
           {features.map((feature, index) => <Card key={index} className="border-none shadow-sm hover:shadow-md transition-all duration-500 bg-white group hover:bg-[#F0EBE3]">
               <CardContent className="p-8 text-center">
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-[#C4A882]/15 rounded-full mb-6 group-hover:bg-[#C4A882]/25 transition-colors duration-300">
                   <feature.icon className="h-10 w-10 text-[#C4A882]" />
                 </div>
-                <h4 className="text-xl lg:text-2xl font-cormorant font-medium mb-4 text-mediterranean-deep-navy">
+                <h4 className="text-xl lg:text-2xl font-cormorant font-medium mb-4 text-[#1A1714]">
                   {feature.title}
                 </h4>
                 <p className="text-mediterranean-stone-gray leading-relaxed font-inter">

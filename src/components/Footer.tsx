@@ -70,12 +70,8 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
           </div>
         </div>
 
-        <div className="border-t border-[#C4A882]/30 mt-8 pt-8 text-center text-[#E8DDD5]">
-          <p className="flex items-center justify-center">
-            {translations.footer.copyright} 
-            <Heart className="h-4 w-4 mx-2 text-red-400 fill-current" />
-            {translations.footer.madeWith}
-          </p>
+        <div className="border-t border-[#C4A882]/30 mt-8 pt-8 text-center text-[#C4A882]/60 text-sm font-inter font-light">
+          <p>{translations.footer.copyright} — Akrotiri, Chania, Crete</p>
         </div>
       </div>
     </footer>

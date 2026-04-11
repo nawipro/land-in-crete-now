@@ -1,76 +1,120 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowDown, Calendar } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Calendar, ChevronDown } from 'lucide-react';
+
 interface HeroSectionProps {
   translations: any;
   content?: any;
 }
-const HeroSection: React.FC<HeroSectionProps> = ({
-  translations,
-  content
-}) => {
-  const navigate = useNavigate();
+
+const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
   const handleBookNow = () => {
-    navigate('/booking');
+    document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
   };
-  const handleExploreVilla = () => {
-    document.getElementById('about')?.scrollIntoView({
-      behavior: 'smooth'
-    });
+
+  const handleScrollDown = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
-  return <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Hero Background (CMS if available) */}
+
+  return (
+    <section id="home" className="relative h-screen overflow-hidden">
+
+      {/* Background */}
       <div className="absolute inset-0">
-        <img src={content?.hero_image?.url || "/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"} alt={content?.hero_image?.alt || translations.hero?.alt || 'Hero background'} className="w-full h-full" style={{
-        objectFit: content?.hero_image?.fit as 'cover' | 'contain' || 'cover',
-        objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`
-      }} />
-        <div className="absolute inset-0 bg-black/22"></div>
+        <img
+          src={content?.hero_image?.url || '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png'}
+          alt={content?.hero_image?.alt || 'Villa overlooking the Aegean at sunset'}
+          className="w-full h-full object-cover"
+          style={{
+            objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`,
+          }}
+        />
+
+        {/* Top vignette — barely-there, just enough for nav */}
+        <div className="absolute inset-x-0 top-0 h-[35%] bg-gradient-to-b from-black/18 to-transparent" />
+
+        {/* Bottom gradient — very light, text carries itself with shadow */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 28%, transparent 55%)' }}
+        />
+
+        {/* Left vignette — minimal */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 38%, transparent 60%)' }}
+        />
       </div>
 
-      {/* Split layout: title at top, buttons at bottom */}
-      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-between items-center">
-        {/* Top: Title & Subtitle */}
-        <div style={{
-        maxWidth: '860px'
-      }} className="pt-12 sm:pt-20 text-center animate-gentle-fade py-[120px]">
-          <h1 className="text-5xl lg:text-7xl font-playfair-display font-light mb-4 leading-tight whitespace-pre-line" style={{
-          color: '#FFFFFF',
-          textShadow: '0 0 8px rgba(0,0,0,0.45)'
-        }}>
-            {content?.hero_title || translations.hero.title}
-          </h1>
-          <p className="text-xl lg:text-2xl font-inter font-light leading-relaxed whitespace-pre-line" style={{
-          color: '#FFFFFF',
-          textShadow: '0 0 8px rgba(0,0,0,0.45)'
-        }}>
-            {content?.hero_subtitle || translations.hero.subtitle}
-          </p>
+      {/* Content — bottom-left anchored */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 lg:px-16 pb-20 lg:pb-24">
 
+        {/* Location eyebrow */}
+        <p
+          className="text-[10px] font-inter font-semibold uppercase tracking-[0.32em] text-white/60 mb-7"
+          style={{ textShadow: '0 1px 10px rgba(0,0,0,0.55)' }}
+        >
+          Akrotiri · Chania · Crete
+        </p>
 
-          {/* Feature chips under subtitle */}
-          {(content?.chips || []).length > 0 && <div className="mt-4 flex flex-wrap gap-2 justify-center">
-              {(content?.chips || []).map((chip: string, i: number) => <span key={i} className="px-3 py-1 rounded-full bg-white/20 border border-white/40 text-white text-sm backdrop-blur-sm">
-                  {chip}
-                </span>)}
-            </div>}
-        </div>
+        {/* Headline */}
+        <h1
+          className="text-[62px] sm:text-[80px] lg:text-[96px] font-cormorant font-light text-white leading-[0.88] mb-6 max-w-2xl"
+          style={{ textShadow: '0 2px 28px rgba(0,0,0,0.55)' }}
+        >
+          {content?.hero_title || translations.hero.title}
+        </h1>
 
-        {/* Bottom: Primary CTA */}
-        <div className="pb-24 sm:pb-28 flex justify-center">
-          <Button size="lg" onClick={handleBookNow} className="bg-transparent border-2 border-white text-white hover:bg-[#3D2F28] hover:border-[#3D2F28] px-10 py-4 text-base font-inter font-medium rounded-full transition-all duration-300">
-            <Calendar className="h-5 w-5 mr-2" />
-            {translations.hero.cta}
-          </Button>
-        </div>
+        {/* Supporting text — two clean lines */}
+        <p
+          className="text-[16px] font-inter text-white/90 font-light max-w-[340px] mb-2"
+          style={{ lineHeight: '1.9', textShadow: '0 1px 14px rgba(0,0,0,0.70)' }}
+        >
+          A private villa in Akrotiri.<br />
+          90 metres from a hidden bay.
+        </p>
+
+        {/* Tagline — gold italic, short */}
+        <p
+          className="text-[17px] font-cormorant italic text-[#C4A882] mb-2 leading-snug"
+          style={{ textShadow: '0 1px 14px rgba(0,0,0,0.65)' }}
+        >
+          Private pool. Sea views. Sunsets.
+        </p>
+
+        {/* Location benefit */}
+        <p
+          className="text-[12px] font-inter text-[#C4A882]/70 font-light mb-10 tracking-wide"
+          style={{ textShadow: '0 1px 8px rgba(0,0,0,0.55)' }}
+        >
+          From plane to pool in 14 minutes.
+        </p>
+
+        {/* CTA */}
+        <button
+          onClick={handleBookNow}
+          className="inline-flex items-center gap-2.5 px-9 py-4 bg-white text-[#1A1714] text-[13px] font-inter font-medium tracking-[0.04em] hover:bg-[#FAF8F5] transition-colors duration-300 rounded-none"
+        >
+          <Calendar className="h-4 w-4" />
+          Check Availability
+        </button>
 
       </div>
 
-      {/* Elegant Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-70">
-        <ArrowDown className="h-5 w-5 text-white" />
-      </div>
-    </section>;
+      {/* Scroll indicator — bottom center, clickable */}
+      <button
+        onClick={handleScrollDown}
+        aria-label="Scroll to next section"
+        className="absolute left-1/2 -translate-x-1/2 z-10 p-2 hover:opacity-60 transition-opacity duration-300"
+        style={{ bottom: '40px' }}
+      >
+        <ChevronDown
+          className="h-[20px] w-[20px] text-white/40 animate-bounce"
+          strokeWidth={1.2}
+        />
+      </button>
+
+    </section>
+  );
 };
+
 export default HeroSection;
