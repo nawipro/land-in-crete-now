@@ -1,35 +1,24 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { getSupabaseClient } from '@/lib/supabaseClient';
-import { useNavigate } from 'react-router-dom';
 import { cleanupAuthState } from '@/lib/auth';
 
 const Login: React.FC = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  // Removed signup mode for security - admin access only for existing users
-  const [resetLoading, setResetLoading] = React.useState(false);
+  const [sent, setSent] = React.useState(false);
 
   React.useEffect(() => {
     const supabase = getSupabaseClient();
     if (!supabase) return;
 
-    // Listen first
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
-        // Redirect authenticated users directly to Content Manager
         window.location.href = '/admin/content';
       }
     });
 
-    // Then check existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         window.location.href = '/admin/content';
@@ -43,90 +32,109 @@ const Login: React.FC = () => {
     e.preventDefault();
     const supabase = getSupabaseClient();
     if (!supabase) {
-      toast({ title: 'Supabase not configured', description: 'Connect your project to Supabase (green button top-right) and refresh.' });
+      toast({ title: 'Error', description: 'Supabase not configured' });
       return;
     }
     setLoading(true);
 
     try {
-      // Ensure clean state before auth
       cleanupAuthState();
-      try { await supabase.auth.signOut({ scope: 'global' } as any); } catch {}
 
-      // Only sign in - no signup for security
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin/content`,
+        },
+      });
+
       if (error) throw error;
-      toast({ title: 'ברוך הבא' });
-      // Force reload + redirect handled in listener
-      window.location.href = '/admin/content';
+
+      setSent(true);
+      toast({ title: 'Magic link sent', description: 'Check your email and click the link to sign in' });
     } catch (err: any) {
-      toast({ title: 'שגיאה', description: err?.message || 'הפעולה נכשלה' });
+      toast({ title: 'Error', description: err?.message || 'Failed to send magic link' });
     } finally {
       setLoading(false);
     }
   };
-  const handleResetPassword = async () => {
-    const supabase = getSupabaseClient();
-    if (!supabase) {
-      toast({ title: 'Supabase לא מוגדר', description: 'חבר את הפרויקט ל‑Supabase (הכפתור הירוק למעלה) ורענן.' });
-      return;
-    }
-    if (!email) {
-      toast({ title: 'אנא הזן אימייל', description: 'נשלח קישור לאיפוס סיסמה לאימייל שלך.' });
-      return;
-    }
-    setResetLoading(true);
-    try {
-      const redirectTo = `${window.location.origin}/admin/reset-password`;
-      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
-      if (error) throw error;
-      toast({ title: 'נשלח מייל לאיפוס סיסמה', description: 'בדוק את תיבת הדואר והקליק על הקישור.' });
-    } catch (err: any) {
-      toast({ title: 'שגיאה', description: err?.message || 'שליחת מייל נכשלה' });
-    } finally {
-      setResetLoading(false);
-    }
-  };
 
   return (
+    <main className="min-h-screen flex items-center justify-center bg-[#f8f5f2] px-6">
+      <div className="w-full max-w-[420px]">
 
-    <main className="min-h-screen flex items-center justify-center p-6">
-      <Card className="w-full max-w-md">
-        <CardContent className="p-6 space-y-4">
-          <header className="space-y-1">
-            <h1 className="text-2xl font-semibold">התחברות אדמין</h1>
-            <p className="text-sm text-muted-foreground">
-              היכנס עם אימייל וסיסמה
-            </p>
-          </header>
+        <div className="text-center mb-10">
+          <h1 className="text-[32px] font-cormorant font-medium text-[#1A1714] mb-2">
+            Now We Land
+          </h1>
+          <p className="text-[14px] font-inter text-[#8a8580]">
+            Admin Panel
+          </p>
+        </div>
 
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">אימייל</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <div className="bg-white border border-[#e9e4df] rounded-xl p-8 lg:p-10">
+          {sent ? (
+            <div className="text-center space-y-4">
+              <div className="w-14 h-14 bg-[#c5a059]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-7 h-7 text-[#c5a059]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <h2 className="text-[22px] font-cormorant font-medium text-[#1A1714]">
+                Check your email
+              </h2>
+              <p className="text-[15px] font-inter text-[#8a8580] font-light leading-relaxed">
+                We sent a magic link to <strong className="text-[#1A1714]">{email}</strong>
+              </p>
+              <p className="text-[13px] font-inter text-[#B8B2AC]">
+                Click the link in the email to sign in. It expires in 10 minutes
+              </p>
+              <button
+                onClick={() => setSent(false)}
+                className="text-[13px] font-inter text-[#c5a059] hover:text-[#d4af6a] transition-colors mt-4"
+              >
+                Try a different email
+              </button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">סיסמה</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'מתחבר…' : 'התחבר'}
-            </Button>
-            <div className="flex justify-end">
-              <Button variant="link" type="button" onClick={handleResetPassword} disabled={resetLoading}>
-                {resetLoading ? 'שולח…' : 'שכחתי סיסמה?'}
-              </Button>
-            </div>
-          </form>
+          ) : (
+            <>
+              <h2 className="text-[20px] font-cormorant font-medium text-[#1A1714] mb-2">
+                Sign in
+              </h2>
+              <p className="text-[14px] font-inter text-[#8a8580] font-light mb-8">
+                Enter your email and we will send you a magic link
+              </p>
 
-          <section className="pt-2 border-t space-y-1">
-            <h2 className="text-sm font-medium">אבטחה</h2>
-            <p className="text-xs text-muted-foreground">
-              גישה מוגבלת למשתמשים קיימים בלבד. אין אפשרות הרשמה עצמית למערכת האדמין.
-            </p>
-          </section>
-        </CardContent>
-      </Card>
+              <form onSubmit={onSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-3">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    required
+                    className="h-12 w-full text-[16px] font-inter text-[#1A1714] border-0 border-b border-[#e2e8f0] rounded-none bg-transparent px-0 placeholder:text-[#B8B2AC] focus:ring-0 focus:outline-none focus:border-[#c5a059] transition-colors"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-4 bg-[#0f172a] text-white text-[13px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#c5a059] transition-colors duration-300 disabled:opacity-50"
+                >
+                  {loading ? 'Sending...' : 'Send Magic Link'}
+                </button>
+              </form>
+            </>
+          )}
+        </div>
+
+        <p className="text-center text-[12px] font-inter text-[#B8B2AC] mt-6">
+          Access restricted to authorized personnel only
+        </p>
+      </div>
     </main>
   );
 };
