@@ -1,36 +1,48 @@
-
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { Facebook, Instagram } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import NavigateButton from './NavigateButton';
 
 interface ContactSectionProps {
   translations: any;
   content?: any;
 }
 
+const underlineInput = 'h-12 w-full text-[16px] font-inter text-[#1A1714] border-0 border-b border-[#e2e8f0] rounded-none bg-transparent px-0 placeholder:text-[#B8B2AC] focus:ring-0 focus:outline-none focus:border-[#c5a059] transition-colors';
+
 const ContactSection: React.FC<ContactSectionProps> = ({ translations, content }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
+    subject: '',
     message: ''
   });
   const { toast } = useToast();
+  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
+
+  const contactData = {
+    phone: content?.phone || '+30 697 369 3867',
+    email: content?.email || 'aegeanvillas.adm@gmail.com',
+    address: content?.address || 'Akrotiri, Chania, Crete, Greece',
+    facebook_url: content?.facebook_url || 'https://facebook.com/nowweland',
+    instagram_url: content?.instagram_url || 'https://instagram.com/nowweland',
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
+    const subject = encodeURIComponent(formData.subject || 'Website Inquiry');
+    const body = encodeURIComponent([
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      '',
+      formData.message,
+    ].join('\n'));
+    window.location.href = `mailto:${contactData.email}?subject=${subject}&body=${body}`;
     toast({
-      title: translations.contact.form.success.title,
-      description: translations.contact.form.success.message,
+      title: lang === 'he' ? 'נפתח לך אימייל' : 'Opening your email client',
+      description: lang === 'he' ? 'ההודעה שלך מוכנה לשליחה' : 'Your message is ready to send',
     });
-    setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,193 +52,167 @@ const ContactSection: React.FC<ContactSectionProps> = ({ translations, content }
     }));
   };
 
-  // Use content from CMS if available, otherwise fall back to translations
-  const contactData = {
-    title: content?.title || translations.contact.title,
-    subtitle: content?.subtitle || translations.contact.subtitle,
-    phone: content?.phone || '+30 697 369 3867',
-    email: content?.email || 'aegeanvillas.adm@gmail.com',
-    address: content?.address || 'Akrotiri, Chania, Crete, Greece',
-    whatsapp: content?.whatsapp || '+30 697 369 3867',
-    facebook_url: content?.facebook_url || 'https://facebook.com/nowweland',
-    instagram_url: content?.instagram_url || 'https://instagram.com/nowweland',
-    form: {
-      title: content?.form?.title || translations.contact.form.title,
-      name: content?.form?.name || translations.contact.form.name,
-      email: content?.form?.email || translations.contact.form.email,
-      phone: content?.form?.phone || translations.contact.form.phone,
-      message: content?.form?.message || translations.contact.form.message,
-      send: content?.form?.send || translations.contact.form.send,
-    },
-    info: {
-      title: content?.info?.title || translations.contact.info.title,
-      phone: content?.info?.phone || translations.contact.info.phone,
-      email: content?.info?.email || translations.contact.info.email,
-      location: content?.info?.location || translations.contact.info.location,
-    },
-    social: {
-      title: content?.social?.title || translations.contact.social.title,
-    }
-  };
-
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold text-mediterranean-blue mb-6">
-            {contactData.title}
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {contactData.subtitle}
-          </p>
-        </div>
+    <section id="contact" className="py-28 lg:py-40 bg-[#f8f5f2]">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <Card className="shadow-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl font-playfair text-mediterranean-blue">
-                {contactData.form.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">{contactData.form.name}</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">{contactData.form.email}</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="phone">{contactData.form.phone}</Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                  />
-                </div>
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 
-                <div className="space-y-2">
-                  <Label htmlFor="message">{contactData.form.message}</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    value={formData.message}
+          {/* Left: Form */}
+          <div>
+            <h2 className="text-[48px] lg:text-[64px] font-cormorant font-medium text-[#1A1714] mb-6 leading-[1.05]">
+              {lang === 'he' ? 'צרו קשר' : 'Get in Touch'}
+            </h2>
+            <p className="text-[17px] font-inter text-[#8a8580] font-light leading-[1.7] mb-14 max-w-lg">
+              {lang === 'he'
+                ? 'שאלות על הווילה, האזור, או זמינות? אנחנו עונים על כל הודעה באופן אישי ובקפידה.'
+                : 'Questions about the villa, the area, or availability? We answer every message personally and with care.'}
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                <div>
+                  <label className="block text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-4">
+                    {lang === 'he' ? 'שם מלא' : 'Full Name'}
+                  </label>
+                  <input
+                    name="name"
+                    value={formData.name}
                     onChange={handleInputChange}
+                    placeholder={lang === 'he' ? 'למשל, אלכסנדר סמית' : 'E.g. Alexander Smith'}
                     required
+                    className={underlineInput}
                   />
                 </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-mediterranean-blue hover:bg-aegean-blue text-white py-3 text-lg font-semibold"
-                >
-                  {contactData.form.send}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <Card className="shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-playfair font-bold text-mediterranean-blue mb-6">
-                  {contactData.info.title}
-                </h3>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-mediterranean-blue/10 rounded-full flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-mediterranean-blue" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">{contactData.info.phone}</h4>
-                      <p className="text-muted-foreground">{contactData.phone}</p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="mt-2"
-                        onClick={() => window.open(`https://wa.me/${contactData.whatsapp.replace(/[^0-9]/g, '')}`, '_blank')}
-                      >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        WhatsApp
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-mediterranean-blue/10 rounded-full flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-mediterranean-blue" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">{contactData.info.email}</h4>
-                      <p className="text-muted-foreground">{contactData.email}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-mediterranean-blue/10 rounded-full flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-mediterranean-blue" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">{contactData.info.location}</h4>
-                      <p className="text-muted-foreground">{contactData.address}</p>
-                    </div>
-                  </div>
+                <div>
+                  <label className="block text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-4">
+                    {lang === 'he' ? 'כתובת אימייל' : 'Email Address'}
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="alex@example.com"
+                    required
+                    className={underlineInput}
+                  />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Social Media */}
-            <Card className="shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-playfair font-bold text-mediterranean-blue mb-6">
-                  {contactData.social.title}
-                </h3>
-                <div className="flex space-x-4">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="flex-1"
-                    onClick={() => window.open(contactData.facebook_url, '_blank')}
-                  >
-                    <Facebook className="h-5 w-5 mr-2" />
-                    Facebook
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="flex-1"
-                    onClick={() => window.open(contactData.instagram_url, '_blank')}
-                  >
-                    <Instagram className="h-5 w-5 mr-2" />
-                    Instagram
-                  </Button>
+              <div>
+                <label className="block text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-4">
+                  {lang === 'he' ? 'נושא' : 'Subject'}
+                </label>
+                <input
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  placeholder={lang === 'he' ? 'במה מדובר הפניה שלך?' : 'What is your inquiry about?'}
+                  className={underlineInput}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-4">
+                  {lang === 'he' ? 'ההודעה שלך' : 'Your Message'}
+                </label>
+                <textarea
+                  name="message"
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder={lang === 'he' ? 'איך נוכל לעזור לך?' : 'How can we help you?'}
+                  required
+                  className="w-full text-[16px] font-inter text-[#1A1714] border-0 border-b border-[#e2e8f0] rounded-none bg-transparent px-0 placeholder:text-[#B8B2AC] focus:ring-0 focus:outline-none focus:border-[#c5a059] transition-colors resize-y"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="px-12 py-5 bg-[#0f172a] text-white text-[13px] font-inter font-bold uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all duration-300"
+              >
+                {lang === 'he' ? 'שליחת הודעה' : 'Send Message'}
+              </button>
+            </form>
+          </div>
+
+          {/* Right: Contact Details */}
+          <div className="lg:pt-4">
+            <h3 className="text-[32px] lg:text-[36px] font-cormorant font-medium text-[#1A1714] italic mb-12">
+              {lang === 'he' ? 'פרטי התקשרות' : 'Contact Details'}
+            </h3>
+
+            <div className="space-y-10">
+              {/* Phone */}
+              <div className="flex items-start gap-5">
+                <Phone className="w-[22px] h-[22px] text-[#c5a059] mt-1 flex-shrink-0" strokeWidth={1.5} />
+                <div>
+                  <p className="text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-2">
+                    {lang === 'he' ? 'טלפון ו-WhatsApp' : 'Phone & WhatsApp'}
+                  </p>
+                  <p className="text-[20px] font-inter font-medium text-[#1A1714]">
+                    {contactData.phone}
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-start gap-5">
+                <Mail className="w-[22px] h-[22px] text-[#c5a059] mt-1 flex-shrink-0" strokeWidth={1.5} />
+                <div>
+                  <p className="text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-2">
+                    {lang === 'he' ? 'כתובת אימייל' : 'Email Address'}
+                  </p>
+                  <p className="text-[20px] font-inter font-medium text-[#1A1714]">
+                    {contactData.email}
+                  </p>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="flex items-start gap-5">
+                <MapPin className="w-[22px] h-[22px] text-[#c5a059] mt-1 flex-shrink-0" strokeWidth={1.5} />
+                <div>
+                  <p className="text-[11px] font-inter font-bold uppercase tracking-[0.16em] text-[#c5a059] mb-2">
+                    {lang === 'he' ? 'מיקום' : 'Location'}
+                  </p>
+                  <p className="text-[20px] font-inter font-medium text-[#1A1714] mb-3">
+                    {contactData.address}
+                  </p>
+                  <NavigateButton variant="contact" label="Navigate" />
+                </div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="h-px bg-[#e5e0da] my-12" />
+
+            {/* Follow Our Journey */}
+            <h3 className="text-[28px] lg:text-[32px] font-cormorant font-medium text-[#1A1714] italic mb-8">
+              {lang === 'he' ? 'עקבו אחרינו' : 'Follow Our Journey'}
+            </h3>
+
+            <div className="flex items-center gap-10">
+              <a
+                href={contactData.instagram_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 text-[13px] font-inter font-bold uppercase tracking-[0.18em] text-[#1A1714] hover:text-[#c5a059] transition-colors"
+              >
+                Instagram
+                <ArrowRight className="w-[16px] h-[16px] text-[#c5a059] group-hover:translate-x-1 transition-transform" strokeWidth={1.5} />
+              </a>
+              <a
+                href={contactData.facebook_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 text-[13px] font-inter font-bold uppercase tracking-[0.18em] text-[#1A1714] hover:text-[#c5a059] transition-colors"
+              >
+                Facebook
+                <ArrowRight className="w-[16px] h-[16px] text-[#c5a059] group-hover:translate-x-1 transition-transform" strokeWidth={1.5} />
+              </a>
+            </div>
           </div>
         </div>
       </div>

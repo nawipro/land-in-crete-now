@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -6,54 +6,46 @@ import DayAtVillaSection from '@/components/DayAtVillaSection';
 import GallerySection from '@/components/GallerySection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import BookingSection from '@/components/BookingSection';
+import ExploreSection from '@/components/ExploreSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import AdminAccess from '@/components/AdminAccess';
+import CookieConsent from '@/components/CookieConsent';
 import { translations } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
 const Index = () => {
-  // Clear any stored language preference and force English
-  const [currentLang, setCurrentLang] = useState<'en' | 'he'>(() => {
-    // Force English as default and clear any stored preferences
-    localStorage.removeItem('preferredLanguage');
-    return 'en';
-  });
-
   useEffect(() => {
-    // Set document direction based on language
-    document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
-    document.documentElement.lang = currentLang;
-  }, [currentLang]);
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = 'en';
+  }, []);
 
-  const currentTranslations = translations[currentLang];
+  const t = translations.en;
 
-  const { data: homeContent } = useCms('home', currentLang);
-  const { data: aboutContent } = useCms('about', currentLang);
-  const { data: galleryContent } = useCms('gallery', currentLang);
-  const { data: bookingContent } = useCms('booking', currentLang);
-  const { data: contactContent } = useCms('contact', currentLang);
+  const { data: homeContent } = useCms('home', 'en');
+  const { data: aboutContent } = useCms('about', 'en');
+  const { data: galleryContent } = useCms('gallery', 'en');
+  const { data: bookingContent } = useCms('booking', 'en');
+  const { data: contactContent } = useCms('contact', 'en');
 
   return (
-    <div className={`min-h-screen ${currentLang === 'he' ? 'rtl' : 'ltr'}`}>
-      <Header 
-        currentLang={currentLang}
-        onLanguageChange={setCurrentLang}
-        translations={currentTranslations}
-      />
-      
+    <div className="min-h-screen">
+      <Header translations={t} />
+
       <main>
-        <HeroSection translations={currentTranslations} content={homeContent || undefined} />
-        <AboutSection translations={currentTranslations} content={aboutContent || undefined} />
+        <HeroSection translations={t} content={homeContent || undefined} />
+        <AboutSection translations={t} content={aboutContent || undefined} />
         <DayAtVillaSection />
-        <GallerySection translations={currentTranslations} content={galleryContent || undefined} />
+        <GallerySection translations={t} content={galleryContent || undefined} />
         <TestimonialsSection />
-        <BookingSection translations={currentTranslations} content={bookingContent || undefined} />
-        <ContactSection translations={currentTranslations} content={contactContent || undefined} />
+        <BookingSection translations={t} content={bookingContent || undefined} />
+        <ExploreSection />
+        <ContactSection translations={t} content={contactContent || undefined} />
       </main>
-      
-      <Footer translations={currentTranslations} />
+
+      <Footer translations={t} />
       <AdminAccess />
+      <CookieConsent />
     </div>
   );
 };

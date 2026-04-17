@@ -11,21 +11,20 @@ export const translations = {
       title: 'Now We Land',
       subtitle: 'A private villa on the Akrotiri Peninsula. 90 metres from a secret cove, a lifetime from ordinary.',
       location: 'Akrotiri, Chania, Crete',
-      cta: 'Reserve Your Stay',
       explore: 'Explore Villa'
     },
     about: {
       title: 'The Villa',
-      description: 'Akrotiri is Crete\'s best-kept secret — a peninsula of wild coastline, ancient monasteries, and impossibly blue water. From the villa, the sea is 90 metres away. Everything else worth seeing is within 20 minutes.',
+      description: 'Akrotiri is Crete\'s best-kept secret. A peninsula of wild coastline, ancient monasteries, and impossibly blue water. From the villa, the sea is 90 metres away. Everything else worth seeing is within 20 minutes.',
       detailed: {
         title: 'Space, Privacy, and the Aegean',
-        description: 'Perched above the Cretan Sea on the Akrotiri peninsula, the villa sits in a quiet neighbourhood of fruit trees and stone walls. Three separate bedrooms, a private suite with sunroom, four bathrooms — all opening to terraces that face the water.',
+        description: 'Perched above the Cretan Sea on the Akrotiri peninsula, the villa sits in a quiet neighbourhood of fruit trees and stone walls. Three separate bedrooms, a private suite with sunroom, four bathrooms. All opening to terraces that face the water.',
         description2: 'A 43 sqm private pool. A shaded garden built for long afternoons. A fully equipped kitchen for the nights you don\'t want to leave. Up to 8 guests, with enough space that everyone finds their own corner of quiet.'
       },
       features: {
         seaview: {
           title: 'Open Sea Views',
-          desc: '90m from the water — sunsets that stop conversation'
+          desc: '90m from the water. Sunsets that stop conversation'
         },
         accommodation: {
           title: 'Four Bedrooms',
@@ -33,7 +32,7 @@ export const translations = {
         },
         capacity: {
           title: 'The Hidden Bay',
-          desc: 'A secret cove 2 minutes on foot — clear water, no crowds'
+          desc: 'A secret cove 2 minutes on foot. Clear water, no crowds'
         },
         amenities: {
           title: 'Everything Included',
@@ -43,7 +42,7 @@ export const translations = {
     },
     gallery: {
       title: 'Inside & Out',
-      subtitle: 'Every room, every view, every corner — exactly as you will find it',
+      subtitle: 'Every room, every view, every corner. Exactly as you will find it',
       categories: {
         all: 'All Photos',
         outdoor: 'Garden & Pool',
@@ -68,7 +67,7 @@ export const translations = {
     },
     booking: {
       title: 'Plan Your Stay',
-      subtitle: 'Select your dates below. We respond to every inquiry personally — usually within a few hours.',
+      subtitle: 'Select your dates below. We respond to every inquiry personally. Usually within a few hours.',
       form: {
         title: 'Check Availability',
         checkin: 'Check-in Date',
@@ -96,7 +95,7 @@ export const translations = {
     },
     contact: {
       title: 'Get In Touch',
-      subtitle: 'Questions about the villa, the area, or availability — we answer every message personally.',
+      subtitle: 'Questions about the villa, the area, or availability? We answer every message personally.',
       form: {
         title: 'Send us a Message',
         name: 'Full Name',
@@ -120,7 +119,7 @@ export const translations = {
       }
     },
     footer: {
-      description: 'A private villa on the Akrotiri Peninsula, Chania — where the Aegean meets the mountains of Crete.',
+      description: 'A private villa on the Akrotiri Peninsula, Chania. Where the Aegean meets the mountains of Crete.',
       quickLinks: 'Quick Links',
       contact: 'Contact Info',
       copyright: '© 2025 Now We Land Villa.',
@@ -137,23 +136,22 @@ export const translations = {
     },
     hero: {
       title: 'Now We Land',
-      subtitle: 'וילה פרטית בחצי האי אקרוטירי — 90 מטרים ממפרץ נסתר, רחוק מהרגיל',
+      subtitle: 'וילה פרטית בחצי האי אקרוטירי. 90 מטרים ממפרץ נסתר, רחוק מהרגיל',
       location: 'אקרוטירי, חאניה, כרתים',
-      cta: 'לבדיקת זמינות',
-      explore: 'לגלות את הוילה'
+      explore: 'הכירו את הווילה'
     },
     about: {
       title: 'הוילה',
-      description: 'אקרוטירי הוא כרתים של המקומיים — חצי אי של חופים פראיים, מנזרים עתיקים ומים בגוון שלא ראיתם מחוץ לתמונה. מהווילה לים — 90 מטרים. מכל השאר ששווה לראות — עשרים דקות.',
+      description: 'אקרוטירי הוא כרתים של המקומיים. חצי אי של חופים פראיים, מנזרים עתיקים ומים בגוון שלא ראיתם מחוץ לתמונה. מהווילה לים, 90 מטרים. מכל השאר ששווה לראות, עשרים דקות.',
       detailed: {
         title: 'מרחב, פרטיות, ואגאי',
-        description: 'הווילה יושבת על מדרון מול הים הכרתי, בשכונה שקטה של עצי פרי וגדרות אבן. שלושה חדרי שינה נפרדים, סוויטה פרטית עם חדר שמש, ארבעה חדרי רחצה — כולם נפתחים למרפסות עם נוף לים.',
-        description2: 'בריכה פרטית של 43 מ"ר. גינה מוצלת שנבנתה לצהריים ארוכים. מטבח מאובזר במלואו לערבות שלא תרצו לצאת מהם. עד 8 אורחים — עם מספיק מקום שכל אחד ימצא את הפינה השקטה שלו.'
+        description: 'הווילה יושבת על מדרון מול הים הכרתי, בשכונה שקטה של עצי פרי וגדרות אבן. שלושה חדרי שינה נפרדים, סוויטה פרטית עם חדר שמש, ארבעה חדרי רחצה. כולם נפתחים למרפסות עם נוף לים.',
+        description2: 'בריכה פרטית של 43 מ"ר. גינה מוצלת שנבנתה לצהריים ארוכים. מטבח מאובזר במלואו לערבות שלא תרצו לצאת מהם. עד 8 אורחים, עם מספיק מקום שכל אחד ימצא את הפינה השקטה שלו.'
       },
       features: {
         seaview: {
           title: 'נוף פתוח לים',
-          desc: '90 מטרים מהמים — שקיעות שעוצרות שיחות'
+          desc: '90 מטרים מהמים. שקיעות שעוצרות שיחות'
         },
         accommodation: {
           title: 'ארבעה חדרי שינה',
@@ -161,7 +159,7 @@ export const translations = {
         },
         capacity: {
           title: 'המפרץ הנסתר',
-          desc: 'מפרצון סודי 2 דקות ברגל — מים צלולים, בלי עומס'
+          desc: 'מפרצון סודי 2 דקות ברגל. מים צלולים, בלי עומס'
         },
         amenities: {
           title: 'הכל כלול',
@@ -171,7 +169,7 @@ export const translations = {
     },
     gallery: {
       title: 'מבפנים ומבחוץ',
-      subtitle: 'כל חדר, כל נוף, כל פינה — בדיוק כפי שתמצאו אותם',
+      subtitle: 'כל חדר, כל נוף, כל פינה. בדיוק כפי שתמצאו אותם',
       categories: {
         all: 'כל התמונות',
         outdoor: 'גינה ובריכה',
@@ -196,7 +194,7 @@ export const translations = {
     },
     booking: {
       title: 'תכננו את השהייה',
-      subtitle: 'בחרו תאריכים למטה. אנחנו עונים לכל פנייה באופן אישי — בדרך כלל תוך כמה שעות.',
+      subtitle: 'בחרו תאריכים למטה. אנחנו עונים לכל פנייה באופן אישי. בדרך כלל תוך כמה שעות.',
       form: {
         title: 'בדיקת זמינות',
         checkin: 'תאריך כניסה',
@@ -224,7 +222,7 @@ export const translations = {
     },
     contact: {
       title: 'צרו קשר',
-      subtitle: 'שאלות על הוילה, האזור, או זמינות — אנחנו עונים לכל הודעה באופן אישי.',
+      subtitle: 'שאלות על הוילה, האזור, או זמינות? אנחנו עונים לכל הודעה באופן אישי.',
       form: {
         title: 'שלחו לנו הודעה',
         name: 'שם מלא',
@@ -248,7 +246,7 @@ export const translations = {
       }
     },
     footer: {
-      description: 'וילה פרטית בחצי האי אקרוטירי, חאניה — שם האגאי פוגש את הרי כרתים.',
+      description: 'וילה פרטית בחצי האי אקרוטירי, חאניה. שם האגאי פוגש את הרי כרתים.',
       quickLinks: 'קישורים מהירים',
       contact: 'פרטי התקשרות',
       copyright: '© 2025 וילה עכשיו אנחנו נוחתים.',

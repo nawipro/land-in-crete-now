@@ -7,6 +7,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
+  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
   const handleBookNow = () => {
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -48,54 +49,50 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
       {/* Content — bottom-left anchored */}
       <div className="absolute bottom-0 left-0 right-0 z-10 px-8 lg:px-16 pb-20 lg:pb-24">
 
-        {/* Location eyebrow */}
+        {/* Location eyebrow — gold */}
         <p
-          className="text-[10px] font-inter font-semibold uppercase tracking-[0.32em] text-white/60 mb-7"
-          style={{ textShadow: '0 1px 10px rgba(0,0,0,0.55)' }}
+          className="text-[12px] font-inter font-semibold uppercase tracking-[0.35em] text-[#c5a059] mb-8"
+          style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
         >
-          Akrotiri · Chania · Crete
+          Akrotiri &nbsp;•&nbsp; Chania &nbsp;•&nbsp; Crete
         </p>
 
         {/* Headline */}
         <h1
-          className="text-[62px] sm:text-[80px] lg:text-[96px] font-cormorant font-light text-white leading-[0.88] mb-6 max-w-2xl"
-          style={{ textShadow: '0 2px 28px rgba(0,0,0,0.55)' }}
+          className="text-[64px] sm:text-[82px] lg:text-[98px] font-cormorant font-light text-white leading-[0.88] mb-8 max-w-2xl"
+          style={{ textShadow: '0 2px 30px rgba(0,0,0,0.45)' }}
         >
-          {content?.hero_title || translations.hero.title}
+          Now We Land
         </h1>
 
-        {/* Supporting text — two clean lines */}
+        {/* Primary subtitle */}
         <p
-          className="text-[16px] font-inter text-white/90 font-light max-w-[340px] mb-2"
-          style={{ lineHeight: '1.9', textShadow: '0 1px 14px rgba(0,0,0,0.70)' }}
+          className="text-[22px] lg:text-[26px] font-inter text-white/90 font-light mb-5"
+          style={{ textShadow: '0 1px 16px rgba(0,0,0,0.55)' }}
         >
-          A private villa in Akrotiri.<br />
-          90 metres from a hidden bay.
+          A private villa 90 metres from a <span className="text-[#c5a059]">hidden bay</span>
         </p>
 
-        {/* Tagline — gold italic, short */}
-        <p
-          className="text-[17px] font-cormorant italic text-[#C4A882] mb-2 leading-snug"
-          style={{ textShadow: '0 1px 14px rgba(0,0,0,0.65)' }}
+        {/* Secondary details — lighter, italic */}
+        <div
+          className="space-y-1.5 mb-12"
+          style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
         >
-          Private pool. Sea views. Sunsets.
-        </p>
-
-        {/* Location benefit */}
-        <p
-          className="text-[12px] font-inter text-[#C4A882]/70 font-light mb-10 tracking-wide"
-          style={{ textShadow: '0 1px 8px rgba(0,0,0,0.55)' }}
-        >
-          From plane to pool in 14 minutes.
-        </p>
+          <p className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic">
+            Private pool, sea views, and <span className="text-[#c5a059]/80">golden sunsets</span>
+          </p>
+          <p className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic">
+            From plane to pool in 14 minutes
+          </p>
+        </div>
 
         {/* CTA */}
         <button
           onClick={handleBookNow}
-          className="inline-flex items-center gap-2.5 px-9 py-4 bg-white text-[#1A1714] text-[13px] font-inter font-medium tracking-[0.04em] hover:bg-[#FAF8F5] transition-colors duration-300 rounded-none"
+          className="inline-flex items-center gap-2.5 px-10 py-4 bg-white/95 text-[#1A1714] text-[14px] font-inter font-medium tracking-[0.08em] uppercase hover:bg-[#c5a059] hover:text-white transition-all duration-300"
         >
           <Calendar className="h-4 w-4" />
-          Check Availability
+          {lang === 'he' ? 'בדקו זמינות' : 'Check Availability'}
         </button>
 
       </div>

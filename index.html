@@ -3,6 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Analytics (respects cookie consent) -->
+    <script>
+      if (localStorage.getItem('cookie_consent') === 'accepted') {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-GM5LJ8NGNX';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GM5LJ8NGNX');
+      }
+    </script>
     <title>Now We Land - Boutique Villa in Crete | Private Vacation Rental</title>
     <meta name="description" content="Now We Land - A luxury boutique villa in Akrotiri, Crete. 90m from the sea with private pool, stunning sunset views. Perfect for families up to 8 guests. Book direct for the best rates." />
     <meta name="author" content="Now We Land Villa" />
@@ -13,9 +27,8 @@
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="https://nowweland.com/sitemap.xml" />
 
-    <!-- hreflang for bilingual support -->
+    <!-- hreflang -->
     <link rel="alternate" hreflang="en" href="https://nowweland.com/" />
-    <link rel="alternate" hreflang="he" href="https://nowweland.com/?lang=he" />
     <link rel="alternate" hreflang="x-default" href="https://nowweland.com/" />
 
     <!-- Open Graph / Facebook -->
@@ -25,7 +38,6 @@
     <meta property="og:description" content="Luxury villa rental in Akrotiri, Crete. 90m from sea, private pool, stunning sunsets. Up to 8 guests. Book direct!" />
     <meta property="og:image" content="https://nowweland.com/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:locale:alternate" content="he_IL" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -54,8 +66,8 @@
       "alternateName": "Now We Land Villa",
       "description": "A luxury boutique villa in Akrotiri, Crete. 90m from the sea with private pool, stunning sunset views and access to a hidden private bay. Sleeps up to 8 guests.",
       "url": "https://nowweland.com",
-      "telephone": "",
-      "email": "info@nowweland.com",
+      "telephone": "+306973693867",
+      "email": "aegeanvillas.adm@gmail.com",
       "image": [
         "https://nowweland.com/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png",
         "https://nowweland.com/lovable-uploads/b03503c6-c5da-4a36-b32d-5da4c87923b1.png"
@@ -74,9 +86,10 @@
       },
       "priceRange": "€€€",
       "currenciesAccepted": "EUR",
-      "checkinTime": "15:00",
+      "checkinTime": "16:00",
       "checkoutTime": "11:00",
-      "numberOfRooms": "4",
+      "numberOfRooms": "3",
+      "identifier": "AMA:00003309394",
       "petsAllowed": false,
       "amenityFeature": [
         { "@type": "LocationFeatureSpecification", "name": "Private Pool", "value": true },

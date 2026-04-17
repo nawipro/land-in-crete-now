@@ -15,7 +15,7 @@ const About: React.FC = () => {
   useEffect(() => {
     // SEO basics
     const title = 'About | Now We Land – Your Private Horizon';
-    const desc = 'Boutique villa in Akrotiri, Crete — 90 m from a hidden cove, 43 m² private pool, sunsets, and space for up to 8 guests. Book your stay at Now We Land.';
+    const desc = 'Boutique villa in Akrotiri, Crete. 90 m from a hidden cove, 43 m² private pool, sunsets, and space for up to 8 guests. Book your stay at Now We Land.';
     const ogImage = (cms?.image?.url as string | undefined) || '/lovable-uploads/b1acf90b-76c1-4e7f-9bf7-7cefd9365f6a.png';
     document.title = title;
 
@@ -53,7 +53,7 @@ const About: React.FC = () => {
             Now We Land – Your Private Horizon
           </h1>
           <p className="mt-4 text-[18px] md:text-[20px] leading-[1.4] font-medium text-muted-foreground">
-            Boutique stone villa in Akrotiri, Crete — 90 m from a hidden cove, 43 m² private pool, and uninterrupted sunset views. 14 min to CHQ airport.
+            Boutique stone villa in Akrotiri, Crete. 90 m from a hidden cove, 43 m² private pool, and uninterrupted sunset views. 14 min to CHQ airport.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="px-8">

@@ -18,7 +18,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const sep = isScrolled ? 'text-[#C4A882]/60' : 'text-white/25';
 
   return (
-    <div className="flex items-center gap-1.5 text-[11px] font-inter uppercase tracking-[0.1em]">
+    <div className="flex items-center gap-2 text-[15px] font-inter uppercase tracking-[0.08em]">
       <button
         onClick={() => onLanguageChange('en')}
         className={`transition-colors duration-200 ${currentLang === 'en' ? active : inactive}`}
@@ -28,7 +28,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       <span className={sep}>·</span>
       <button
         onClick={() => onLanguageChange('he')}
-        className={`transition-colors duration-200 ${currentLang === 'he' ? active : inactive}`}
+        className={`text-[17px] transition-colors duration-200 ${currentLang === 'he' ? active : inactive}`}
       >
         עב
       </button>
