@@ -18,7 +18,7 @@ const textContent = {
     eyebrow: 'Akrotiri, Crete',
     title: <>The Villa: Space, Privacy,{' '}<span className="block sm:inline">and Authentic Charm</span></>,
     description: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort. Located just minutes from the famous Zorba\'s Beach and 90 metres from a hidden cove, it\'s the perfect escape for those seeking peace and nature without compromising on luxury.',
-    advisorEyebrow: 'Aegean Team',
+    advisorEyebrow: 'Now We Land Team',
     advisorTitle: 'Your Personal Advisor',
     advisorText: 'From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience. Arrive. Disappear. We\'ll handle the rest',
   },
