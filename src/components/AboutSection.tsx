@@ -7,7 +7,7 @@ interface AboutSectionProps {
 }
 
 const features = [
-  { icon: Users, title: 'Up to 8 Guests', description: '3 bedrooms\nPrivate balcony suite\n2 extra foldable beds' },
+  { icon: Users, title: 'Sleeps up to 8 guests', description: '3 bedrooms\nPrivate balcony suite\n2 extra foldable beds' },
   { icon: Droplets, title: 'Bathrooms & Amenities', description: '2 full bathrooms\n2 guest WCs\nFully air conditioned' },
   { icon: Sun, title: 'Private Pool & Patio', description: '43 sqm private pool\nSun loungers\nShaded BBQ patio' },
   { icon: MapPin, title: 'Coastal Serenity', description: 'Secret trail to a cove\nCrystal clear water\n2 min walk from the villa' },
@@ -86,6 +86,9 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
               style={{ fontSize: '15px', letterSpacing: '0.1em' }}
             >
               {t.eyebrow}
+            </p>
+            <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.2em] text-[#c5a059] mb-4">
+              Why This Villa?
             </p>
             <h2
               className="font-cormorant font-light text-[#1A1714] mb-8"

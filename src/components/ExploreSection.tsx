@@ -179,9 +179,15 @@ const ExploreSection: React.FC = () => {
           })}
         </div>
 
-        {/* Get Directions */}
-        <div className="mt-16 lg:mt-20 text-center">
+        {/* Actions */}
+        <div className="mt-16 lg:mt-20 flex flex-col sm:flex-row items-center justify-center gap-5">
           <NavigateButton label="Get Directions to the Villa" />
+          <button
+            onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
+            className="inline-flex items-center gap-2.5 px-10 py-4 bg-[#c5a059] text-white text-[14px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#d4af6a] transition-colors duration-300"
+          >
+            Check Availability
+          </button>
         </div>
       </div>
     </section>

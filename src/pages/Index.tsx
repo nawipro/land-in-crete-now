@@ -11,6 +11,8 @@ import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import AdminAccess from '@/components/AdminAccess';
 import CookieConsent from '@/components/CookieConsent';
+import StickyBookButton from '@/components/StickyBookButton';
+import InlineBookCTA from '@/components/InlineBookCTA';
 import { translations } from '@/utils/translations';
 import { useCms } from '@/hooks/use-cms';
 
@@ -35,8 +37,10 @@ const Index = () => {
       <main>
         <HeroSection translations={t} content={homeContent || undefined} />
         <AboutSection translations={t} content={aboutContent || undefined} />
+        <InlineBookCTA />
         <DayAtVillaSection />
         <GallerySection translations={t} content={galleryContent || undefined} />
+        <InlineBookCTA />
         <TestimonialsSection />
         <BookingSection translations={t} content={bookingContent || undefined} />
         <ExploreSection />
@@ -46,6 +50,7 @@ const Index = () => {
       <Footer translations={t} />
       <AdminAccess />
       <CookieConsent />
+      <StickyBookButton />
     </div>
   );
 };

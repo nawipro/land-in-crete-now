@@ -70,21 +70,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
           className="text-[22px] lg:text-[26px] font-inter text-white/90 font-light mb-5"
           style={{ textShadow: '0 1px 16px rgba(0,0,0,0.55)' }}
         >
-          A private villa 90 metres from a <span className="text-[#c5a059]">hidden bay</span>
+          A private villa in Crete, 90 meters from a <span className="text-[#c5a059]">hidden bay</span>
         </p>
 
-        {/* Secondary details — lighter, italic */}
-        <div
-          className="space-y-1.5 mb-12"
+        {/* Secondary line — punchy */}
+        <p
+          className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic mb-12"
           style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
         >
-          <p className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic">
-            Private pool, sea views, and <span className="text-[#c5a059]/80">golden sunsets</span>
-          </p>
-          <p className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic">
-            From plane to pool in 14 minutes
-          </p>
-        </div>
+          Sunset views. Total privacy. Just 14 minutes from the airport
+        </p>
 
         {/* CTA */}
         <button
