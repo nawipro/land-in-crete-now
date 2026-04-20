@@ -96,7 +96,7 @@ const MomentRow: React.FC<{ m: { num: string; time: string; headline: string; bo
         <img
           src={img.src}
           alt={img.alt}
-          loading="lazy"
+          loading="eager"
           className="w-full h-[56vw] lg:h-[52vh] object-cover transition-transform duration-700 hover:scale-[1.02]"
         />
       </div>

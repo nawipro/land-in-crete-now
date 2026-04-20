@@ -25,6 +25,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
           src={content?.hero_image?.url || '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png'}
           alt={content?.hero_image?.alt || 'Villa overlooking the Aegean at sunset'}
           className="w-full h-full object-cover"
+          fetchPriority="high"
           style={{
             objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`,
           }}

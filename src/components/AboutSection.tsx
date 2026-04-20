@@ -75,7 +75,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
               alt="Villa and pool illuminated at night"
               className="w-full h-auto"
               style={{ borderRadius: '12px' }}
-              loading="lazy"
+              loading="eager"
             />
           </div>
 

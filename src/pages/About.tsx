@@ -75,7 +75,7 @@ const About: React.FC = () => {
                 alt="Villa, pool and garden view during the day"
                 className="w-full h-auto rounded-2xl shadow-md"
                 style={{ objectPosition: '50% 55%' }}
-                loading="lazy"
+                loading="eager"
               />
             </div>
             {/* Text right */}

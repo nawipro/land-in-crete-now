@@ -83,7 +83,7 @@ const CategoryCard: React.FC<{
           src={coverSrc}
           alt={displayName}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
-          loading="lazy"
+          loading="eager"
         />
         <div
           className="absolute inset-0"
@@ -122,7 +122,7 @@ const ImageCard: React.FC<{
           src={src}
           alt={alt}
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-          loading="lazy"
+          loading="eager"
         />
       </div>
     </div>
