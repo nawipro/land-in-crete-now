@@ -23,6 +23,7 @@ const CalendarSync = lazy(() => import("./pages/admin/CalendarSync"));
 const TaxSeasons = lazy(() => import("./pages/admin/TaxSeasons"));
 const SettingsManager = lazy(() => import("./pages/admin/SettingsManager"));
 const ThingsToDoChania = lazy(() => import("./pages/ThingsToDoChania"));
+const LuxuryVillaCrete = lazy(() => import("./pages/LuxuryVillaCrete"));
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/things-to-do-chania" element={<ThingsToDoChania />} />
+            <Route path="/luxury-villa-crete" element={<LuxuryVillaCrete />} />
             <Route path="/admin/login" element={<Login />} />
             <Route path="/admin/reset-password" element={<ResetPassword />} />
             <Route path="/admin" element={<ProtectedRoute />}>
