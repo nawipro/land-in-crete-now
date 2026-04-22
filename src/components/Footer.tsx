@@ -52,6 +52,7 @@ const Footer: React.FC<FooterProps> = ({ translations }) => {
                 { label: lang === 'he' ? 'הווילה' : 'The Villa', href: '#about' },
                 { label: lang === 'he' ? 'גלריה' : 'Gallery', href: '#gallery' },
                 { label: lang === 'he' ? 'גלו את האזור' : 'Explore Area', href: '#explore' },
+                { label: 'Things to Do in Chania', href: '/things-to-do-chania' },
                 { label: lang === 'he' ? 'הזמנה' : 'Booking', href: '#booking' },
               ].map((link) => (
                 <li key={link.href}>
