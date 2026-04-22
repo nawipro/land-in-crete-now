@@ -1,110 +1,132 @@
 import React from 'react';
-import { Calendar, ChevronDown } from 'lucide-react';
 
 interface HeroSectionProps {
   translations: any;
   content?: any;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ translations, content }) => {
-  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
+const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
   const handleBookNow = () => {
     document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleScrollDown = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <section id="home" className="relative">
 
-      {/* Background */}
-      <div className="absolute inset-0">
+      {/* ── DESKTOP: image-native aspect, text overlaid ── */}
+      <div className="hidden lg:block relative">
         <img
           src={content?.hero_image?.url || '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png'}
           alt={content?.hero_image?.alt || 'Villa overlooking the Aegean at sunset'}
-          className="w-full h-full object-cover"
+          className="w-full aspect-[3/2] object-cover object-center"
           fetchPriority="high"
-          style={{
-            objectPosition: `${content?.hero_image?.position?.x ?? 50}% ${content?.hero_image?.position?.y ?? 50}%`,
-          }}
         />
 
-        {/* Top vignette — barely-there, just enough for nav */}
-        <div className="absolute inset-x-0 top-0 h-[35%] bg-gradient-to-b from-black/18 to-transparent" />
-
-        {/* Bottom gradient — very light, text carries itself with shadow */}
+        {/* Bottom-only gradient */}
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 28%, transparent 55%)' }}
+          style={{ background: 'linear-gradient(180deg, rgba(26,20,16,0) 55%, rgba(26,20,16,0.55) 100%)' }}
         />
 
-        {/* Left vignette — minimal */}
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 38%, transparent 60%)' }}
-        />
+        {/* Bottom-left: headline stack */}
+        <div className="absolute bottom-0 left-0 z-10 px-[72px] pb-16 max-w-[700px]">
+          <p
+            className="text-[10px] font-sans font-medium uppercase tracking-[.32em] text-[#f4f1ea] opacity-70 mb-7"
+            style={{ textShadow: '0 1px 10px rgba(0,0,0,.4)' }}
+          >
+            Akrotiri &nbsp;·&nbsp; Chania &nbsp;·&nbsp; Crete
+          </p>
+          <h1
+            className="font-serif font-light text-[88px] text-[#f4f1ea] leading-[0.9] mb-6 tracking-[-.015em]"
+            style={{ textShadow: '0 2px 24px rgba(0,0,0,.35)' }}
+          >
+            Now We Land
+          </h1>
+          <p
+            className="font-sans text-[18px] text-[#f4f1ea]/85 font-normal leading-[1.55] mb-4"
+            style={{ textShadow: '0 1px 12px rgba(0,0,0,.45)' }}
+          >
+            A private villa in Crete, 90 meters from a hidden bay
+          </p>
+          <p
+            className="font-serif italic font-light text-[17px] text-[#f4f1ea]/55 mb-10"
+            style={{ textShadow: '0 1px 8px rgba(0,0,0,.4)' }}
+          >
+            Sunset views. Total privacy. Just 14 minutes from the airport
+          </p>
+
+          {/* CTA — ink filled */}
+          <button
+            onClick={handleBookNow}
+            className="px-8 py-[18px] bg-[#2a251f] text-[#f4f1ea] text-[11px] font-sans font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
+          >
+            Check Availability&nbsp;&nbsp;→
+          </button>
+          <p className="text-[9px] font-sans tracking-[.22em] uppercase text-[#f4f1ea]/50 mt-4">
+            We answer every inquiry personally
+          </p>
+        </div>
+
+        {/* Bottom-right: coordinates */}
+        <div className="absolute bottom-0 right-0 z-10 px-[72px] pb-16 text-right">
+          <p
+            className="text-[9px] font-sans font-medium uppercase tracking-[.3em] text-[#f4f1ea]/60"
+            style={{ textShadow: '0 1px 6px rgba(0,0,0,.4)' }}
+          >
+            N 35°32′ E 24°08′
+          </p>
+        </div>
       </div>
 
-      {/* Content — bottom-left anchored */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 lg:px-16 pb-20 lg:pb-24">
+      {/* ── MOBILE + TABLET: stacked layout ── */}
+      <div className="lg:hidden">
+        {/* Image — full, uncropped */}
+        <div className="relative">
+          <img
+            src={content?.hero_image?.url || '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png'}
+            alt={content?.hero_image?.alt || 'Villa overlooking the Aegean at sunset'}
+            className="w-full aspect-[3/2] object-cover object-center"
+            fetchPriority="high"
+          />
+          {/* Labels over image */}
+          <p
+            className="absolute top-5 left-5 text-[9px] font-sans font-medium uppercase tracking-[.3em] text-[#f4f1ea]"
+            style={{ textShadow: '0 1px 4px rgba(0,0,0,.5)' }}
+          >
+            Akrotiri · Chania · Crete
+          </p>
+          <p
+            className="absolute top-5 right-5 text-[9px] font-sans font-medium uppercase tracking-[.3em] text-[#f4f1ea]"
+            style={{ textShadow: '0 1px 4px rgba(0,0,0,.5)' }}
+          >
+            N 35°32′ E 24°08′
+          </p>
+        </div>
 
-        {/* Location eyebrow — gold */}
-        <p
-          className="text-[12px] font-inter font-semibold uppercase tracking-[0.35em] text-[#c5a059] mb-8"
-          style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
-        >
-          Akrotiri &nbsp;•&nbsp; Chania &nbsp;•&nbsp; Crete
-        </p>
+        {/* Text panel below image */}
+        <div className="bg-[#f4f1ea] px-5 md:px-10 py-12 md:py-16">
+          <h1 className="font-serif font-light text-[52px] md:text-[68px] text-[#2a251f] leading-[0.9] mb-5 tracking-[-.015em]">
+            Now We Land
+          </h1>
+          <p className="font-sans text-[16px] md:text-[17px] text-[#2a251f]/80 font-normal leading-[1.55] mb-3 max-w-md">
+            A private villa in Crete, 90 meters from a hidden bay
+          </p>
+          <p className="font-serif italic font-light text-[15px] text-[#7a6f62] mb-8">
+            Sunset views. Total privacy. Just 14 minutes from the airport
+          </p>
 
-        {/* Headline */}
-        <h1
-          className="text-[64px] sm:text-[82px] lg:text-[98px] font-cormorant font-light text-white leading-[0.88] mb-8 max-w-2xl"
-          style={{ textShadow: '0 2px 30px rgba(0,0,0,0.45)' }}
-        >
-          Now We Land
-        </h1>
-
-        {/* Primary subtitle */}
-        <p
-          className="text-[22px] lg:text-[26px] font-inter text-white/90 font-light mb-5"
-          style={{ textShadow: '0 1px 16px rgba(0,0,0,0.55)' }}
-        >
-          A private villa in Crete, 90 meters from a <span className="text-[#c5a059]">hidden bay</span>
-        </p>
-
-        {/* Secondary line — punchy */}
-        <p
-          className="text-[17px] lg:text-[19px] font-inter text-white/55 font-light italic mb-12"
-          style={{ textShadow: '0 1px 12px rgba(0,0,0,0.5)' }}
-        >
-          Sunset views. Total privacy. Just 14 minutes from the airport
-        </p>
-
-        {/* CTA */}
-        <button
-          onClick={handleBookNow}
-          className="inline-flex items-center gap-2.5 px-10 py-4 bg-white/95 text-[#1A1714] text-[14px] font-inter font-medium tracking-[0.08em] uppercase hover:bg-[#c5a059] hover:text-white transition-all duration-300"
-        >
-          <Calendar className="h-4 w-4" />
-          {lang === 'he' ? 'בדקו זמינות' : 'Check Availability'}
-        </button>
-
+          {/* CTA — full width on mobile */}
+          <button
+            onClick={handleBookNow}
+            className="w-full md:max-w-[320px] py-[16px] bg-[#2a251f] text-[#f4f1ea] text-[11px] font-sans font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
+          >
+            Check Availability&nbsp;&nbsp;→
+          </button>
+          <p className="text-[9px] font-sans tracking-[.22em] uppercase text-[#2a251f]/50 mt-3 text-center md:text-left md:max-w-[320px]">
+            We answer every inquiry personally
+          </p>
+        </div>
       </div>
-
-      {/* Scroll indicator — bottom center, clickable */}
-      <button
-        onClick={handleScrollDown}
-        aria-label="Scroll to next section"
-        className="absolute left-1/2 -translate-x-1/2 z-10 p-2 hover:opacity-60 transition-opacity duration-300"
-        style={{ bottom: '40px' }}
-      >
-        <ChevronDown
-          className="h-[20px] w-[20px] text-white/40 animate-bounce"
-          strokeWidth={1.2}
-        />
-      </button>
 
     </section>
   );

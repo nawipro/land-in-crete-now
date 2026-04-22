@@ -1,5 +1,4 @@
 import React from 'react';
-import { Calendar } from 'lucide-react';
 
 const InlineBookCTA: React.FC = () => {
   const handleClick = () => {
@@ -7,13 +6,12 @@ const InlineBookCTA: React.FC = () => {
   };
 
   return (
-    <div className="text-center py-16 lg:py-20">
+    <div className="text-center py-14 lg:py-18">
       <button
         onClick={handleClick}
-        className="inline-flex items-center gap-2.5 px-10 py-4 bg-[#0f172a] text-white text-[14px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#c5a059] transition-colors duration-300"
+        className="px-8 py-[16px] bg-[#2a251f] text-[#f4f1ea] text-[11px] font-sans font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
       >
-        <Calendar className="w-4 h-4" strokeWidth={1.5} />
-        Check Availability
+        Check Availability&nbsp;&nbsp;→
       </button>
     </div>
   );
