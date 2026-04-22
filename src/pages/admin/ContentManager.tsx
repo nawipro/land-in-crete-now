@@ -24,19 +24,19 @@ const DEFAULTS: Record<PageSlug, any> = {
     chips: ['Family Friendly', 'Private Pool', '14 min to CHQ Airport'],
     primary_cta: { text: 'Reserve Your Dates', href: '/booking' },
     secondary_cta: { text: 'Explore More', href: '/about' },
-    hero_image: { url: '', alt: 'Sunset over the bay' },
+    hero_image: { url: '/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png', alt: 'Villa overlooking the Aegean at sunset' },
     notes: ''
   },
   about: {
     eyebrow: 'Akrotiri, Crete',
     headline: 'The Villa: Space, Privacy, and Authentic Charm',
-    intro: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort.',
+    intro: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort. Located just minutes from the famous Zorba\'s Beach and 90 metres from a hidden cove, it\'s the perfect escape for those seeking peace and nature without compromising on luxury.',
     features: ['Sleeps up to 8 guests', 'Bathrooms & Amenities', 'Private Pool & Patio', 'Coastal Serenity'],
     advisor_eyebrow: 'Now We Land Team',
     advisor_title: 'Your Personal Advisor',
-    advisor_text: 'From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience.',
+    advisor_text: 'From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience. Arrive. Disappear. We\'ll handle the rest.',
     stats: { distance_to_bay: '90 m', max_guests: '8', bedrooms: '3.5' },
-    image: { url: '', alt: 'Villa and pool illuminated at night' }
+    image: { url: '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png', alt: 'Villa and pool illuminated at night' }
   },
   gallery: {
     categories: [
@@ -149,11 +149,11 @@ const DEFAULTS: Record<PageSlug, any> = {
   },
   contact: {
     title: 'Get in Touch',
-    subtitle: 'Ready to book or have questions? We\'re here to help make your stay perfect.',
-    phone: '+30 123 456 789',
-    email: 'info@nowweland.com',
+    subtitle: 'Questions about the villa, the area, or availability? We answer every message personally and with care.',
+    phone: '+30 697 369 3867',
+    email: 'aegeanvillas.adm@gmail.com',
     address: 'Akrotiri, Chania, Crete, Greece',
-    whatsapp: '+30 123 456 789',
+    whatsapp: '+30 697 369 3867',
     facebook_url: 'https://facebook.com/nowweland',
     instagram_url: 'https://instagram.com/nowweland',
     form: {
