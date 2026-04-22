@@ -5,7 +5,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { eachDayOfInterval, format, addDays, differenceInCalendarDays, startOfDay, isAfter, isBefore } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { useIsMobile } from '@/hooks/use-mobile';
+
 
 interface BookingSectionProps {
   translations: any;
@@ -27,13 +27,18 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
 
-  const isMobile = useIsMobile();
+  const [isNarrow, setIsNarrow] = React.useState(window.innerWidth < 1024);
+  React.useEffect(() => {
+    const check = () => setIsNarrow(window.innerWidth < 1024);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
   const today = startOfDay(new Date());
 
   /* ── Supabase queries (unchanged) ───────────────────────────── */
 
-  const { data: seasons } = useQuery({
+  const { data: seasons, isLoading: seasonsLoading } = useQuery({
     queryKey: ['price_seasons'],
     queryFn: async () => {
       const { data } = await supabase
@@ -235,7 +240,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
   const mailto = `mailto:${inquiryEmail}?subject=${subject}&body=${body}`;
 
   /* ── Loading state ──────────────────────────────────────────── */
-  if (blockedLoading) {
+  if (blockedLoading || seasonsLoading) {
     return (
       <section id="booking" className="py-28 lg:py-36 bg-[#f8f5f2]">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -345,7 +350,7 @@ const BookingSection: React.FC<BookingSectionProps> = ({ translations, content }
 
               <Calendar
                 mode="range"
-                numberOfMonths={isMobile ? 1 : 2}
+                numberOfMonths={isNarrow ? 1 : 2}
                 selected={range as any}
                 onSelect={handleSelect}
                 disabled={[
