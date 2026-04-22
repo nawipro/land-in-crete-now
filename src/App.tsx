@@ -50,7 +50,7 @@ const App = () => (
             <Route path="/admin/reset-password" element={<ResetPassword />} />
             <Route path="/admin" element={<ProtectedRoute />}>
               <Route element={<AdminLayout />}>
-                <Route index element={<Navigate to="/admin/content" replace />} />
+                <Route index element={<Navigate to="content" replace />} />
                 <Route path="content" element={<ContentManager />} />
                 <Route path="pricing" element={<PricingManager />} />
                 <Route path="calendar" element={<CalendarSync />} />
