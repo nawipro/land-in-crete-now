@@ -53,7 +53,7 @@ const SettingsManager: React.FC = () => {
     <div className="p-6 lg:p-10 max-w-[900px]">
       <div className="mb-10">
         <h1 className="text-[32px] font-cormorant font-medium text-[#1A1714] mb-2">Settings</h1>
-        <p className="text-[15px] font-inter text-[#8a8580]">General booking and contact settings</p>
+        <p className="text-[15px] font-inter text-[#8a8580]">Booking fees and inquiry email</p>
       </div>
 
       {/* Booking Settings */}
@@ -61,6 +61,17 @@ const SettingsManager: React.FC = () => {
         <h2 className="text-[20px] font-cormorant font-medium text-[#1A1714] mb-6">Booking Settings</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Inquiry Email</Label>
+            <Input
+              type="email"
+              value={s.inquiry_email || ''}
+              onChange={(e) => update('inquiry_email', e.target.value)}
+              className="mt-1.5 border-[#e9e4df]"
+              placeholder="aegeanvillas.adm@gmail.com"
+            />
+            <p className="text-[11px] font-inter text-[#B8B2AC] mt-1">Booking inquiries from the site go to this email</p>
+          </div>
           <div>
             <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Cleaning Fee (&euro;)</Label>
             <Input
@@ -80,102 +91,24 @@ const SettingsManager: React.FC = () => {
               className="mt-1.5 border-[#e9e4df]"
               placeholder="5"
             />
-            <p className="text-[11px] font-inter text-[#B8B2AC] mt-1">Cleaning fee applies once per X nights</p>
-          </div>
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Currency</Label>
-            <Input
-              value={s.currency || ''}
-              onChange={(e) => update('currency', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="EUR"
-            />
-          </div>
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Inquiry Email</Label>
-            <Input
-              type="email"
-              value={s.inquiry_email || ''}
-              onChange={(e) => update('inquiry_email', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="info@nowweland.com"
-            />
+            <p className="text-[11px] font-inter text-[#B8B2AC] mt-1">Cleaning fee applies once per this many nights</p>
           </div>
         </div>
       </div>
 
-      {/* Contact Info */}
-      <div className="bg-white border border-[#e9e4df] rounded-xl p-6 lg:p-8 mb-8">
-        <h2 className="text-[20px] font-cormorant font-medium text-[#1A1714] mb-6">Contact Information</h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Phone</Label>
-            <Input
-              type="tel"
-              value={s.phone || ''}
-              onChange={(e) => update('phone', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="+30 123 456 789"
-            />
-          </div>
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">WhatsApp</Label>
-            <Input
-              type="tel"
-              value={s.whatsapp || ''}
-              onChange={(e) => update('whatsapp', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="+30 123 456 789"
-            />
-          </div>
-          <div className="md:col-span-2">
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Address</Label>
-            <Input
-              value={s.address || ''}
-              onChange={(e) => update('address', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="Akrotiri, Chania, Crete, Greece"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Social Links */}
-      <div className="bg-white border border-[#e9e4df] rounded-xl p-6 lg:p-8 mb-8">
-        <h2 className="text-[20px] font-cormorant font-medium text-[#1A1714] mb-6">Social Links</h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Facebook URL</Label>
-            <Input
-              type="url"
-              value={s.facebook_url || ''}
-              onChange={(e) => update('facebook_url', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="https://facebook.com/nowweland"
-            />
-          </div>
-          <div>
-            <Label className="text-[12px] font-inter uppercase tracking-wider text-[#8a8580]">Instagram URL</Label>
-            <Input
-              type="url"
-              value={s.instagram_url || ''}
-              onChange={(e) => update('instagram_url', e.target.value)}
-              className="mt-1.5 border-[#e9e4df]"
-              placeholder="https://instagram.com/nowweland"
-            />
-          </div>
-        </div>
+      <div className="bg-[#c5a059]/5 border border-[#c5a059]/20 rounded-xl p-6 text-center">
+        <p className="text-[14px] font-inter text-[#6B6560]">
+          Contact info, social links, and page text are managed in the <a href="/admin/content" className="text-[#c5a059] font-medium hover:underline">Content Manager</a>.
+        </p>
       </div>
 
       {/* Save */}
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-8">
         <Button
           onClick={() => upsertSettings.mutateAsync(s)}
           className="bg-[#0f172a] hover:bg-[#c5a059] text-white text-[13px] font-inter font-medium uppercase tracking-wider px-8 py-5"
         >
-          Save All Settings
+          Save Settings
         </Button>
       </div>
     </div>
