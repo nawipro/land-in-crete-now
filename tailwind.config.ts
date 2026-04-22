@@ -63,7 +63,16 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Refined Mediterranean colors
+				// Editorial design tokens
+				nwl: {
+					bg:     '#f4f1ea',
+					paper:  '#ece7dc',
+					ink:    '#2a251f',
+					night:  '#1e1814',
+					accent: '#8a6d4f',
+					muted:  '#7a6f62',
+				},
+				// Legacy Mediterranean colors
 				mediterranean: {
 					blue: 'hsl(var(--mediterranean-blue))',
 					'aegean-blue': 'hsl(var(--aegean-blue))',
@@ -81,12 +90,11 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 				fontFamily: {
+					serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+					sans:  ['Inter', 'system-ui', 'sans-serif'],
 					'cormorant': ['Cormorant Garamond', 'serif'],
 					'playfair-display': ['Playfair Display', 'serif'],
-					'crimson': ['Crimson Text', 'serif'],
 					'inter': ['Inter', 'sans-serif'],
-					'frank-ruhl': ['Frank Ruhl Libre', 'serif'],
-					'heebo': ['Heebo', 'sans-serif'],
 				},
 			keyframes: {
 				'accordion-down': {
