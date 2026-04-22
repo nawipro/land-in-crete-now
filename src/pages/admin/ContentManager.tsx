@@ -126,7 +126,19 @@ const DEFAULTS: Record<PageSlug, any> = {
          { url: '/lovable-uploads/e5aa503c-c418-4f4d-ad9a-a218937864c1.png', alt: 'Terrace Family Suite – sofa area with bathroom entrance', categoryId: 'terrace-family-suite', order: 64 },
         ]
         },
-  explore: { hero_title: 'Explore the Area', attractions: [], hero_image: { url: '', alt: '' } },
+  explore: {
+    hero_title: 'Beyond the Villa: Your Cretan Escape',
+    hero_subtitle: 'Tersanas is the "sweet spot" of Akrotiri Peninsula. Close enough to Chania for city life, yet secluded enough to feel the authentic Cretan silence.',
+    attractions: [
+      { name: 'The Hidden Cove', distance: '2 min walk', why: 'Just 90 meters from our villa. A secret swimming spot accessible by foot, perfect for quiet morning dips and sunset walks.', image: '/lovable-uploads/hidden-cove.jpeg' },
+      { name: 'Tersanas Beach', distance: '5 min walk', why: 'Crystal clear, shallow waters. Ideal for families. Witness the most beautiful sunsets right in our neighborhood.', image: '/lovable-uploads/tersanas-sunset.webp' },
+      { name: 'Stavros Beach', distance: '5 min drive', why: 'Famous lagoon like beach with crystal clear waters, perfect for families. The filming location of Zorba the Greek.', image: '/lovable-uploads/stavros-beach.jpeg' },
+      { name: 'Chania Old Town', distance: '20 min drive', why: 'Venetian harbor with charming streets, restaurants, and historic lighthouse. A must visit.', image: '/lovable-uploads/chania-old-town.jpeg' },
+      { name: 'Agia Triada', distance: '10 min drive', why: 'Historic monastery with beautiful architecture and peaceful gardens. Known for its wine and oil.', image: '/lovable-uploads/agia-triada.jpeg' },
+      { name: 'Seitan Limania', distance: '25 min drive', why: 'A stunning, narrow beach tucked between cliffs. Famous for its crystal clear turquoise waters and dramatic scenery.', image: '/lovable-uploads/seitan-limania.jpeg' },
+    ],
+    hero_image: { url: '', alt: '' }
+  },
   booking: {
     title: 'Book Your Stay',
     subtitle: 'Check availability and secure your perfect vacation dates',
