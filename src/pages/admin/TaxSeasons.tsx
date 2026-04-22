@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -20,22 +19,12 @@ interface TaxSeason {
 const toISO = (d: Date) => d.toISOString().slice(0, 10);
 
 const TaxSeasons: React.FC = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const qc = useQueryClient();
-
-  const [authed, setAuthed] = useState(false);
 
   useEffect(() => {
     document.title = 'Tax Seasons | Admin';
   }, []);
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) navigate('/admin/login');
-      else setAuthed(true);
-    });
-  }, [navigate]);
 
   const { data: seasons } = useQuery<TaxSeason[]>({
     queryKey: ['tax_seasons_admin'],
@@ -85,10 +74,12 @@ const TaxSeasons: React.FC = () => {
     onError: (e: any) => toast({ title: 'Delete failed', description: e.message, variant: 'destructive' as any })
   });
 
-  if (!authed) return null;
-
   return (
-    <main className="min-h-screen container py-6">
+    <div className="p-6 lg:p-10 max-w-[1200px]">
+      <div className="mb-8">
+        <h1 className="text-[32px] font-cormorant font-medium text-[#1A1714] mb-2">Tax Seasons</h1>
+        <p className="text-[15px] font-inter text-[#8a8580]">Manage tourist tax rates by season</p>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>Tax Seasons (Tourist tax only)</CardTitle>
@@ -137,7 +128,7 @@ const TaxSeasons: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </main>
+    </div>
   );
 };
 

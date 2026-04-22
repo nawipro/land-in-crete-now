@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,7 +13,6 @@ import ImageUploader from '@/components/admin/ImageUploader';
 import GalleryEditor from '@/components/admin/GalleryEditor';
 import PublishBar from '@/components/admin/PublishBar';
 import PreviewPane from '@/components/admin/PreviewPane';
-import AvailabilityPricing from '@/components/admin/AvailabilityPricing';
 
 const DEFAULTS: Record<PageSlug, any> = {
   home: {
@@ -172,26 +170,13 @@ const DEFAULTS: Record<PageSlug, any> = {
 };
 
 const ContentManager: React.FC = () => {
-  const navigate = useNavigate();
   const supabase = getSupabaseClient();
   const { toast } = useToast();
-  const [authed, setAuthed] = React.useState<boolean>(false);
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
   const [lang, setLang] = React.useState<'en' | 'he'>('he');
   const [data, setData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
-
-  React.useEffect(() => {
-    if (!supabase) return;
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) {
-        navigate('/admin/login');
-      } else {
-        setAuthed(true);
-      }
-    });
-  }, [supabase, navigate]);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -249,8 +234,6 @@ const ContentManager: React.FC = () => {
     );
   }
 
-  if (!authed) return null;
-
   const onSave = async () => {
     try {
       if (page === 'gallery') {
@@ -286,16 +269,6 @@ const ContentManager: React.FC = () => {
       toast({ title: 'Published' });
     } catch (e: any) {
       toast({ title: 'Publish failed', description: e.message });
-    }
-  };
-
-  const logout = async () => {
-    try {
-      const { cleanupAuthState } = await import('@/lib/auth');
-      cleanupAuthState();
-      try { await supabase.auth.signOut({ scope: 'global' } as any); } catch {}
-    } finally {
-      window.location.href = '/admin/login';
     }
   };
 
@@ -395,7 +368,13 @@ const ContentManager: React.FC = () => {
                 <FieldText label="Hidden Bay" value={data.includes?.hidden_bay || ''} onChange={(v) => setData({ ...data, includes: { ...(data.includes||{}), hidden_bay: v } })} />
               </div>
             </div>
-            <AvailabilityPricing />
+            <div className="rounded-lg border border-[#c5a059]/30 bg-[#c5a059]/5 p-4 text-center">
+              <p className="text-[14px] font-inter text-[#6B6560] mb-3">Manage pricing, availability and calendar sync from their dedicated pages.</p>
+              <div className="flex gap-3 justify-center">
+                <a href="/admin/pricing" className="text-[13px] font-inter text-[#c5a059] hover:underline font-medium">Pricing &rarr;</a>
+                <a href="/admin/calendar" className="text-[13px] font-inter text-[#c5a059] hover:underline font-medium">Calendar &rarr;</a>
+              </div>
+            </div>
           </div>
         );
       case 'contact':
@@ -441,21 +420,18 @@ const ContentManager: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-rows-[auto,1fr] bg-stone-50">
-      <header className="border-b py-3 bg-white/90 backdrop-blur-sm">
-        <div className="container flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-slate-800">מנהל תוכן</h1>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={() => navigate('/')}>צפה באתר</Button>
-            <Button variant="secondary" onClick={logout}>התנתק</Button>
-          </div>
-        </div>
-      </header>
-      <main className="grid md:grid-cols-[280px,1fr]">
-        <aside className="border-r p-4 bg-white/50">
+    <div className="p-6 lg:p-10">
+      <div className="mb-8">
+        <h1 className="text-[32px] font-cormorant font-medium text-[#1A1714] mb-2">Content Manager</h1>
+        <p className="text-[15px] font-inter text-[#8a8580]">Edit text and images for each page section</p>
+      </div>
+
+      <div className="grid md:grid-cols-[240px,1fr] gap-6">
+        {/* Sidebar controls */}
+        <aside className="space-y-6">
           <PagePicker value={page} onChange={(p) => setPage(p)} lang={lang} />
-          <div className="mt-6">
-            <h3 className="text-sm font-medium mb-2">שפה</h3>
+          <div>
+            <h3 className="text-[12px] font-inter font-semibold uppercase tracking-wider text-[#8a8580] mb-2">Language</h3>
             <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
               <TabsList className="grid grid-cols-2">
                 <TabsTrigger value="he">עברית</TabsTrigger>
@@ -463,21 +439,24 @@ const ContentManager: React.FC = () => {
               </TabsList>
             </Tabs>
           </div>
-          <div className="mt-6">
+          <div>
+            <h3 className="text-[12px] font-inter font-semibold uppercase tracking-wider text-[#8a8580] mb-2">Status</h3>
             <Tabs value={status} onValueChange={(v) => setStatus(v as any)}>
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="draft">טיוטה</TabsTrigger>
-                <TabsTrigger value="published">פורסם</TabsTrigger>
+                <TabsTrigger value="draft">Draft</TabsTrigger>
+                <TabsTrigger value="published">Published</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
         </aside>
-        <section className="p-4 pb-24">
+
+        {/* Editor + Preview */}
+        <section className="pb-24">
           <div className="grid lg:grid-cols-2 gap-6">
             <Card className="min-h-[60vh]"><CardContent className="p-6">
               {loading ? (
                 <div className="flex items-center justify-center h-32">
-                  <p className="text-muted-foreground">טוען...</p>
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#c5a059]" />
                 </div>
               ) : data ? (
                 <ScrollArea className="h-[70vh] pr-4 overflow-x-auto">
@@ -485,14 +464,15 @@ const ContentManager: React.FC = () => {
                 </ScrollArea>
               ) : (
                 <div className="flex items-center justify-center h-32">
-                  <p className="text-muted-foreground">אין נתונים זמינים</p>
+                  <p className="text-[14px] font-inter text-[#B8B2AC]">No data available</p>
                 </div>
               )}
             </CardContent></Card>
             <PreviewPane slug={page} data={data} lang={lang} />
           </div>
         </section>
-      </main>
+      </div>
+
       <PublishBar onSave={onSave} onPublish={onPublish} />
     </div>
   );

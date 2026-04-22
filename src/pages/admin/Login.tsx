@@ -15,13 +15,13 @@ const Login: React.FC = () => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
-        window.location.href = '/admin/content';
+        window.location.href = '/admin';
       }
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
-        window.location.href = '/admin/content';
+        window.location.href = '/admin';
       }
     });
 
@@ -37,13 +37,20 @@ const Login: React.FC = () => {
     }
     setLoading(true);
 
+    const ALLOWED_EMAIL = 'nawipro@gmail.com';
+    if (email.toLowerCase().trim() !== ALLOWED_EMAIL) {
+      toast({ title: 'Access denied', description: 'This email is not authorized' });
+      setLoading(false);
+      return;
+    }
+
     try {
       cleanupAuthState();
 
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/admin/content`,
+          emailRedirectTo: `${window.location.origin}/admin`,
         },
       });
 
