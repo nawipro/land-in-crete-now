@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "aws-architect@claude-code-skills": true,
+    "marketing-skills@claude-code-skills": true,
+    "fullstack-engineer@claude-code-skills": true,
+    "autoresearch-agent@claude-code-skills": true,
+    "product-skills@claude-code-skills": true
+  }
+}

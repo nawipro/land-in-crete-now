@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Users, Droplets, Sun, MapPin } from 'lucide-react';
 
 interface AboutSectionProps {
   translations: any;
@@ -6,11 +7,30 @@ interface AboutSectionProps {
 }
 
 const features = [
-  { title: 'Sleeps up to 8 guests', description: '3 bedrooms\nPrivate balcony suite\n2 extra foldable beds' },
-  { title: 'Bathrooms & Amenities', description: '2 full bathrooms\n2 guest WCs\nFully air conditioned' },
-  { title: 'Private Pool & Patio', description: '43 sqm private pool\nSun loungers\nShaded BBQ patio' },
-  { title: 'Coastal Serenity', description: 'Secret trail to a cove\nCrystal clear water\n2 min walk from the villa' },
+  { icon: Users, title: 'Sleeps up to 8 guests', description: '3 bedrooms\nPrivate balcony suite\n2 extra foldable beds' },
+  { icon: Droplets, title: 'Bathrooms & Amenities', description: '2 full bathrooms\n2 guest WCs\nFully air conditioned' },
+  { icon: Sun, title: 'Private Pool & Patio', description: '43 sqm private pool\nSun loungers\nShaded BBQ patio' },
+  { icon: MapPin, title: 'Coastal Serenity', description: 'Secret trail to a cove\nCrystal clear water\n2 min walk from the villa' },
 ];
+
+const textContent = {
+  en: {
+    eyebrow: 'Akrotiri, Crete',
+    title: <>The Villa: Space, Privacy,{' '}<span className="block sm:inline">and Authentic Charm</span></>,
+    description: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort. Located just minutes from the famous Zorba\'s Beach and 90 metres from a hidden cove, it\'s the perfect escape for those seeking peace and nature without compromising on luxury.',
+    advisorEyebrow: 'Now We Land Team',
+    advisorTitle: 'Your Personal Advisor',
+    advisorText: 'From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience. Arrive. Disappear. We\'ll handle the rest',
+  },
+  he: {
+    eyebrow: 'אקרוטירי, כרתים',
+    title: <>הווילה: מרחב. פרטיות. קסם אותנטי.</>,
+    description: '"Now We Land" היא פינה של שקט, מרחב מלא אופי הצופה אל הים האגאי. מוקפת עצי זית, צמחי תבלין ובוסתן פרי, הווילה משלבת חמימות כפרית עם נוחות מודרנית ומוקפדת. הווילה ממוקמת דקות ספורות מחוף "זורבה" המפורסם ורק 90 מטרים ממפרץ נסתר, והיא המקום המושלם למי שמחפש שקט וטבע מבלי להתפשר על יוקרה. כל מה ששווה לראות באזור נמצא במרחק של עד 20 דקות נסיעה.',
+    advisorEyebrow: 'צוות Now We Land',
+    advisorTitle: 'הייעוץ האישי שלכם',
+    advisorText: 'מהסעה משדה התעופה ועד שיעורי בישול פרטיים, הצוות שלנו כאן כדי לתפור עבורכם את החוויה הכרתית המושלמת. פשוט להגיע, להתנתק, ואנחנו נדאג לשאר.',
+  },
+};
 
 function useFadeIn() {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,58 +52,78 @@ function useFadeIn() {
   } as React.CSSProperties };
 }
 
-const AboutSection: React.FC<AboutSectionProps> = () => {
+const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) => {
   const heroFade = useFadeIn();
   const gridFade = useFadeIn();
   const advisorFade = useFadeIn();
+  const t = textContent.en;
 
   return (
-    <section id="about" className="py-20 md:py-24 lg:py-32 bg-[#f4f1ea]">
-      <div className="max-w-[1200px] mx-auto px-5 md:px-10 lg:px-[72px]">
+    <section id="about" className="py-28 lg:py-36 bg-[#FDFCF9]">
+      <div className="container mx-auto px-6 lg:px-12">
 
-        {/* Two-column: Text + Image */}
+        {/* Two-column: Text (55%) + Image (45%) */}
         <div
           ref={heroFade.ref}
           style={heroFade.style}
-          className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-10 lg:gap-16 items-center mb-20 lg:mb-28"
+          className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-10 lg:gap-16 items-center mb-24"
         >
-          {/* Image */}
+          {/* Image — shows first on mobile */}
           <div className="order-1 lg:order-2">
             <img
               src="/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png"
               alt="Villa and pool illuminated at night"
-              className="w-full aspect-[4/5] object-cover"
+              className="w-full h-auto"
+              style={{ borderRadius: '12px' }}
               loading="eager"
             />
           </div>
 
-          {/* Text */}
+          {/* Text column */}
           <div className="order-2 lg:order-1">
-            <p className="text-[10px] font-sans font-medium uppercase tracking-[.32em] text-[#7a6f62] opacity-55 mb-6">
-              — Why This Villa?
+            <p
+              className="font-inter font-semibold uppercase text-[#C4A882] mb-5"
+              style={{ fontSize: '15px', letterSpacing: '0.1em' }}
+            >
+              {t.eyebrow}
             </p>
-            <h2 className="font-serif font-light text-[#2a251f] text-[40px] lg:text-[60px] tracking-[-.015em] leading-[1.1] mb-8">
-              Space, Privacy, and <em className="not-italic italic">Authentic</em> Charm
+            <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.2em] text-[#c5a059] mb-4">
+              Why This Villa?
+            </p>
+            <h2
+              className="font-cormorant font-light text-[#1A1714] mb-8"
+              style={{ fontSize: 'clamp(33px, 4.5vw, 48px)', lineHeight: '1.15' }}
+            >
+              {t.title}
             </h2>
-            <p className="font-sans text-[15px] leading-[1.7] text-[#2a251f] opacity-75 max-w-[620px]">
-              "Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort. Located just minutes from the famous Zorba's Beach and 90 metres from a hidden cove, it's the perfect escape for those seeking peace and nature without compromising on luxury.
+            <p
+              className="font-inter text-[#1A1714] font-light max-w-xl"
+              style={{ fontSize: '19px', lineHeight: '1.8' }}
+            >
+              {t.description}
             </p>
           </div>
         </div>
 
-        {/* Features — flat grid with hairline dividers, no cards */}
-        <div ref={gridFade.ref} style={gridFade.style} className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-16 mb-16 lg:mb-20">
+        {/* Features Grid — 4 cards */}
+        <div ref={gridFade.ref} style={gridFade.style} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-24">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="border-t border-[#2a251f]/20 pt-5"
+              className="bg-[#F0EBE3] p-8 lg:p-9 text-center transition-colors duration-300 hover:bg-[#E8E0D5]"
+              style={{ borderRadius: '10px' }}
             >
-              <h4 className="font-serif font-light text-[#2a251f] text-[20px] lg:text-[22px] mb-3">
+              <feature.icon
+                className="mx-auto mb-4 text-[#C4A882]"
+                size={24}
+                strokeWidth={1.5}
+              />
+              <h4 className="font-cormorant font-medium text-[#1A1714] text-[23px] mb-3">
                 {feature.title}
               </h4>
               <p
-                className="font-sans text-[13px] lg:text-[14px] leading-[1.8] text-[#7a6f62] whitespace-pre-line"
-                style={{ hyphens: 'none' } as React.CSSProperties}
+                className="font-inter text-[#3D352F] font-light whitespace-pre-line"
+                style={{ fontSize: '16px', lineHeight: '2', hyphens: 'none' }}
               >
                 {feature.description}
               </p>
@@ -91,33 +131,23 @@ const AboutSection: React.FC<AboutSectionProps> = () => {
           ))}
         </div>
 
-        {/* Single CTA */}
-        <div className="text-center mb-20 lg:mb-28">
-          <button
-            onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-[16px] bg-[#2a251f] text-[#f4f1ea] text-[11px] font-sans font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
-          >
-            Check Availability&nbsp;&nbsp;→
-          </button>
-        </div>
-
-        {/* Advisor — clean band, no card */}
+        {/* Advisor Callout Box */}
         <div
           ref={advisorFade.ref}
-          style={advisorFade.style}
-          className="bg-[#ece7dc] py-14 lg:py-16 px-8 lg:px-12 text-center max-w-[760px] mx-auto"
+          style={{ ...advisorFade.style, background: '#F0EBE3', border: '1px solid #C4A882', borderRadius: '12px', padding: '44px 40px', maxWidth: '760px' }}
+          className="mx-auto text-center"
         >
-          <p className="text-[10px] font-sans font-medium uppercase tracking-[.32em] text-[#7a6f62] opacity-55 mb-4">
-            — Now We Land Team
+          <p className="font-inter font-semibold uppercase text-[#C4A882] mb-3" style={{ fontSize: '13px', letterSpacing: '0.15em' }}>
+            {t.advisorEyebrow}
           </p>
-          <h3 className="font-serif font-light text-[#2a251f] text-[32px] lg:text-[42px] mb-5">
-            Your personal <em className="not-italic italic">advisor</em>
+          <h3 className="font-cormorant font-medium text-[#1A1714] mb-4" style={{ fontSize: '28px' }}>
+            {t.advisorTitle}
           </h3>
-          <p className="font-sans text-[14px] lg:text-[15px] leading-[1.7] text-[#2a251f] opacity-75 max-w-[560px] mx-auto mb-4">
-            From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience. Arrive. Disappear. We'll handle the rest
-          </p>
-          <p className="text-[10px] font-sans font-medium uppercase tracking-[.24em] text-[#7a6f62] opacity-55">
-            Reply within hours
+          <p
+            className="font-inter text-[#3D352F] font-light"
+            style={{ fontSize: '18px', lineHeight: '1.8' }}
+          >
+            {t.advisorText}
           </p>
         </div>
 

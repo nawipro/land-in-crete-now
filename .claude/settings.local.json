@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -r lovable ~/land-in-crete-now/src --include=*.tsx --include=*.ts -n)",
+      "Bash(node -e \":*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(cp ~/land-in-crete-now/index.html \"/c/Users/User/land-in-crete-now/.claude/worktrees/clever-mcclintock/index.html\")",
+      "Bash(cp ~/land-in-crete-now/README.md \"/c/Users/User/land-in-crete-now/.claude/worktrees/clever-mcclintock/README.md\")",
+      "Bash(cp ~/land-in-crete-now/supabase/functions/sync-lodgify/index.ts \"/c/Users/User/land-in-crete-now/.claude/worktrees/clever-mcclintock/supabase/functions/sync-lodgify/index.ts\")",
+      "Bash(WORKTREE=\"/c/Users/User/land-in-crete-now/.claude/worktrees/clever-mcclintock\")",
+      "Bash(MAIN=\"/c/Users/User/land-in-crete-now\")",
+      "Bash(cp \"$MAIN/src/components/BookingSection.tsx\" \"$WORKTREE/src/components/BookingSection.tsx\")",
+      "Bash(cp \"$MAIN/src/components/admin/AvailabilityPricing.tsx\" \"$WORKTREE/src/components/admin/AvailabilityPricing.tsx\")",
+      "Bash(cp \"$MAIN/index.html\" \"$WORKTREE/index.html\")",
+      "mcp__e418f55c-c847-4fe4-89eb-b72f52fac491__execute_sql",
+      "mcp__e418f55c-c847-4fe4-89eb-b72f52fac491__deploy_edge_function"
+    ]
+  }
+}
