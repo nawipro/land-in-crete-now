@@ -181,7 +181,7 @@ const ContentManager: React.FC = () => {
   const { toast } = useToast();
   const [page, setPage] = React.useState<PageSlug>('home');
   const [status, setStatus] = React.useState<'draft' | 'published'>('draft');
-  const [lang, setLang] = React.useState<'en' | 'he'>('he');
+  const lang = 'en' as const;
   const [data, setData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -195,7 +195,15 @@ const ContentManager: React.FC = () => {
         await ensurePagesSeeded(supabase);
       } catch {}
       const content = await getPageContent(supabase, page, lang, status);
-      let next: any = content ?? DEFAULTS[page];
+      // Merge: defaults first, then CMS content on top (so empty CMS fields show defaults)
+      let next: any = { ...DEFAULTS[page], ...content };
+      // Deep-merge nested objects (hero_image, primary_cta, form, etc.)
+      const defaults = DEFAULTS[page];
+      for (const key of Object.keys(defaults)) {
+        if (defaults[key] && typeof defaults[key] === 'object' && !Array.isArray(defaults[key])) {
+          next[key] = { ...defaults[key], ...(content?.[key] || {}) };
+        }
+      }
       if (page === 'gallery') {
         const defaults = DEFAULTS.gallery;
         const categories = [...(content?.categories || [])];
@@ -434,15 +442,6 @@ const ContentManager: React.FC = () => {
         {/* Sidebar controls */}
         <aside className="space-y-6">
           <PagePicker value={page} onChange={(p) => setPage(p)} lang={lang} />
-          <div>
-            <h3 className="text-[12px] font-inter font-semibold uppercase tracking-wider text-[#8a8580] mb-2">Language</h3>
-            <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
-              <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="he">עברית</TabsTrigger>
-                <TabsTrigger value="en">English</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
           <div>
             <h3 className="text-[12px] font-inter font-semibold uppercase tracking-wider text-[#8a8580] mb-2">Status</h3>
             <Tabs value={status} onValueChange={(v) => setStatus(v as any)}>
