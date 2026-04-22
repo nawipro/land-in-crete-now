@@ -4,6 +4,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { PageSlug } from '@/lib/cms';
 
 const PreviewPane: React.FC<{ slug: PageSlug; data: any; lang?: 'en' | 'he' }> = ({ slug, data, lang = 'he' }) => {
+  if (!data) {
+    return (
+      <Card className="min-h-[60vh]">
+        <CardContent className="p-6 flex items-center justify-center h-32">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#c5a059]" />
+        </CardContent>
+      </Card>
+    );
+  }
   const texts = lang === 'he'
     ? { 
         home: 'תצוגת בית', 
