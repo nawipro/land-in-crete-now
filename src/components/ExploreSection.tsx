@@ -1,192 +1,87 @@
 import React from 'react';
-import { MapPin, Car, UtensilsCrossed, MessageCircle } from 'lucide-react';
 import NavigateButton from './NavigateButton';
 
 const destinations = [
-  {
-    id: 'hidden-cove',
-    category: { en: 'Secret Spot', he: 'מקום סודי' },
-    name: { en: 'The Hidden Cove', he: 'המפרץ הנסתר' },
-    description: {
-      en: 'Just 90 meters from our villa. A secret swimming spot accessible by foot, perfect for quiet morning dips and sunset walks.',
-      he: 'רק 90 מטרים מהווילה שלנו. מקום שחייה סודי נגיש ברגל, מושלם לטבילות בוקר שקטות וטיולי שקיעה.'
-    },
-    distance: { en: '2 min walk', he: '2 דק׳ הליכה' },
-    image: '/lovable-uploads/hidden-cove.jpeg',
-  },
-  {
-    id: 'tersanas',
-    category: { en: 'Local Beach', he: 'חוף מקומי' },
-    name: { en: 'Tersanas Beach', he: 'חוף טרסנאס' },
-    description: {
-      en: 'Crystal clear, shallow waters. Ideal for families. Witness the most beautiful sunsets right in our neighborhood.',
-      he: 'מים צלולים ורדודים. אידיאלי למשפחות. צפו בשקיעות היפות ביותר ממש בשכונה שלנו.'
-    },
-    distance: { en: '5 min walk', he: '5 דק׳ הליכה' },
-    image: '/lovable-uploads/tersanas-sunset.webp',
-  },
-  {
-    id: 'stavros',
-    category: { en: 'Iconic', he: 'איקוני' },
-    name: { en: 'Stavros Beach', he: 'חוף סטברוס' },
-    description: {
-      en: 'Famous lagoon like beach with crystal clear waters, perfect for families. The filming location of Zorba the Greek.',
-      he: 'חוף לגונה מפורסם עם מים צלולים, מושלם למשפחות. מיקום הצילומים של זורבה היווני.'
-    },
-    distance: { en: '5 min drive', he: '5 דק׳ נסיעה' },
-    image: '/lovable-uploads/stavros-beach.jpeg',
-  },
-  {
-    id: 'chania',
-    category: { en: 'City Life', he: 'חיי עיר' },
-    name: { en: 'Chania Old Town', he: 'העיר העתיקה חאניה' },
-    description: {
-      en: 'Venetian harbor with charming streets, restaurants, and historic lighthouse. A must visit.',
-      he: 'נמל ונציאני עם רחובות מקסימים, מסעדות ומגדלור היסטורי. חובה לבקר.'
-    },
-    distance: { en: '20 min drive', he: '20 דק׳ נסיעה' },
-    image: '/lovable-uploads/chania-old-town.jpeg',
-  },
-  {
-    id: 'agia-triada',
-    category: { en: 'Culture', he: 'תרבות' },
-    name: { en: 'Agia Triada', he: 'אגיה טריאדה' },
-    description: {
-      en: 'Historic monastery with beautiful architecture and peaceful gardens. Known for its wine and oil.',
-      he: 'מנזר היסטורי עם אדריכלות יפה וגנים שלווים. ידוע ביין ובשמן שלו.'
-    },
-    distance: { en: '10 min drive', he: '10 דק׳ נסיעה' },
-    image: '/lovable-uploads/agia-triada.jpeg',
-  },
-  {
-    id: 'seitan-limania',
-    category: { en: 'Adventure', he: 'הרפתקה' },
-    name: { en: 'Seitan Limania', he: 'סיטאן לימניה' },
-    description: {
-      en: 'A stunning, narrow beach tucked between cliffs. Famous for its crystal clear turquoise waters and dramatic scenery.',
-      he: 'חוף צר ומדהים חבוי בין צוקים. מפורסם במים הטורקיז הצלולים והנוף הדרמטי שלו.'
-    },
-    distance: { en: '25 min drive', he: '25 דק׳ נסיעה' },
-    image: '/lovable-uploads/seitan-limania.jpeg',
-  },
+  { id: 'hidden-cove', category: 'Secret Spot', name: 'The Hidden Cove', description: 'Just 90 meters from our villa. A secret swimming spot accessible by foot, perfect for quiet morning dips and sunset walks.', distance: '2 min walk', image: '/lovable-uploads/hidden-cove.jpeg' },
+  { id: 'tersanas', category: 'Local Beach', name: 'Tersanas Beach', description: 'Crystal clear, shallow waters. Ideal for families. Witness the most beautiful sunsets right in our neighborhood.', distance: '5 min walk', image: '/lovable-uploads/tersanas-sunset.webp' },
+  { id: 'stavros', category: 'Iconic', name: 'Stavros Beach', description: 'Famous lagoon like beach with crystal clear waters, perfect for families. The filming location of Zorba the Greek.', distance: '5 min drive', image: '/lovable-uploads/stavros-beach.jpeg' },
+  { id: 'chania', category: 'City Life', name: 'Chania Old Town', description: 'Venetian harbor with charming streets, restaurants, and historic lighthouse. A must visit.', distance: '20 min', image: '/lovable-uploads/chania-old-town.jpeg' },
+  { id: 'agia-triada', category: 'Culture', name: 'Agia Triada', description: 'Historic monastery with beautiful architecture and peaceful gardens. Known for its wine and oil.', distance: '10 min', image: '/lovable-uploads/agia-triada.jpeg' },
+  { id: 'seitan-limania', category: 'Adventure', name: 'Seitan Limania', description: 'A stunning, narrow beach tucked between cliffs. Famous for its crystal clear turquoise waters and dramatic scenery.', distance: '25 min', image: '/lovable-uploads/seitan-limania.jpeg' },
 ];
 
-const infoColumns = [
-  {
-    icon: Car,
-    title: { en: 'Getting Around', he: 'איך להסתובב' },
-    text: {
-      en: 'Car rental is highly recommended for exploring Akrotiri. Chania Airport is just a 15 to 20 minute drive away.',
-      he: 'מומלץ מאוד לשכור רכב לטיול באקרוטירי. שדה התעופה של חאניה נמצא במרחק 15 עד 20 דקות נסיעה.'
-    },
-  },
-  {
-    icon: UtensilsCrossed,
-    title: { en: 'Local Flavors', he: 'טעמים מקומיים' },
-    text: {
-      en: 'Try Taverna Irene for authentic Cretan cuisine or Almyriki in Stavros for fresh seafood and local specialties.',
-      he: 'נסו את טברנת אירנה למטבח כרתי אותנטי או את אלמיריקי בסטברוס לפירות ים טריים ומיוחדויות מקומיות.'
-    },
-  },
-  {
-    icon: MessageCircle,
-    title: { en: 'Personal Guide', he: 'מדריך אישי' },
-    text: {
-      en: 'We are constantly updating our local recommendations to help you make the most of your stay. Feel free to contact us for more tips.',
-      he: 'אנו מעדכנים ללא הרף את ההמלצות המקומיות שלנו כדי לעזור לכם להפיק את המירב מהשהייה. אל תהססו לפנות אלינו לעוד טיפים.'
-    },
-  },
+const tips = [
+  { num: '01', title: 'Getting Around', text: 'Car rental is highly recommended for exploring Akrotiri. Chania Airport is just a 15 to 20 minute drive away.' },
+  { num: '02', title: 'Local Flavors', text: 'Try Taverna Irene for authentic Cretan cuisine or Almyriki in Stavros for fresh seafood and local specialties.' },
+  { num: '03', title: 'Personal Guide', text: 'We are constantly updating our local recommendations. Feel free to contact us for more tips.' },
 ];
 
 const ExploreSection: React.FC = () => {
-  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
-
   return (
-    <section id="explore" className="py-28 lg:py-40 bg-[#f8f5f2]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id="explore" className="py-20 md:py-24 lg:py-32 bg-[#ece7dc]">
+      <div className="max-w-[1296px] mx-auto px-5 md:px-10 lg:px-[72px]">
 
-        {/* Section header */}
-        <div className="mb-16 lg:mb-20">
-          <p className="text-[14px] font-inter font-semibold uppercase tracking-[0.25em] text-[#c5a059] mb-6">
-            {lang === 'he' ? 'המדריך' : 'The Guide'}
+        <div className="mb-14 lg:mb-18">
+          <p className="text-[10px] font-sans font-medium uppercase tracking-[.32em] text-[#7a6f62] opacity-55 mb-6">
+            — The Guide
           </p>
-          <h2 className="text-[48px] lg:text-[64px] font-cormorant font-medium text-[#1A1714] mb-7 leading-[1.05]">
-            {lang === 'he' ? 'מעבר לווילה: הבריחה הכרתית שלכם' : 'Beyond the Villa: Your Cretan Escape'}
+          <h2 className="font-serif font-light text-[#2a251f] text-[40px] lg:text-[56px] tracking-[-.015em] leading-[1.1] mb-4">
+            Beyond the Villa: Your <em className="not-italic italic">Cretan Escape</em>
           </h2>
-          <p className="text-[18px] lg:text-[20px] font-inter text-[#8a8580] font-light max-w-3xl leading-[1.7]">
-            {lang === 'he'
-              ? 'טרסנאס היא ה"נקודה המתוקה" של חצי האי אקרוטירי. קרוב מספיק לחאניה לחיי עיר, מבודד מספיק להרגיש את השקט הכרתי האותנטי.'
-              : 'Tersanas is the "sweet spot" of Akrotiri Peninsula. Close enough to Chania for city life, yet secluded enough to feel the authentic Cretan silence.'}
+          <p className="font-sans text-[14px] lg:text-[15px] leading-[1.7] text-[#2a251f] opacity-75 max-w-2xl">
+            Tersanas is the "sweet spot" of Akrotiri Peninsula. Close enough to Chania for city life, yet secluded enough to feel the authentic Cretan silence
           </p>
         </div>
 
-        {/* 3x2 Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
           {destinations.map((dest) => (
-            <div
-              key={dest.id}
-              className="group relative aspect-[4/5] rounded-xl overflow-hidden"
-            >
-              <img
-                src={dest.image}
-                alt={dest.name[lang]}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
+            <div key={dest.id} className="group">
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1410]">
+                <img src={dest.image} alt={dest.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="eager" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/70" />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                {/* Category chip */}
+                <span className="absolute top-3 left-3 bg-[#f4f1ea]/90 text-[#2a251f] text-[9px] font-sans font-medium tracking-[.26em] uppercase px-2.5 py-1.5">
+                  {dest.category}
+                </span>
 
-              <div className="absolute inset-x-0 bottom-0 p-7 lg:p-8">
-                <p className="text-[11px] font-inter font-bold uppercase tracking-[0.2em] text-[#c5a059] mb-3">
-                  {dest.category[lang]}
-                </p>
-
-                <h3 className="text-[24px] lg:text-[28px] font-cormorant font-semibold text-white mb-3 leading-[1.15]">
-                  {dest.name[lang]}
-                </h3>
-
-                <p className="text-[14px] font-inter text-white/75 font-light leading-relaxed mb-5">
-                  {dest.description[lang]}
-                </p>
-
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-[14px] h-[14px] text-[#c5a059]" strokeWidth={1.5} />
-                  <span className="text-[13px] font-inter font-medium text-[#c5a059] uppercase tracking-[0.1em]">
-                    {dest.distance[lang]}
+                {/* Bottom — name + distance */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                  <h3 className="font-serif font-light text-[22px] lg:text-[26px] text-[#f4f1ea] drop-shadow-[0_1px_10px_rgba(0,0,0,0.3)]">
+                    {dest.name}
+                  </h3>
+                  <span className="font-sans text-[9px] tracking-[.22em] uppercase text-[#f4f1ea]/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)] flex-shrink-0 ml-3">
+                    {dest.distance}
                   </span>
                 </div>
               </div>
+              <p className="font-sans text-[13px] lg:text-[14px] leading-[1.65] text-[#2a251f] opacity-[0.72] mt-3.5">
+                {dest.description}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Bottom info grid */}
-        <div className="grid md:grid-cols-3 gap-10 lg:gap-14 mt-20 lg:mt-28 pt-16 border-t border-[#e5e0da]">
-          {infoColumns.map((col, i) => {
-            const Icon = col.icon;
-            return (
-              <div key={i}>
-                <div className="flex items-center gap-3 mb-5">
-                  <Icon className="w-[20px] h-[20px] text-[#c5a059]" strokeWidth={1.5} />
-                  <h4 className="text-[18px] lg:text-[20px] font-cormorant font-semibold text-[#1A1714]">
-                    {col.title[lang]}
-                  </h4>
-                </div>
-                <p className="text-[15px] font-inter text-[#6B6560] font-light leading-[1.8]">
-                  {col.text[lang]}
-                </p>
-              </div>
-            );
-          })}
+        {/* Tips row */}
+        <div className="grid md:grid-cols-3 gap-6 md:gap-10 lg:gap-16 mt-16 lg:mt-24">
+          {tips.map((tip) => (
+            <div key={tip.num} className="border-t border-[#2a251f]/20 pt-4">
+              <p className="text-[10px] font-sans font-medium uppercase tracking-[.28em] text-[#7a6f62] opacity-55 mb-3">Tip {tip.num}</p>
+              <h4 className="font-serif font-light text-[20px] text-[#2a251f] mb-2">{tip.title}</h4>
+              <p className="font-sans text-[13px] leading-[1.65] text-[#2a251f] opacity-[0.72]">{tip.text}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Actions */}
-        <div className="mt-16 lg:mt-20 flex flex-col sm:flex-row items-center justify-center gap-5">
+        {/* CTAs */}
+        <div className="mt-14 lg:mt-18 flex flex-col sm:flex-row items-center justify-center gap-4">
           <NavigateButton label="Get Directions to the Villa" />
           <button
             onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}
-            className="inline-flex items-center gap-2.5 px-10 py-4 bg-[#c5a059] text-white text-[14px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#d4af6a] transition-colors duration-300"
+            className="px-8 py-[16px] bg-[#2a251f] text-[#f4f1ea] text-[11px] font-sans font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
           >
-            Check Availability
+            Check Availability&nbsp;&nbsp;→
           </button>
         </div>
       </div>

@@ -1,102 +1,79 @@
 import React from 'react';
-import { Facebook, Instagram } from 'lucide-react';
 import NavigateButton from './NavigateButton';
 
 interface FooterProps {
   translations: any;
 }
 
-const Footer: React.FC<FooterProps> = ({ translations }) => {
-  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
-
+const Footer: React.FC<FooterProps> = () => {
   return (
-    <footer className="bg-[#0f172a] text-white">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-24">
-        <div className="grid md:grid-cols-3 gap-14 lg:gap-20">
+    <footer className="bg-[#1e1814] text-[#f4f1ea]">
+      <div className="max-w-[1296px] mx-auto px-5 md:px-10 lg:px-[72px] py-20 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-[1.5fr_repeat(3,1fr)] gap-9 lg:gap-12">
 
-          {/* Column 1: Brand */}
+          {/* Brand */}
           <div>
-            <h3 className="text-[28px] font-cormorant font-semibold mb-5">Now We Land</h3>
-            <p className="text-[15px] font-inter text-white/50 font-light leading-[1.8] mb-8">
-              {lang === 'he'
-                ? 'וילה פרטית בחצי האי אקרוטירי, חאניה. היכן שהאגאי פוגש את ההרים של כרתים.'
-                : 'A private villa on the Akrotiri Peninsula, Chania. Where the Aegean meets the mountains of Crete.'}
+            <p className="font-serif italic font-light text-[28px] lg:text-[32px] tracking-[.01em]">Now We Land</p>
+            <p className="font-serif italic font-light text-[14px] lg:text-[16px] opacity-[0.78] leading-[1.55] max-w-[320px] mt-4 mb-6">
+              A private villa on the Akrotiri Peninsula, Chania. Where the Aegean meets the mountains of Crete
             </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://facebook.com/nowweland"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition-colors"
-              >
-                <Facebook className="h-[18px] w-[18px]" strokeWidth={1.5} />
-              </a>
-              <a
-                href="https://instagram.com/nowweland"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition-colors"
-              >
-                <Instagram className="h-[18px] w-[18px]" strokeWidth={1.5} />
-              </a>
-            </div>
+            <p className="text-[10px] font-sans font-medium uppercase tracking-[.24em] opacity-50">
+              <a href="https://facebook.com/nowweland" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">Facebook</a>
+              {' · '}
+              <a href="https://instagram.com/nowweland" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">Instagram</a>
+            </p>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-[12px] font-inter font-bold uppercase tracking-[0.22em] text-[#c5a059] mb-8">
-              {lang === 'he' ? 'קישורים מהירים' : 'Quick Links'}
-            </h4>
-            <ul className="space-y-4">
+            <h4 className="text-[10px] font-sans font-medium uppercase tracking-[.28em] text-[#c9a46a] mb-7">Quick Links</h4>
+            <ul className="space-y-3">
               {[
-                { label: lang === 'he' ? 'הווילה' : 'The Villa', href: '#about' },
-                { label: lang === 'he' ? 'גלריה' : 'Gallery', href: '#gallery' },
-                { label: lang === 'he' ? 'גלו את האזור' : 'Explore Area', href: '#explore' },
-                { label: lang === 'he' ? 'הזמנה' : 'Booking', href: '#booking' },
+                { label: 'The Villa', href: '#about' },
+                { label: 'Gallery', href: '#gallery' },
+                { label: 'Explore Area', href: '#explore' },
+                { label: 'Booking', href: '#booking' },
               ].map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-[15px] font-inter text-white/50 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  <a href={link.href} className="text-[13px] font-sans opacity-[0.82] hover:opacity-100 transition-opacity">{link.label}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Contact Info */}
+          {/* Contact Info */}
           <div>
-            <h4 className="text-[12px] font-inter font-bold uppercase tracking-[0.22em] text-[#c5a059] mb-8">
-              {lang === 'he' ? 'פרטי קשר' : 'Contact Info'}
-            </h4>
-            <div className="space-y-5 text-[15px] font-inter text-white/50">
+            <h4 className="text-[10px] font-sans font-medium uppercase tracking-[.28em] text-[#c9a46a] mb-7">Contact Info</h4>
+            <div className="space-y-3 text-[13px] font-sans opacity-[0.82]">
               <p>+30 697 369 3867</p>
               <p>aegeanvillas.adm@gmail.com</p>
               <p>Akrotiri, Chania, Crete</p>
-              <div className="pt-3">
+              <div className="pt-2">
                 <NavigateButton variant="footer" label="View Location" />
               </div>
-              <p className="text-white/30 text-[13px] mt-4">AMA: 00003309394</p>
             </div>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-[10px] font-sans font-medium uppercase tracking-[.28em] text-[#c9a46a] mb-7">Legal</h4>
+            <ul className="space-y-3">
+              <li><a href="/privacy" className="text-[13px] font-sans opacity-[0.82] hover:opacity-100 transition-opacity">Privacy Policy</a></li>
+              <li><a href="/terms" className="text-[13px] font-sans opacity-[0.82] hover:opacity-100 transition-opacity">Terms & Conditions</a></li>
+            </ul>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-7 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[13px] font-inter text-white/30">
-            &copy; 2026 Now We Land Villa. All Rights Reserved.
+      <div className="border-t border-[#f4f1ea]/12">
+        <div className="max-w-[1296px] mx-auto px-5 md:px-10 lg:px-[72px] py-6 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="text-[10px] font-sans tracking-[.2em] uppercase opacity-50">
+            &copy; 2026 Now We Land Villa · AMA 00003309394
           </p>
-          <div className="flex items-center gap-8">
-            <a href="/privacy" className="text-[13px] font-inter text-white/30 hover:text-white/50 transition-colors">
-              {lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
-            </a>
-            <a href="/terms" className="text-[13px] font-inter text-white/30 hover:text-white/50 transition-colors">
-              {lang === 'he' ? 'תנאי שימוש' : 'Terms'}
-            </a>
+          <div className="flex items-center gap-6">
+            <a href="/privacy" className="text-[10px] font-sans tracking-[.2em] uppercase opacity-50 hover:opacity-80 transition-opacity">Privacy</a>
+            <a href="/terms" className="text-[10px] font-sans tracking-[.2em] uppercase opacity-50 hover:opacity-80 transition-opacity">Terms</a>
           </div>
         </div>
       </div>
