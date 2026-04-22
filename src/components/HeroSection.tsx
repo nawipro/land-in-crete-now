@@ -33,7 +33,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 38%, transparent 60%)' }} />
 
         {/* Bottom-left: text stack */}
-        <div className="absolute bottom-0 left-0 z-10 px-8 lg:px-16 pb-14 lg:pb-20 max-w-[90%] lg:max-w-[680px]">
+        <div className="absolute bottom-0 left-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[680px]">
           <p className="text-[11px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-4 lg:mb-6" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}>
             Boutique Villa · Sleeps up to 8
           </p>
@@ -50,7 +50,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         </div>
 
         {/* Bottom-right: CTA */}
-        <div className="absolute bottom-0 right-0 z-10 px-8 lg:px-16 pb-14 lg:pb-20">
+        <div className="absolute bottom-0 right-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32">
           <button
             onClick={handleBookNow}
             className="px-8 py-[16px] bg-white/10 backdrop-blur-sm border border-white/30 text-white text-[11px] font-inter font-medium uppercase tracking-[.22em] hover:bg-white/20 transition-all duration-300"
