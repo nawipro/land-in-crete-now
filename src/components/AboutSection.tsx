@@ -6,17 +6,17 @@ interface AboutSectionProps {
   content?: any;
 }
 
-const features = [
+const defaultFeatures = [
   { icon: Users, title: 'Sleeps up to 8 guests', description: '3 bedrooms\nPrivate balcony suite\n2 extra foldable beds' },
   { icon: Droplets, title: 'Bathrooms & Amenities', description: '2 full bathrooms\n2 guest WCs\nFully air conditioned' },
   { icon: Sun, title: 'Private Pool & Patio', description: '43 sqm private pool\nSun loungers\nShaded BBQ patio' },
   { icon: MapPin, title: 'Coastal Serenity', description: 'Secret trail to a cove\nCrystal clear water\n2 min walk from the villa' },
 ];
 
-const textContent = {
+const defaults = {
   en: {
     eyebrow: 'Akrotiri, Crete',
-    title: <>The Villa: Space, Privacy,{' '}<span className="block sm:inline">and Authentic Charm</span></>,
+    title: 'The Villa: Space, Privacy, and Authentic Charm',
     description: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort. Located just minutes from the famous Zorba\'s Beach and 90 metres from a hidden cove, it\'s the perfect escape for those seeking peace and nature without compromising on luxury.',
     advisorEyebrow: 'Now We Land Team',
     advisorTitle: 'Your Personal Advisor',
@@ -24,8 +24,8 @@ const textContent = {
   },
   he: {
     eyebrow: 'אקרוטירי, כרתים',
-    title: <>הווילה: מרחב. פרטיות. קסם אותנטי.</>,
-    description: '"Now We Land" היא פינה של שקט, מרחב מלא אופי הצופה אל הים האגאי. מוקפת עצי זית, צמחי תבלין ובוסתן פרי, הווילה משלבת חמימות כפרית עם נוחות מודרנית ומוקפדת. הווילה ממוקמת דקות ספורות מחוף "זורבה" המפורסם ורק 90 מטרים ממפרץ נסתר, והיא המקום המושלם למי שמחפש שקט וטבע מבלי להתפשר על יוקרה. כל מה ששווה לראות באזור נמצא במרחק של עד 20 דקות נסיעה.',
+    title: 'הווילה: מרחב. פרטיות. קסם אותנטי.',
+    description: '"Now We Land" היא פינה של שקט, מרחב מלא אופי הצופה אל הים האגאי. מוקפת עצי זית, צמחי תבלין ובוסתן פרי, הווילה משלבת חמימות כפרית עם נוחות מודרנית ומוקפדת. הווילה ממוקמת דקות ספורות מחוף "זורבה" המפורסם ורק 90 מטרים ממפרץ נסתר, והיא המקום המושלם למי שמחפש שקט וטבע מבלי להתפשר על יוקרה.',
     advisorEyebrow: 'צוות Now We Land',
     advisorTitle: 'הייעוץ האישי שלכם',
     advisorText: 'מהסעה משדה התעופה ועד שיעורי בישול פרטיים, הצוות שלנו כאן כדי לתפור עבורכם את החוויה הכרתית המושלמת. פשוט להגיע, להתנתק, ואנחנו נדאג לשאר.',
@@ -56,7 +56,21 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
   const heroFade = useFadeIn();
   const gridFade = useFadeIn();
   const advisorFade = useFadeIn();
-  const t = textContent.en;
+
+  const lang = document.documentElement.lang === 'he' ? 'he' : 'en';
+  const fallback = defaults[lang];
+
+  // CMS content with fallbacks
+  const eyebrow = content?.eyebrow || fallback.eyebrow;
+  const title = content?.headline || fallback.title;
+  const description = content?.intro || fallback.description;
+  const advisorEyebrow = content?.advisor_eyebrow || fallback.advisorEyebrow;
+  const advisorTitle = content?.advisor_title || fallback.advisorTitle;
+  const advisorText = content?.advisor_text || fallback.advisorText;
+  const aboutImage = content?.image?.url || '/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png';
+  const aboutImageAlt = content?.image?.alt || 'Villa and pool illuminated at night';
+  const featureList = content?.features || defaultFeatures.map(f => f.title);
+  const icons = [Users, Droplets, Sun, MapPin];
 
   return (
     <section id="about" className="py-28 lg:py-36 bg-[#FDFCF9]">
@@ -71,8 +85,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
           {/* Image — shows first on mobile */}
           <div className="order-1 lg:order-2">
             <img
-              src="/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png"
-              alt="Villa and pool illuminated at night"
+              src={aboutImage}
+              alt={aboutImageAlt}
               className="w-full h-auto"
               style={{ borderRadius: '12px' }}
               loading="eager"
@@ -85,7 +99,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
               className="font-inter font-semibold uppercase text-[#C4A882] mb-5"
               style={{ fontSize: '15px', letterSpacing: '0.1em' }}
             >
-              {t.eyebrow}
+              {eyebrow}
             </p>
             <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.2em] text-[#c5a059] mb-4">
               Why This Villa?
@@ -94,20 +108,20 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
               className="font-cormorant font-light text-[#1A1714] mb-8"
               style={{ fontSize: 'clamp(33px, 4.5vw, 48px)', lineHeight: '1.15' }}
             >
-              {t.title}
+              {title}
             </h2>
             <p
               className="font-inter text-[#1A1714] font-light max-w-xl"
               style={{ fontSize: '19px', lineHeight: '1.8' }}
             >
-              {t.description}
+              {description}
             </p>
           </div>
         </div>
 
         {/* Features Grid — 4 cards */}
         <div ref={gridFade.ref} style={gridFade.style} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-24">
-          {features.map((feature, index) => (
+          {defaultFeatures.map((feature, index) => (
             <div
               key={index}
               className="bg-[#F0EBE3] p-8 lg:p-9 text-center transition-colors duration-300 hover:bg-[#E8E0D5]"
@@ -138,16 +152,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({ translations, content }) =>
           className="mx-auto text-center"
         >
           <p className="font-inter font-semibold uppercase text-[#C4A882] mb-3" style={{ fontSize: '13px', letterSpacing: '0.15em' }}>
-            {t.advisorEyebrow}
+            {advisorEyebrow}
           </p>
           <h3 className="font-cormorant font-medium text-[#1A1714] mb-4" style={{ fontSize: '28px' }}>
-            {t.advisorTitle}
+            {advisorTitle}
           </h3>
           <p
             className="font-inter text-[#3D352F] font-light"
             style={{ fontSize: '18px', lineHeight: '1.8' }}
           >
-            {t.advisorText}
+            {advisorText}
           </p>
         </div>
 

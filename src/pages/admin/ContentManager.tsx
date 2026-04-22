@@ -16,20 +16,27 @@ import PreviewPane from '@/components/admin/PreviewPane';
 
 const DEFAULTS: Record<PageSlug, any> = {
   home: {
-    hero_title: 'Now We Land',
-    hero_subtitle: '',
+    hero_title: 'Now We Land.',
+    hero_subtitle: 'A private villa in Crete,\n90 meters from a hidden bay.',
+    eyebrow: 'Boutique Villa \u00b7 Sleeps up to 8',
+    tagline: 'Sunset views. Total privacy. Just 14 minutes from the airport.',
+    location: 'Akrotiri \u00b7 Chania \u00b7 Crete',
     chips: ['Family Friendly', 'Private Pool', '14 min to CHQ Airport'],
-    primary_cta: { text: 'Book Your Stay', href: '/booking' },
+    primary_cta: { text: 'Reserve Your Dates', href: '/booking' },
     secondary_cta: { text: 'Explore More', href: '/about' },
     hero_image: { url: '', alt: 'Sunset over the bay' },
     notes: ''
   },
   about: {
-    headline: 'Now We Land – Your Private Horizon',
-    intro: 'Short, sales-oriented paragraph...',
-    features: ['Private Pool', 'Garden & BBQ', 'Hidden Bay Access', 'Sunset Views'],
+    eyebrow: 'Akrotiri, Crete',
+    headline: 'The Villa: Space, Privacy, and Authentic Charm',
+    intro: '"Now We Land" is a charming, spacious sanctuary perched above the Aegean. Surrounded by olive trees, fragrant herbs, and a garden of fruit trees, the villa combines rustic warmth with modern comfort.',
+    features: ['Sleeps up to 8 guests', 'Bathrooms & Amenities', 'Private Pool & Patio', 'Coastal Serenity'],
+    advisor_eyebrow: 'Now We Land Team',
+    advisor_title: 'Your Personal Advisor',
+    advisor_text: 'From airport shuttles and private chefs to tailor made boat trips and cooking classes. Our team is here to curate your Cretan experience.',
     stats: { distance_to_bay: '90 m', max_guests: '8', bedrooms: '3.5' },
-    image: { url: '', alt: 'Villa and garden view during the day' }
+    image: { url: '', alt: 'Villa and pool illuminated at night' }
   },
   gallery: {
     categories: [
@@ -277,15 +284,12 @@ const ContentManager: React.FC = () => {
       case 'home':
         return (
           <div className="space-y-6">
-            <FieldText label="Hero title" value={data.hero_title} onChange={(v) => setData({ ...data, hero_title: v })} required maxLength={80} textarea />
+            <FieldText label="Hero title" value={data.hero_title} onChange={(v) => setData({ ...data, hero_title: v })} required maxLength={80} />
             <FieldText label="Hero subtitle" value={data.hero_subtitle} onChange={(v) => setData({ ...data, hero_subtitle: v })} maxLength={160} textarea />
-            <FieldArray label="Chips" values={data.chips || []} onChange={(arr) => setData({ ...data, chips: arr })} />
-            <div className="grid md:grid-cols-2 gap-4">
-              <FieldText label="Primary CTA text" value={data.primary_cta?.text || ''} onChange={(v) => setData({ ...data, primary_cta: { ...(data.primary_cta||{}), text: v } })} />
-              <FieldText label="Primary CTA href" value={data.primary_cta?.href || ''} onChange={(v) => setData({ ...data, primary_cta: { ...(data.primary_cta||{}), href: v } })} />
-              <FieldText label="Secondary CTA text" value={data.secondary_cta?.text || ''} onChange={(v) => setData({ ...data, secondary_cta: { ...(data.secondary_cta||{}), text: v } })} />
-              <FieldText label="Secondary CTA href" value={data.secondary_cta?.href || ''} onChange={(v) => setData({ ...data, secondary_cta: { ...(data.secondary_cta||{}), href: v } })} />
-            </div>
+            <FieldText label="Eyebrow text" value={data.eyebrow || ''} onChange={(v) => setData({ ...data, eyebrow: v })} maxLength={60} />
+            <FieldText label="Tagline" value={data.tagline || ''} onChange={(v) => setData({ ...data, tagline: v })} maxLength={120} />
+            <FieldText label="Location" value={data.location || ''} onChange={(v) => setData({ ...data, location: v })} maxLength={60} />
+            <FieldText label="CTA button text" value={data.primary_cta?.text || ''} onChange={(v) => setData({ ...data, primary_cta: { ...(data.primary_cta||{}), text: v } })} />
             <ImageUploader slug="home" label="Hero image" value={data.hero_image?.url || ''} alt={data.hero_image?.alt || ''} fit={data.hero_image?.fit} position={data.hero_image?.position}
               onChange={(url, alt, options) => setData({ ...data, hero_image: { url, alt, ...(options || {}) } })} />
             <FieldText label="Notes" value={data.notes || ''} onChange={(v) => setData({ ...data, notes: v })} textarea />
@@ -294,14 +298,14 @@ const ContentManager: React.FC = () => {
       case 'about':
         return (
           <div className="space-y-6">
+            <FieldText label="Eyebrow" value={data.eyebrow || ''} onChange={(v) => setData({ ...data, eyebrow: v })} />
             <FieldText label="Headline" value={data.headline} onChange={(v) => setData({ ...data, headline: v })} required />
             <FieldText label="Intro" value={data.intro} onChange={(v) => setData({ ...data, intro: v })} textarea />
             <FieldArray label="Features" values={data.features || []} onChange={(arr) => setData({ ...data, features: arr })} />
-            <div className="grid md:grid-cols-3 gap-4">
-              <FieldText label="Distance to bay" value={data.stats?.distance_to_bay || ''} onChange={(v) => setData({ ...data, stats: { ...(data.stats||{}), distance_to_bay: v } })} />
-              <FieldText label="Max guests" value={data.stats?.max_guests || ''} onChange={(v) => setData({ ...data, stats: { ...(data.stats||{}), max_guests: v } })} />
-              <FieldText label="Bedrooms" value={data.stats?.bedrooms || ''} onChange={(v) => setData({ ...data, stats: { ...(data.stats||{}), bedrooms: v } })} />
-            </div>
+            <h4 className="text-sm font-medium pt-4">Advisor Section</h4>
+            <FieldText label="Advisor eyebrow" value={data.advisor_eyebrow || ''} onChange={(v) => setData({ ...data, advisor_eyebrow: v })} />
+            <FieldText label="Advisor title" value={data.advisor_title || ''} onChange={(v) => setData({ ...data, advisor_title: v })} />
+            <FieldText label="Advisor text" value={data.advisor_text || ''} onChange={(v) => setData({ ...data, advisor_text: v })} textarea />
             <ImageUploader slug="about" label="Main image" value={data.image?.url || ''} alt={data.image?.alt || ''} fit={data.image?.fit} position={data.image?.position}
               onChange={(url, alt, options) => setData({ ...data, image: { url, alt, ...(options || {}) } })} />
           </div>
