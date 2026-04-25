@@ -41,7 +41,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)' }} />
 
         {/* Bottom-left: text stack */}
-        <div className="absolute bottom-0 z-10 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[500px]" style={{ left: '6%' }}>
+        <div className="absolute z-10 max-w-[90%] lg:max-w-[500px]" style={{ left: '6%', top: '35%' }}>
           <p className="text-[11px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-4 lg:mb-6" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
             {eyebrow}
           </p>
