@@ -4,9 +4,9 @@ import { ChevronLeft } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { translations } from '@/utils/translations';
 
-const LuxuryVillaCrete: React.FC = () => {
+const VillasNearChania: React.FC = () => {
   useEffect(() => {
-    document.title = 'Luxury Villa in Chania, Crete | Private Villa with Pool';
+    document.title = 'Villas Near Chania, Crete | Private Villa with Pool';
     window.scrollTo(0, 0);
 
     let meta = document.querySelector('meta[name="description"]');
@@ -15,7 +15,7 @@ const LuxuryVillaCrete: React.FC = () => {
       meta.setAttribute('name', 'description');
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', 'Private villa in Akrotiri, near Chania. Pool, sunset views, 90m from the sea. Perfect for families, couples, and remote stays.');
+    meta.setAttribute('content', 'Private villa near Chania, Crete. 20 minutes from old town, private pool, hidden beaches, sunset views. Book direct at Now We Land.');
 
     return () => {
       document.title = 'Now We Land - Boutique Villa in Crete | Private Vacation Rental';
@@ -41,69 +41,52 @@ const LuxuryVillaCrete: React.FC = () => {
       {/* Hero */}
       <section className="relative min-h-[100vh] flex items-end">
         <img
-          src="/lovable-uploads/villa-pool-night.jpg"
-          alt="Luxury villa in Crete with private pool and sea view"
-          className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
+          src="/lovable-uploads/b746bc1b-01b0-42d2-ad3d-28f7d70e9ca3.png"
+          alt="Villa near Chania with pool and sunset over the Aegean"
+          className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.05) 60%)' }} />
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pb-12 lg:pb-20 w-full">
           <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-5">
-            Where Crete Slows Down
+            Akrotiri Peninsula, 20 min from Chania
           </p>
           <h1 className="text-[42px] lg:text-[72px] font-cormorant font-medium text-white leading-[1.05] mb-5 max-w-3xl">
-            Luxury Villa in Chania, Crete
+            Villas Near Chania, Crete
           </h1>
-          <p className="text-[18px] lg:text-[22px] font-cormorant italic text-white/80 font-light mb-6">
-            Private pool. Hidden cove. Sunset views.
-          </p>
           <p className="text-[16px] lg:text-[17px] font-inter text-white/50 font-light max-w-2xl leading-[1.8]">
-            A private villa in Akrotiri, 14 minutes from Chania Airport and 90 metres from the sea.
+            Close enough for dinner in the Venetian harbour. Quiet enough to fall asleep to the sound of the sea.
           </p>
         </div>
       </section>
 
-      {/* Benefits strip */}
-      <section className="py-14 lg:py-16 bg-[#0f172a]">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 text-center">
-            {[
-              { stat: '90 m', label: 'to hidden cove' },
-              { stat: 'Private', label: 'pool & garden' },
-              { stat: '3', label: 'bedrooms, sleeps 8' },
-              { stat: '14 min', label: 'from airport' },
-              { stat: '20 min', label: 'from Chania' },
-            ].map((item, i) => (
-              <div key={i} className="text-white">
-                <p className="text-[28px] lg:text-[32px] font-cormorant font-semibold text-[#c5a059]">{item.stat}</p>
-                <p className="text-[13px] font-inter text-white/45 font-light mt-1">{item.label}</p>
-              </div>
-            ))}
-          </div>
+      {/* Intro */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[800px] mx-auto px-6 lg:px-12 text-center">
+          <p className="text-[18px] lg:text-[20px] font-inter text-[#3D352F] font-light leading-[2]">
+            Staying in Chania means traffic, parking, and tourist noise. Staying too far means isolation. The Akrotiri Peninsula gives you the middle ground: 20 minutes to the old town, 90 metres to the sea, and nothing but calm in between.
+          </p>
         </div>
       </section>
 
-      {/* Main description */}
-      <section className="py-20 lg:py-28">
+      {/* Main section */}
+      <section className="py-20 lg:py-28 bg-[#f0ebe5]">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <h2 className="text-[32px] lg:text-[42px] font-cormorant font-medium text-[#1A1714] mb-8 leading-[1.1]">
-                A Private Villa Near Chania, Not a Hotel
+                A Private Villa Near Chania, Not a Resort
               </h2>
-              <p className="text-[17px] font-inter text-[#1A1714] font-medium leading-[1.9] mb-6">
-                No lobby. No keycard. Just your own house above the Aegean.
-              </p>
               <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9] mb-6">
-                Now We Land sits on a hillside in Akrotiri, the quiet side of Crete. Close enough to Chania for restaurants and nightlife, far enough to hear nothing but cicadas and sea.
+                Now We Land is a private home in Akrotiri, set on a hillside above hidden beaches. No shared pool, no hotel lobby, no noise from the room next door.
               </p>
               <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9]">
-                A private pool, sunset terrace, and a stone trail to a cove 90 metres below. Space to breathe. Privacy by design.
+                Three bedrooms, a garden with a private pool, and a trail to a cove that most visitors never find. Everything Chania offers is a short drive away. Everything you came to escape stays behind.
               </p>
             </div>
             <div>
               <img
-                src="/lovable-uploads/c6a0949b-ccd7-42e3-a208-1684ee5d242b.png"
-                alt="Private villa pool and Aegean sea view from above"
+                src="/lovable-uploads/849c94d6-f867-443b-95a8-586894e93925.png"
+                alt="Villa near Chania with pool, garden, and wine in the sun"
                 className="w-full aspect-[4/3] object-cover rounded-xl"
                 loading="lazy"
               />
@@ -112,15 +95,22 @@ const LuxuryVillaCrete: React.FC = () => {
         </div>
       </section>
 
-      {/* Who it's for */}
-      <section className="py-16 lg:py-20 bg-[#f0ebe5]">
-        <div className="max-w-[800px] mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-[28px] lg:text-[36px] font-cormorant font-medium text-[#1A1714] mb-6 leading-[1.15]">
-            Perfect for Families, Couples, and Remote Work
-          </h2>
-          <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9]">
-            Three bedrooms, fast WiFi, a full kitchen, and complete privacy. Designed for real stays, not short hotel visits.
-          </p>
+      {/* Benefits grid */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-[1000px] mx-auto px-6 lg:px-12">
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              { title: 'Close to Chania Old Town', desc: '20 minutes to the Venetian harbour, restaurants, and nightlife.' },
+              { title: 'Hidden Beaches Nearby', desc: 'Tersanas, Stavros, and a private cove steps from the villa.' },
+              { title: 'Quiet Location', desc: 'No resort noise. Just olive groves, sea breeze, and birdsong.' },
+              { title: 'Private Pool & Outdoor Space', desc: 'Your own pool, terrace, and garden. No sharing, no schedules.' },
+            ].map((item, i) => (
+              <div key={i} className="bg-[#f0ebe5] rounded-xl p-8">
+                <h3 className="text-[20px] font-cormorant font-semibold text-[#1A1714] mb-3">{item.title}</h3>
+                <p className="text-[15px] font-inter text-[#6B6560] font-light leading-[1.8]">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -128,7 +118,7 @@ const LuxuryVillaCrete: React.FC = () => {
       <section className="py-20 lg:py-24 bg-[#0f172a] text-white text-center">
         <div className="max-w-[600px] mx-auto px-6">
           <h2 className="text-[32px] lg:text-[42px] font-cormorant font-medium mb-5 leading-[1.15]">
-            Your Private Villa in Crete Awaits
+            Your Villa Near Chania Awaits
           </h2>
           <p className="text-[16px] font-inter text-white/45 font-light leading-[1.7] mb-10">
             Book direct for the best rate
@@ -158,4 +148,4 @@ const LuxuryVillaCrete: React.FC = () => {
   );
 };
 
-export default LuxuryVillaCrete;
+export default VillasNearChania;
