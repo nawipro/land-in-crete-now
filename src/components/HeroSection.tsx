@@ -41,11 +41,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)' }} />
 
         {/* Bottom-left: text stack */}
-        <div className="absolute bottom-0 left-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[750px]">
+        <div className="absolute bottom-0 z-10 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[500px]" style={{ left: '6%' }}>
           <p className="text-[11px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-4 lg:mb-6" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
             {eyebrow}
           </p>
-          <h1 className="text-[48px] lg:text-[72px] xl:text-[82px] font-cormorant font-light text-white leading-[1.05] mb-6 lg:mb-8" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
+          <h1 className="font-cormorant font-light text-white leading-[1.1] mb-6 lg:mb-8" style={{ fontSize: 'clamp(42px, 5vw, 72px)', textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
             {title}
           </h1>
           <p className="text-[16px] lg:text-[18px] font-inter text-white/70 font-light leading-[1.8] max-w-xl" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
