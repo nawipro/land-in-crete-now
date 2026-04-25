@@ -42,57 +42,51 @@ const FamilyVillaCrete: React.FC = () => {
       <section className="relative min-h-[100vh] flex items-end">
         <img
           src="/lovable-uploads/b3adb8c1-e7a0-4048-b109-fbd0d574d7e8.png"
-          alt="Family villa in Crete with pool, garden, and outdoor dining"
+          alt="Family villa in Crete with pool, garden, and outdoor dining area"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0.05) 60%)' }} />
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pb-12 lg:pb-20 w-full">
           <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-5">
-            Space for kids. Quiet for you.
+            Room to play. Space to rest.
           </p>
           <h1 className="text-[42px] lg:text-[72px] font-cormorant font-medium text-white leading-[1.05] mb-5 max-w-3xl">
             Family Villa in Crete
           </h1>
-          <p className="text-[16px] lg:text-[17px] font-inter text-white/50 font-light max-w-2xl leading-[1.8]">
-            Private villa near Chania with pool and garden.
+          <p className="text-[16px] lg:text-[17px] font-inter text-white/50 font-light max-w-2xl leading-[1.8] mb-10">
+            Three bedrooms, a private pool, and a garden that feels like yours.
           </p>
+          <Link
+            to="/"
+            className="inline-flex px-10 py-4 bg-[#c5a059] text-white text-[13px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#d4af6a] transition-colors duration-300"
+          >
+            Check Availability
+          </Link>
         </div>
       </section>
 
-      {/* Intro */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-[800px] mx-auto px-6 lg:px-12 text-center">
-          <p className="text-[18px] lg:text-[20px] font-inter text-[#3D352F] font-light leading-[2]">
-            Kids need space to run. You need space to breathe. Hotels give you neither. A villa gives you both, on your own terms, at your own pace.
-          </p>
-        </div>
-      </section>
-
-      {/* Main section */}
-      <section className="py-20 lg:py-28 bg-[#f0ebe5]">
+      {/* Core value section */}
+      <section className="py-20 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div>
               <h2 className="text-[32px] lg:text-[42px] font-cormorant font-medium text-[#1A1714] mb-8 leading-[1.1]">
-                A Villa Built for Real Family Stays
+                A Villa Where Everyone Can Relax
               </h2>
-              <p className="text-[17px] font-inter text-[#1A1714] font-medium leading-[1.9] mb-6">
-                No crowded pools. No schedules. No shared spaces.
+              <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9] mb-6">
+                Hotels mean shared pools, tight rooms, and breakfast schedules. A villa means the opposite. Your own garden, your own kitchen, your own rhythm.
               </p>
               <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9] mb-6">
-                The garden is big enough for kids to play all day. The pool is yours alone. The terrace is where you sit with coffee while they run between the olive trees and the sprinkler.
-              </p>
-              <p className="text-[17px] font-inter text-[#3D352F] font-light leading-[1.9]">
-                Three bedrooms, a full kitchen for real meals, and the kind of privacy that turns a vacation into actual rest.
+                At Now We Land, the outdoor space is big enough for the whole family. The pool is steps from the terrace. Safe beaches with shallow water are a short walk away.
               </p>
               <p className="text-[14px] font-inter text-[#8a8580] mt-8">
-                Sleeps up to 8 guests. Three bedrooms, two bathrooms.
+                Three bedrooms, two bathrooms. Sleeps up to 8.
               </p>
             </div>
             <div>
               <img
-                src="/lovable-uploads/0cf5d84e-6414-4b56-bf41-8f4c6326d299.png"
-                alt="Private pool with sun loungers and sea view at family villa in Crete"
+                src="/lovable-uploads/497058df-0eee-470e-aa25-8152dec11164.png"
+                alt="Open garden with seating area and pool at family villa in Crete"
                 className="w-full aspect-[4/3] object-cover rounded-xl"
                 loading="lazy"
               />
@@ -102,16 +96,16 @@ const FamilyVillaCrete: React.FC = () => {
       </section>
 
       {/* Benefits grid */}
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 bg-[#f0ebe5]">
         <div className="max-w-[1000px] mx-auto px-6 lg:px-12">
           <div className="grid sm:grid-cols-2 gap-6">
             {[
-              { title: 'Safe Outdoor Space', desc: 'Garden and open area for kids to play freely.' },
-              { title: 'Private Pool', desc: 'Swim anytime, no sharing, no schedules.' },
-              { title: 'Close to Beaches', desc: 'Shallow water beaches within walking distance.' },
-              { title: 'Sleeps up to 8', desc: 'Perfect for families or small groups.' },
+              { title: 'Garden and Open Space', desc: 'Lawn, olive trees, and room to move around freely.' },
+              { title: 'Private Pool', desc: 'No sharing, no lifeguard whistle, no time limits.' },
+              { title: 'Safe Beaches Nearby', desc: 'Shallow water at Tersanas and Stavros, minutes away.' },
+              { title: 'Full Kitchen', desc: 'Cook real meals on your own schedule.' },
             ].map((item, i) => (
-              <div key={i} className="bg-[#f0ebe5] rounded-xl p-8">
+              <div key={i} className="bg-white rounded-xl p-8">
                 <h3 className="text-[20px] font-cormorant font-semibold text-[#1A1714] mb-3">{item.title}</h3>
                 <p className="text-[15px] font-inter text-[#6B6560] font-light leading-[1.8]">{item.desc}</p>
               </div>
@@ -123,17 +117,14 @@ const FamilyVillaCrete: React.FC = () => {
       {/* CTA */}
       <section className="py-20 lg:py-24 bg-[#0f172a] text-white text-center">
         <div className="max-w-[600px] mx-auto px-6">
-          <h2 className="text-[32px] lg:text-[42px] font-cormorant font-medium mb-5 leading-[1.15]">
-            Your Family Villa in Crete Awaits
-          </h2>
-          <p className="text-[16px] font-inter text-white/45 font-light leading-[1.7] mb-10">
-            Book direct for the best rate
+          <p className="text-[18px] lg:text-[22px] font-cormorant italic text-white/60 font-light mb-10">
+            A vacation where the whole family actually rests.
           </p>
           <Link
             to="/"
             className="inline-flex px-12 py-5 bg-[#c5a059] text-white text-[14px] font-inter font-bold uppercase tracking-[0.18em] hover:bg-[#d4af6a] transition-colors duration-300"
           >
-            Check Availability for Your Dates
+            Check Availability
           </Link>
         </div>
       </section>
