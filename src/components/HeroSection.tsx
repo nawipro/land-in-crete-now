@@ -16,8 +16,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
   const posX = content?.hero_image?.position?.x ?? 50;
   const posY = content?.hero_image?.position?.y ?? 50;
   const eyebrow = content?.eyebrow || 'Boutique Villa \u00b7 Sleeps up to 8';
-  const title = content?.hero_title || 'Now We Land.';
-  const subtitle = content?.hero_subtitle || 'A private villa in Crete,\n90 meters from a hidden bay.';
+  const title = content?.hero_title || 'Now We Land - Private Villa in Crete';
+  const subtitle = content?.hero_subtitle || 'A private villa in Crete near Chania,\n90 meters from a hidden bay.';
   const tagline = content?.tagline || 'Sunset views. Total privacy. Just 14 minutes from the airport.';
   const location = content?.location || 'Akrotiri \u00b7 Chania \u00b7 Crete';
   const ctaText = content?.primary_cta?.text || 'Reserve Your Dates';
