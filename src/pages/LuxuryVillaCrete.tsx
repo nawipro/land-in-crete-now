@@ -39,14 +39,14 @@ const LuxuryVillaCrete: React.FC = () => {
       </header>
 
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-end">
+      <section className="relative min-h-[100vh] flex items-end">
         <img
           src="/lovable-uploads/villa-pool-night.jpg"
           alt="Luxury villa in Crete with private pool and sea view"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-[center_20%]"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.1) 100%)' }} />
-        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pb-16 lg:pb-24 w-full">
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.05) 60%)' }} />
+        <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 pb-12 lg:pb-20 w-full">
           <p className="text-[12px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-5">
             Akrotiri, Chania, Crete
           </p>
@@ -104,8 +104,8 @@ const LuxuryVillaCrete: React.FC = () => {
             </div>
             <div>
               <img
-                src="/lovable-uploads/9f1780d8-e629-494b-8240-9ce6a67b17ee.png"
-                alt="Luxury villa in Crete with private pool and sea view"
+                src="/lovable-uploads/c6a0949b-ccd7-42e3-a208-1684ee5d242b.png"
+                alt="Private villa pool and Aegean sea view from above"
                 className="w-full aspect-[4/3] object-cover rounded-xl"
                 loading="lazy"
               />
