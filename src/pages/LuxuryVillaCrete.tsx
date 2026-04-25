@@ -41,7 +41,7 @@ const LuxuryVillaCrete: React.FC = () => {
       {/* Hero */}
       <section className="relative min-h-[85vh] flex items-end">
         <img
-          src="/lovable-uploads/9242131d-5b6c-48ae-a974-6a6844d4332a.png"
+          src="/lovable-uploads/villa-pool-night.jpg"
           alt="Luxury villa in Crete with private pool and sea view"
           className="absolute inset-0 w-full h-full object-cover"
         />
