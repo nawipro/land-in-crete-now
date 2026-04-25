@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MapPin, Car, UtensilsCrossed, MessageCircle } from 'lucide-react';
 import NavigateButton from './NavigateButton';
 
@@ -118,6 +119,9 @@ const ExploreSection: React.FC = () => {
               ? 'טרסנאס היא ה"נקודה המתוקה" של חצי האי אקרוטירי. קרוב מספיק לחאניה לחיי עיר, מבודד מספיק להרגיש את השקט הכרתי האותנטי.'
               : 'Tersanas is the "sweet spot" of Akrotiri Peninsula. Close enough to Chania for city life, yet secluded enough to feel the authentic Cretan silence.'}
           </p>
+          <Link to="/things-to-do-chania" className="inline-block mt-6 text-[14px] font-inter text-[#c5a059] font-medium hover:underline">
+            Read the full guide &rarr;
+          </Link>
         </div>
 
         {/* 3x2 Grid */}

@@ -114,7 +114,7 @@ const ThingsToDoChania: React.FC = () => {
             No hotel strips. No tour buses. Just hidden beaches, ancient monasteries, and small local villages where time slows down.
           </p>
           <p className="text-[18px] lg:text-[20px] font-inter text-[#3D352F] font-light leading-[2] mt-8">
-            At <Link to="/" className="text-[#c5a059] hover:underline">Now We Land</Link>, everything you see here is within 5 to 25 minutes from your villa — yet it feels like a completely different world.
+            At <Link to="/" className="text-[#c5a059] hover:underline">Now We Land</Link>, everything you see here is within 5 to 25 minutes from your villa, yet it feels like a completely different world.
           </p>
         </div>
       </section>

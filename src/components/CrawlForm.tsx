@@ -53,7 +53,7 @@ export const CrawlForm = () => {
 
   const buildPrompt = useMemo(() => (siteUrl: string, result?: CrawlResultData) => {
     const lines: string[] = [];
-    lines.push('You are ChatGPT. Carefully crawl and summarize this website, then generate precise prompts I can paste back to my Lovable editor.');
+    lines.push('You are ChatGPT. Carefully crawl and summarize this website, then generate precise prompts for updating the site.');
     lines.push(`Target URL: ${siteUrl}`);
     lines.push('Instructions:');
     lines.push('- Follow internal links up to depth 2.');
