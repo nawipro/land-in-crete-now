@@ -49,7 +49,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
             {title}
           </h1>
           <p className="text-[16px] lg:text-[18px] font-inter text-white/70 font-light leading-[1.8] max-w-xl" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
-            {subtitle}
+            90 metres from the sea. Private pool. Quiet location.
+          </p>
+          <p className="text-[14px] lg:text-[15px] font-inter text-white/40 font-light mt-2.5" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
+            14 minutes from the airport. 20 minutes to Chania.
           </p>
         </div>
 
@@ -92,8 +95,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
           <h1 className="text-[36px] md:text-[44px] font-cormorant font-light text-[#2a251f] leading-[1.1] mb-5">
             {title}
           </h1>
-          <p className="text-[15px] md:text-[16px] font-inter text-[#2a251f]/65 font-light leading-[1.8] mb-8 max-w-md">
-            {subtitle}
+          <p className="text-[15px] md:text-[16px] font-inter text-[#2a251f]/65 font-light leading-[1.8] max-w-md">
+            90 metres from the sea. Private pool. Quiet location.
+          </p>
+          <p className="text-[13px] font-inter text-[#2a251f]/40 font-light mt-2 mb-8">
+            14 minutes from the airport. 20 minutes to Chania.
           </p>
 
           <button
