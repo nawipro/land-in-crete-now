@@ -25,6 +25,7 @@ const SettingsManager = lazy(() => import("./pages/admin/SettingsManager"));
 const ThingsToDoChania = lazy(() => import("./pages/ThingsToDoChania"));
 const LuxuryVillaCrete = lazy(() => import("./pages/LuxuryVillaCrete"));
 const VillasNearChania = lazy(() => import("./pages/VillasNearChania"));
+const FamilyVillaCrete = lazy(() => import("./pages/FamilyVillaCrete"));
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/things-to-do-chania" element={<ThingsToDoChania />} />
             <Route path="/luxury-villa-crete" element={<LuxuryVillaCrete />} />
             <Route path="/villas-near-chania-crete" element={<VillasNearChania />} />
+            <Route path="/family-villa-crete" element={<FamilyVillaCrete />} />
             <Route path="/admin/login" element={<Login />} />
             <Route path="/admin/reset-password" element={<ResetPassword />} />
             <Route path="/admin" element={<ProtectedRoute />}>
