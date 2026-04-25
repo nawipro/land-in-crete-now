@@ -26,6 +26,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://nowweland.com/private-villa-crete</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://nowweland.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
