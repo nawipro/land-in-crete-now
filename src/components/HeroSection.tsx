@@ -16,14 +16,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
   const posX = content?.hero_image?.position?.x ?? 50;
   const posY = content?.hero_image?.position?.y ?? 50;
   const eyebrow = content?.eyebrow || 'Boutique Villa \u00b7 Sleeps up to 8';
-  const title = content?.hero_title || 'Now We Land - Private Villa in Crete';
-  const subtitle = content?.hero_subtitle || 'A private villa in Crete near Chania,\n90 meters from a hidden bay.';
-  const tagline = content?.tagline || 'Sunset views. Total privacy. Just 14 minutes from the airport.';
+  const title = content?.hero_title || 'Private Villa Near Chania';
+  const subtitle = content?.hero_subtitle || '90 metres from the sea. Private pool. Quiet location. 20 minutes to Chania.';
   const location = content?.location || 'Akrotiri \u00b7 Chania \u00b7 Crete';
-  const ctaText = content?.primary_cta?.text || 'Reserve Your Dates';
-
-  // Split subtitle into lines
-  const subtitleLines = subtitle.split('\n');
+  const ctaText = content?.primary_cta?.text || 'Check Availability';
 
   return (
     <section id="home" className="relative">
@@ -41,30 +37,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         {/* Top vignette for nav */}
         <div className="absolute inset-x-0 top-0 h-[35%] bg-gradient-to-b from-black/18 to-transparent" />
 
-        {/* Bottom gradient */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 28%, transparent 55%)' }} />
-
-        {/* Left vignette */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 38%, transparent 60%)' }} />
+        {/* Full overlay */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)' }} />
 
         {/* Bottom-left: text stack */}
-        <div className="absolute bottom-0 left-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[680px]">
-          <p className="text-[11px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-4 lg:mb-6" style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}>
+        <div className="absolute bottom-0 left-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32 max-w-[90%] lg:max-w-[750px]">
+          <p className="text-[11px] font-inter font-semibold uppercase tracking-[0.3em] text-[#c5a059] mb-4 lg:mb-6" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
             {eyebrow}
           </p>
-          <h1 className="text-[56px] lg:text-[82px] xl:text-[96px] font-cormorant font-light text-white leading-[0.88] mb-5 lg:mb-7 lg:whitespace-nowrap" style={{ textShadow: '0 2px 28px rgba(0,0,0,0.45)' }}>
+          <h1 className="text-[48px] lg:text-[72px] xl:text-[82px] font-cormorant font-light text-white leading-[1.05] mb-6 lg:mb-8" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)' }}>
             {title}
           </h1>
-          <p className="text-[18px] lg:text-[20px] font-cormorant italic text-white/85 font-light leading-[1.6] mb-2" style={{ textShadow: '0 1px 14px rgba(0,0,0,0.6)' }}>
-            {subtitleLines.map((line, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <br />}
-                {line}
-              </React.Fragment>
-            ))}
-          </p>
-          <p className="text-[14px] lg:text-[15px] font-inter text-white/50 font-light mt-4" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}>
-            {tagline}
+          <p className="text-[16px] lg:text-[18px] font-inter text-white/70 font-light leading-[1.8] max-w-xl" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.4)' }}>
+            {subtitle}
           </p>
         </div>
 
@@ -72,9 +57,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
         <div className="absolute bottom-0 right-0 z-10 px-8 lg:px-16 pb-14 lg:pb-32">
           <button
             onClick={handleBookNow}
-            className="px-8 py-[16px] bg-white/10 backdrop-blur-sm border border-white/30 text-white text-[11px] font-inter font-medium uppercase tracking-[.22em] hover:bg-white/20 transition-all duration-300"
+            className="px-10 py-[18px] bg-[#c5a059] text-white text-[12px] font-inter font-bold uppercase tracking-[.2em] hover:bg-[#d4af6a] transition-all duration-300"
           >
-            {ctaText}&nbsp;&nbsp;&rarr;
+            {ctaText}
           </button>
         </div>
 
@@ -104,21 +89,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
           <p className="text-[10px] font-inter font-semibold uppercase tracking-[.28em] text-[#c5a059] mb-5">
             {eyebrow}
           </p>
-          <h1 className="text-[52px] md:text-[68px] font-cormorant font-light text-[#2a251f] leading-[0.9] mb-5">
+          <h1 className="text-[36px] md:text-[44px] font-cormorant font-light text-[#2a251f] leading-[1.1] mb-5">
             {title}
           </h1>
-          <p className="text-[16px] md:text-[17px] font-inter text-[#2a251f]/70 font-light leading-[1.7] mb-2 max-w-md">
-            {subtitleLines.join(' ')}
-          </p>
-          <p className="text-[14px] font-inter text-[#7a6f62] font-light mb-8">
-            {tagline}
+          <p className="text-[15px] md:text-[16px] font-inter text-[#2a251f]/65 font-light leading-[1.8] mb-8 max-w-md">
+            {subtitle}
           </p>
 
           <button
             onClick={handleBookNow}
-            className="w-full md:max-w-[320px] py-4 bg-[#2a251f] text-[#f4f1ea] text-[11px] font-inter font-medium uppercase tracking-[.24em] hover:bg-[#8a6d4f] transition-colors duration-300"
+            className="w-full md:max-w-[320px] py-4 bg-[#c5a059] text-white text-[12px] font-inter font-bold uppercase tracking-[.2em] hover:bg-[#d4af6a] transition-colors duration-300"
           >
-            {ctaText}&nbsp;&nbsp;&rarr;
+            {ctaText}
           </button>
           <p className="text-[9px] font-inter tracking-[.22em] uppercase text-[#2a251f]/40 mt-3 text-center md:text-left md:max-w-[320px]">
             We answer every inquiry personally
